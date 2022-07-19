@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Banner" xml:space="preserve">
+    <value>Activo Fijo</value>
+    <comment>Banner</comment>
+  </data>
+  <data name="BarrTittle" xml:space="preserve">
+    <value>Asignación de Activos Fijos a un Centro de Costo</value>
+    <comment>Barra de titulo</comment>
+  </data>
+  <data name="BtnBuscSerial" xml:space="preserve">
+    <value>Buscar Por Serial</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="ErrAlicuota" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCantidad" xml:space="preserve">
+    <value>El campo CANTIDAD está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCenCos" xml:space="preserve">
+    <value>El campo CENTRO DE COSTO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCod" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCodProv" xml:space="preserve">
+    <value>El campo PROVEEDOR está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCostUni" xml:space="preserve">
+    <value>El campo COSTO UNITARIO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCueDep" xml:space="preserve">
+    <value>El campo CUENTA DEPRECIACIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCuenAct" xml:space="preserve">
+    <value>El campo CUENTA ACTIVO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrDepAcum" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrDeprec" xml:space="preserve">
+    <value>El campo DEPRECIAR está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrEmpl" xml:space="preserve">
+    <value>El campo EMPLEADO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFecAdq" xml:space="preserve">
+    <value>El campo FECHA DE ADQUISICIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFech" xml:space="preserve">
+    <value>El campo FECHA DE CREACIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFechAsig" xml:space="preserve">
+    <value>El campo FECHA DE ASIGNACIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFechCal" xml:space="preserve">
+    <value>El campo FECHA FINAL está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFecIni" xml:space="preserve">
+    <value>El campo FECHA DEP INICIO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFecUlt" xml:space="preserve">
+    <value>El campo FECHA ULTIMO CALCULO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrGasDep" xml:space="preserve">
+    <value>El campo GASTOS DE DEPRECIACIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMarca" xml:space="preserve">
+    <value>El campo MARCA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMesDep" xml:space="preserve">
+    <value>El campo MESES A DEP está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMeYaDep" xml:space="preserve">
+    <value>El campo YA DEP está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrModelo" xml:space="preserve">
+    <value>El campo MODELO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNomMod" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNumAct" xml:space="preserve">
+    <value>El campo N° DE ACTIVO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNumCom" xml:space="preserve">
+    <value>El campo N° DE COMPROBANTE está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNumFac" xml:space="preserve">
+    <value>El campo N° DE FACTURA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrOrdCom" xml:space="preserve">
+    <value>El campo ORDEN DE COMPRA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrPertA" xml:space="preserve">
+    <value>El campo PERTENECE A está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrSerial" xml:space="preserve">
+    <value>El campo SERIAL está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrStatus" xml:space="preserve">
+    <value>El campo STATUS está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrUbic" xml:space="preserve">
+    <value>El campo UBICACIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrUsAsig" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValor" xml:space="preserve">
+    <value>El campo VALOR ACTUAL está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValorLib" xml:space="preserve">
+    <value>El campo VALOR LIBRE está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValorOrig" xml:space="preserve">
+    <value>El campo VALOR ORIGINAL está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValorRes" xml:space="preserve">
+    <value>El campo VALOR RESIDUAL está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="FieldsetCtaCon" xml:space="preserve">
+    <value>Cuentas Contables</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDAct" xml:space="preserve">
+    <value>Datos del Activo</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="FieldsetDatAdqu" xml:space="preserve">
+    <value>Datos de la Adquisición</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDatAsig" xml:space="preserve">
+    <value>Datos de la Asignación</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDatDepr" xml:space="preserve">
+    <value>Datos de Depreciación</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetMontAct" xml:space="preserve">
+    <value>Montos del Activo</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetPrAso" xml:space="preserve">
+    <value>Producto Asociado</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="lblAlicuota" xml:space="preserve">
+    <value>Alicuota:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCantidad" xml:space="preserve">
+    <value>Cantidad:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCenCos" xml:space="preserve">
+    <value>Centro de Costo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCod" xml:space="preserve">
+    <value>Código:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCodProv" xml:space="preserve">
+    <value>Proveedor:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCostUni" xml:space="preserve">
+    <value>Costo Unitario:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCueDep" xml:space="preserve">
+    <value>Depreciación:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCuenAct" xml:space="preserve">
+    <value>Activo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDepAcum" xml:space="preserve">
+    <value>Dep. Acumulada:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDeprec" xml:space="preserve">
+    <value>Depreciar</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblEmpl" xml:space="preserve">
+    <value>Empleado:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecAdq" xml:space="preserve">
+    <value>Fecha:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecha" xml:space="preserve">
+    <value>Fecha de Creación:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFechAsig" xml:space="preserve">
+    <value>Fecha:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFechCal" xml:space="preserve">
+    <value>Fecha Final:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecIni" xml:space="preserve">
+    <value>Inicio:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecUlt" xml:space="preserve">
+    <value>Último Cálculo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGasDep" xml:space="preserve">
+    <value>Gasto de Depreciación:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMarca" xml:space="preserve">
+    <value>Marca:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMejora" xml:space="preserve">
+    <value>Mejora Acc:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMesDep" xml:space="preserve">
+    <value>Meses a Dep:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMeYaDep" xml:space="preserve">
+    <value>Ya Dep:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblModelo" xml:space="preserve">
+    <value>Modelo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNomMod" xml:space="preserve">
+    <value>eeeee</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNumAct" xml:space="preserve">
+    <value>N° de Activo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNumCom" xml:space="preserve">
+    <value>N° de Comprobante:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNumFac" xml:space="preserve">
+    <value>N° de Factura:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblOrdCom" xml:space="preserve">
+    <value>Orden de Compra:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblPertA" xml:space="preserve">
+    <value>Pertenece A:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblPVP" xml:space="preserve">
+    <value>Precio Venta:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblRest" xml:space="preserve">
+    <value>Etiquetas Restantes:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblSerial" xml:space="preserve">
+    <value>Serial:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Status del Activo</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblUbic" xml:space="preserve">
+    <value>Ubicación:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblUsAsig" xml:space="preserve">
+    <value>USUARIO QUE ASIGNÓ:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValor" xml:space="preserve">
+    <value>Valor Actual:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValorLib" xml:space="preserve">
+    <value>Valor Libre:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValorOrig" xml:space="preserve">
+    <value>Valor Original:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValorRes" xml:space="preserve">
+    <value>Valor Residual:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="msgCamVaci" xml:space="preserve">
+    <value>Existen Campos vacios en el formulario. Por favor, verifique la información ingresada en el mismo.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgCantMay" xml:space="preserve">
+    <value>La cantidad debe ser un número MENOR o igual a la cantidad de Etiquetas Restantes.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgCantMen" xml:space="preserve">
+    <value>La cantidad debe ser un número MAYOR que cero.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgConfDel" xml:space="preserve">
+    <value>Desea elmininar el codigo :   </value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgFaltCod" xml:space="preserve">
+    <value>Debe indicar un codigo.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgIntCant" xml:space="preserve">
+    <value>Introduzca la cantidad de Etiquetas a generar.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="PlacCCosto" xml:space="preserve">
+    <value>Seleccione un Centro de Costo</value>
+    <comment>Placeholder</comment>
+  </data>
+  <data name="PlacProve" xml:space="preserve">
+    <value>Seleccione un Proveedor</value>
+    <comment>Placeholder</comment>
+  </data>
+</root>

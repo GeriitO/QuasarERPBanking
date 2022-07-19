@@ -1,0 +1,185 @@
+﻿@using QuasarERPBanking
+@model QuasarERPBanking.Models.CentroDistriGeografica
+@{
+    List<QuasarERPBanking.Models.CentroDistriGeografica> padre_ = QuasarERPBanking.Models.CentroDistriGeografica.getpadres();
+    List<QuasarERPBanking.Models.CentroDistriGeografica> hijos_ = QuasarERPBanking.Models.CentroDistriGeografica.gethijos(padre_[0].CC_COD);
+    List<QuasarERPBanking.Models.CentroDistriGeografica> subhijos = QuasarERPBanking.Models.CentroDistriGeografica.getree(padre_[0].CC_COD);
+
+}
+
+
+
+
+
+
+<div id="arbolGeo2" style="overflow:auto; width:100%; height:360px; background-color:white" title='@Resources.CC_MAESTRO.StringResources.tittleDlgDg'>
+    @*<div class="icon-bar">
+            <img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="@Resources.CXP_MAESTRO.StringResources.tittlebuttoNew" onclick="aceptar();" />
+
+            <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialog();" />
+
+        </div>*@
+    @*<div style="margin-left:8px;">
+            <table>
+                <tr>
+                    <td><input type="text" id="h_cod" class="form-control" style="width:100px; background:white;" readonly="readonly" /> </td>
+                    <td><input type="text" id="h_nom" class="form-control" style="width:345px; background:white;" readonly="readonly" /></td>
+                </tr>
+            </table>
+        </div>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#red_").treeview({
+                animated: "fast",
+                collapsed: true,
+                unique: false,
+                toggle: function () {
+                    window.console && console.log("%o was toggled", this);
+                }
+            });
+        });
+    </script>
+    <table>
+        <tr>
+            <td>
+                <ul id="red_" class="treeview-gray treeview" style="font-size:12px">
+                    @{
+                        foreach (QuasarERPBanking.Models.CentroDistriGeografica sub_ in padre_)
+                        {
+                            //int i = 0;
+                            if (sub_.CC_PERT_GEO.Trim() == "")
+                            {
+                                <li class="collapsable">
+                                    <div class="hitarea collapsable-hitarea"></div>
+
+                                    <img src="../../Content/icons/16x16/flag_venezuela.png" alt="" style="margin: 0px 3px 0px 2px; cursor:pointer" />
+                                    <span id="@sub_.CC_COD" class="texg">@sub_.CC_DES</span>
+                                    <ul style="display:block;">
+                                        @foreach (QuasarERPBanking.Models.CentroDistriGeografica sub_1 in hijos_)
+                                        {
+                                            //if (sub_1.CC_COD.Equals(subhijos.FindAll(m -> m )))
+                                            if ((subhijos).Exists(x => x.CC_PERT_GEO.Equals(sub_1.CC_COD)))
+                                            {
+                                                <li class="treesoon">
+                                                    <div class="hitarea collapsable-hitarea"></div>
+                                                    <span class="ui-icon ui-icon-play" style="display:inline-block;"></span>
+                                                    <span id="@sub_1.CC_COD" class="texg">@sub_1.CC_DES</span>
+                                                    <ul style="display:block; background-color:rgba(17, 130, 227, 0.11)" id="Geo_@sub_1.CC_COD" class="arbol"></ul>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="treesoon">
+                                                    <span id="@sub_1.CC_COD" class="texg">@sub_1.CC_DES</span>
+                                                </li>
+                                            }
+                                            //i++;
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    function cargarArbol_() {
+
+        var codi2 = @padre_[0].CC_COD;
+        //alert(codi2.id);
+        $.post("/CentroDistriGeografica/Get_Geog",
+           {"codigo":codi2.id},
+           function (datos) {
+               var old="";
+               $.each(datos, function (i, datos) {
+                   //if(old==""){
+                   //    old= datos.CC_PERT_GEO;
+                   //}
+                   //else{
+                   //    if (datos.CC_PERT_GEO ==old){
+
+
+                   //    }
+                   //}
+
+
+                   var ids = datos.CC_PERT_GEO;
+                   //    if(datos.CC_DES == 1){
+                   //alert(datos.CC_PERT_GEO);
+                   htmlRow_ = '<li class="treesoon">' +
+                             '<span id="'+datos.CC_COD+'" class="texg">' + datos.CC_DES + '' +
+                             '</span>' +
+                             '<ul style="display:block; background-color:rgba(17, 130, 227, 0.11)" id="Geo_'+ datos.CC_COD +'" Class="arbol"></ul>' +
+                             '</li>';
+                   $('#Geo_' + ids).append(htmlRow_);
+
+               });
+
+           });
+    }
+
+
+
+
+    function showArbolGeo() {
+        $('#Arbolcc2').modal({backdrop: 'static', keyboard: false});
+        $("#Arbolcc2").modal("show");
+        $("#arbolGeo2").show();
+    }
+
+    function cerrarDialog() {
+        $('#g_cod').val("");
+        $('#g_nom').val("");
+        $('#red_ span.texg').css("background","");
+        $("#Arbolcc2").modal("hide");
+    }
+
+
+    function seleccionar(){
+        var codi=$(' #g_cod').val();
+        var texto= $('#g_nom').val();
+        if (codi==""|| texto==""){
+            cerrarDialog();
+        }
+        else{
+            $('#CC_DES_GEOGR').val(texto);
+            $('#CC_PERT_GEOG').val(codi);
+            cerrarDialog();
+        }
+    }
+
+    $(function () {
+
+
+        cargarArbol_();
+
+        $('#red_').on('click', 'span.texg', function(){
+            $('#red_ span.texg').css("background","");
+            $(this).css("background","darkturquoise");
+            var codig=$(this).attr('id');
+            var texto=$(this).text();
+            $('#g_cod').val(codig);
+            $('#g_nom').val(texto);
+        })
+
+
+
+    });
+
+
+
+
+</script>

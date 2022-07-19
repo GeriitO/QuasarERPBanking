@@ -1,0 +1,78 @@
+﻿@using QuasarERPBanking.Models
+
+<!-- Dialog para avisar de el timeout -->
+<div id="timeout-dialog" title="¡Su sesión está por finalizar!" style="display: none; font-size: 18px; font-family:Arial; text-align:center; padding:20px 20px 20px 20px">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+		Su sesión se cerrará en <span id="dialog-countdown" style="font-weight:bold"></span>.
+	</p>
+	<p>¿Desea continuar trabajando?</p>
+</div>
+
+<script type="text/javascript">
+    // setup the dialog el tiempo de espera se cambia en basic > warningLength
+
+    $("#timeout-dialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 400,
+        height: 300,
+        closeOnEscape: false,
+        draggable: true,
+        resizable: false,
+        open : function(event, ui){
+            
+            $('.ui-widget-overlay').css({
+                background: "rgb(27, 41, 50)",
+                opacity: "0.7", 
+
+            });
+            //$("#timeout-dialog").siblings('div.ui-dialog-overlay').addClass("ui-widget-overlay.custom-overlay");
+            
+        },
+      
+        
+     
+        buttons: {
+            'Si, Seguir Trabajando': function () {
+                $(this).dialog('close');
+            },
+            'No, Cerrar Sesión': function () {
+                // fire whatever the configured onTimeout callback is.
+                // using .call(this) keeps the default behavior of "this" being the warning
+                // element (the dialog in this case) inside the callback.
+                $.idleTimeout.options.onTimeout.call(this);
+                window.location = "/Usuario/LogOff"; 
+                //window.location = "/Usuario/LogOn"; 
+            }
+        }
+    });
+
+    // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+    var $countdown = $("#dialog-countdown");
+
+    // start the idle timer plugin
+    $.idleTimeout('#timeout-dialog', 'div.ui-dialog-buttonpane button:first', {
+        idleAfter: @ParametrosGlobales.LogOffTimeout,
+        //idleAfter: 30,
+        pollingInterval: @ParametrosGlobales.KeepAliveTime,
+        keepAliveURL: '/Home/KeepAlive',
+        serverResponseEquals: 'OK',
+        onTimeout: function () {
+            window.location = "/Usuario/LogOff"; 
+            //window.location = "/Usuario/LogOn"; 
+          
+        },
+        onIdle: function () {
+            $(this).dialog("open");
+            //Se oculta el boton de cerrar el dialogo (para obligar al usuario a hacer click en SI o NO)
+            $('.ui-dialog-titlebar-close').css('display', 'none');
+        },
+        onCountdown: function (counter) {
+            var mins = Math.floor(counter/60);
+            var secs = counter%60;
+            if(secs < 10) secs = "0"+secs;//Si es menor a 10 se agrega un 0 a la izquierda
+            $countdown.html(mins+":"+secs); // update the counter
+        }
+    });
+</script>

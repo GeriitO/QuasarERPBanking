@@ -1,0 +1,29 @@
+﻿@using QuasarERPBanking
+
+@model QuasarERPBanking.Models.CentroDistriGeografica
+@{
+//Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Activo Fijo</title>
+
+    <script type="text/javascript">
+        $(function () {
+
+        //$("#ArbolEstruc").hide();
+    });
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm("Edit", "CentroDistriGeografica", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("Index");
+    }
+</body>
+</html>
+

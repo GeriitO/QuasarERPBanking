@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+    <mvcSiteMapNode title="Centro de Costo Interno" controller="CentrodeCostoInterno" action="index">
+      <mvcSiteMapNode title="Crear" controller="CentrodeCostoInterno" action="create"/>
+    </mvcSiteMapNode>
+    
+    <mvcSiteMapNode title="Distribución Geográfica" controller="CentroDistriGeografica" action="index"/>
+    <mvcSiteMapNode title="Distribución Estructural" controller="CentroDistriEstructural" action="index"/>
+    <mvcSiteMapNode title="Gráficos" controller="CentroCostoGrafico" action="index"/>
+    <mvcSiteMapNode title="Parámetros de Centro de Costo" controller="CentroCostoParametros" action="index"/>
+    <mvcSiteMapNode title="Parámetros de Activo Fijo" controller="AF_PARAMETROS" action="index"/>
+    <mvcSiteMapNode title="Parámetros de Inventario" controller="INV_PARAMETROS" action="index"/>
+    <mvcSiteMapNode title="Usuarios" controller="USUARIOS" action="index"/>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

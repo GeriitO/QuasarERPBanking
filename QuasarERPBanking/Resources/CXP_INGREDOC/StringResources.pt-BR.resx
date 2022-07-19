@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Banner" xml:space="preserve">
+    <value>Assentos diário</value>
+    <comment>Banner y Tittle</comment>
+  </data>
+  <data name="btnAceptar" xml:space="preserve">
+    <value>Aceitar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btndoc" xml:space="preserve">
+    <value>Documentos</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnEliminar" xml:space="preserve">
+    <value>Excluir</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnIncluir" xml:space="preserve">
+    <value>Incluir</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnLimpiar" xml:space="preserve">
+    <value>Limpo</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnRevisar" xml:space="preserve">
+    <value>Revisão</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnSalir" xml:space="preserve">
+    <value>Sair</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="divDistImpu" xml:space="preserve">
+    <value>Distribuição de impostos</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="ErrCONC" xml:space="preserve">
+    <value>O campo Conceito está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPCC" xml:space="preserve">
+    <value>O campo Centro de custo está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPPROY" xml:space="preserve">
+    <value>O campo Project está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPVP" xml:space="preserve">
+    <value>O campo C.C. Origin está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFECHDOC" xml:space="preserve">
+    <value>O campo Data está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFECHPERIODO" xml:space="preserve">
+    <value>O campo Data está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNCTRL" xml:space="preserve">
+    <value>O campo No. Control está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNDOC" xml:space="preserve">
+    <value>O campo No. Doc está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrPLAZO" xml:space="preserve">
+    <value>O campo Plazo está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrREF" xml:space="preserve">
+    <value>O campo Referências está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="fieldsetDetDoc" xml:space="preserve">
+    <value>Detalhe dos Documentos</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="fieldsetdgfac" xml:space="preserve">
+    <value>Dados gerais da fatura</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="fieldsetImpues" xml:space="preserve">
+    <value>Imposto</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="fieldsetTotDoc" xml:space="preserve">
+    <value>Total do documento</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="lblCONC" xml:space="preserve">
+    <value>Conceito:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuenCon" xml:space="preserve">
+    <value>Conta contavél:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuenCost" xml:space="preserve">
+    <value>Centro de custo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuentPagar" xml:space="preserve">
+    <value>Conta a pagar</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuentPagarAlt" xml:space="preserve">
+    <value>Conta para Pagar - Alternativo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPCC" xml:space="preserve">
+    <value>Centro de custo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPCOD" xml:space="preserve">
+    <value>Bacalhau Prov:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPPROY" xml:space="preserve">
+    <value>Projetos:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPVP" xml:space="preserve">
+    <value>C.C. Origem:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lbldescrip" xml:space="preserve">
+    <value>Descrição:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHDOC" xml:space="preserve">
+    <value>Data:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHPERIODO" xml:space="preserve">
+    <value>Data:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblImpues" xml:space="preserve">
+    <value>% Tax:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMRDoc" xml:space="preserve">
+    <value>Quantidade Ref. Doc:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNCTRL" xml:space="preserve">
+    <value>N ° Controle</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNDOC" xml:space="preserve">
+    <value>N° Doc:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblperiod" xml:space="preserve">
+    <value>Período:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblPLAZO" xml:space="preserve">
+    <value>Termo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblREF" xml:space="preserve">
+    <value>Ref. :</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblSubTal" xml:space="preserve">
+    <value>Sub-Total:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lipre" xml:space="preserve">
+    <value>Orçamento</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="litdoc" xml:space="preserve">
+    <value>Tipos de Documentos</value>
+    <comment>Pestañas</comment>
+  </data>
+  <data name="thAsignar" xml:space="preserve">
+    <value>Atribuir</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCuenCon" xml:space="preserve">
+    <value>Conta contavél</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCuenCost" xml:space="preserve">
+    <value>C. Custos</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thdescrip" xml:space="preserve">
+    <value>Descrição</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thImpu" xml:space="preserve">
+    <value>Imp(%)</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMontImpu" xml:space="preserve">
+    <value>Montante Imp</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMontImpuesto" xml:space="preserve">
+    <value>Montante do Imposto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNombImp" xml:space="preserve">
+    <value>Nome do imposto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thperiod" xml:space="preserve">
+    <value>Período</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thSubTal" xml:space="preserve">
+    <value>Sub-Total</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTasa" xml:space="preserve">
+    <value>Taxa</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTipoImp" xml:space="preserve">
+    <value>Tipo de imposto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTotal" xml:space="preserve">
+    <value>Total</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="titulo" xml:space="preserve">
+    <value>Contas a pagar</value>
+    <comment>titulo de la ventana</comment>
+  </data>
+  <data name="placCodProve" xml:space="preserve">
+    <value>-- Selecione Fornecedor --</value>
+    <comment>Placeholder</comment>
+  </data>
+  <data name="lengtNdoc" xml:space="preserve">
+    <value>Comprimento máximo 25</value>
+    <comment>Longitud del tamaño del campo</comment>
+  </data>
+  <data name="ErrNDOC2" xml:space="preserve">
+    <value>O número do documento que você digitou não é válido, você deve ter pelo menos um número.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNDOC3" xml:space="preserve">
+    <value>O número do documento inserido já existe</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblFECHVENC" xml:space="preserve">
+    <value>Expira:</value>
+    <comment>label</comment>
+  </data>
+</root>

@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrAlicuota" xml:space="preserve">
+    <value>O campo ALÍQUOTA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCenCos" xml:space="preserve">
+    <value>O campo CENTRO DE CUSTO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCod" xml:space="preserve">
+    <value>O campo CÓDIGO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCodProv" xml:space="preserve">
+    <value>O campo FORNECEDOR está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCostUni" xml:space="preserve">
+    <value>O campo CUSTO UNITÁRIO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCueDep" xml:space="preserve">
+    <value>O campo CONTA DE DEPRECIAÇÃO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCuenAct" xml:space="preserve">
+    <value>O campo CONTA DE ATIVO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrDepAcum" xml:space="preserve">
+    <value>O campo DEPRECIAÇÃO ACUMULADA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrEmpl" xml:space="preserve">
+    <value>O campo EMPREGADO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFecAdq" xml:space="preserve">
+    <value>O campo DATA DE AQUISIÇÃO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFech" xml:space="preserve">
+    <value>O campo DATA DE CRIAÇÃO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFechAsig" xml:space="preserve">
+    <value>O campo DATA DE ASSINATURA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFecIni" xml:space="preserve">
+    <value>O campo INICIAÇÃO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFecUlt" xml:space="preserve">
+    <value>O campo ÚLTIMO CÁLCULO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrGasDep" xml:space="preserve">
+    <value>O campo DESPESA DE DEPRECIAÇÃO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMarca" xml:space="preserve">
+    <value>O campo MARCA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMesDep" xml:space="preserve">
+    <value>O campo MESES A DEPRECIAR está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMeYaDep" xml:space="preserve">
+    <value>O campo DEPRECIANDO AGORA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrModelo" xml:space="preserve">
+    <value>O campo MODELO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNomMod" xml:space="preserve">
+    <value>O campo EEEEE está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNumAct" xml:space="preserve">
+    <value>O campo N ° DE ATIVOS está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNumCom" xml:space="preserve">
+    <value>O campo N° DA COMPROVANTE está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNumFac" xml:space="preserve">
+    <value>O campo N° DA FATURA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrOrdCom" xml:space="preserve">
+    <value>O campo ORDEM DE COMPRA está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrPertA" xml:space="preserve">
+    <value>O campo PERTENCENDO À está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrSerial" xml:space="preserve">
+    <value>O campo SERIAL está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrStatus" xml:space="preserve">
+    <value>O campo STATUS DO ATIVO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrUsAsig" xml:space="preserve">
+    <value>O campo USUÁRIO ATRIBUÍDO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValor" xml:space="preserve">
+    <value>O campo VALOR ATUAL está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValorLib" xml:space="preserve">
+    <value>O campo LIVRE DE VALOR está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValorOrig" xml:space="preserve">
+    <value>O campo VALOR ORIGINAL está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrValorRes" xml:space="preserve">
+    <value>O campo VALOR RESIDUAL está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblAlicuota" xml:space="preserve">
+    <value>Alíquota:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCenCos" xml:space="preserve">
+    <value>Centro de custo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCod" xml:space="preserve">
+    <value>Código:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCodProv" xml:space="preserve">
+    <value>Fornecedor:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCostUni" xml:space="preserve">
+    <value>Custo unitário:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCueDep" xml:space="preserve">
+    <value>Depreciação:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCuenAct" xml:space="preserve">
+    <value>De Ativos:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDepAcum" xml:space="preserve">
+    <value>Depreciação Acumulada:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblEmpl" xml:space="preserve">
+    <value>Empregado:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecAdq" xml:space="preserve">
+    <value>Data:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecha" xml:space="preserve">
+    <value>Data de criação:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFechAsig" xml:space="preserve">
+    <value>Data:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecIni" xml:space="preserve">
+    <value>iniciação:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFecUlt" xml:space="preserve">
+    <value>Último Cálculo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGasDep" xml:space="preserve">
+    <value>Despesa de Depreciação:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMarca" xml:space="preserve">
+    <value>Marca:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMesDep" xml:space="preserve">
+    <value>Meses a Depreciar:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMeYaDep" xml:space="preserve">
+    <value>Depreciando Agora:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblModelo" xml:space="preserve">
+    <value>Modelo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNomMod" xml:space="preserve">
+    <value>eeeee</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNumAct" xml:space="preserve">
+    <value>N ° de Ativo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNumCom" xml:space="preserve">
+    <value>N° da Comprovante:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNumFac" xml:space="preserve">
+    <value>N° da Fatura:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblOrdCom" xml:space="preserve">
+    <value>Ordem de compra:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblPertA" xml:space="preserve">
+    <value>Pertencendo à:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblSerial" xml:space="preserve">
+    <value>Serial:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Status do Ativo</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblUsAsig" xml:space="preserve">
+    <value>USUÁRIO ATRIBUÍDO:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValor" xml:space="preserve">
+    <value>Valor Atual:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValorLib" xml:space="preserve">
+    <value>Livre de Valor:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValorOrig" xml:space="preserve">
+    <value>Valor Original:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblValorRes" xml:space="preserve">
+    <value>Valor Residual:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Ativo Fixo</value>
+    <comment>Banner</comment>
+  </data>
+  <data name="ErrUbic" xml:space="preserve">
+    <value>O campo LOCALIZAÇÃO está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblUbic" xml:space="preserve">
+    <value>Localização:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="ErrCantidad" xml:space="preserve">
+    <value>O campo QUANTIDADE está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFechCal" xml:space="preserve">
+    <value>O campo DATA FINAL está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblCantidad" xml:space="preserve">
+    <value>Quantidade:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFechCal" xml:space="preserve">
+    <value>Data final:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="ErrDeprec" xml:space="preserve">
+    <value>O campo DEPRECIAR está em branco.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblDeprec" xml:space="preserve">
+    <value>Depreciar</value>
+    <comment>Label</comment>
+  </data>
+  <data name="BarrTittle" xml:space="preserve">
+    <value>Atribuição de Ativos Fixos a um Centro de Custo</value>
+    <comment>Barra de titulo</comment>
+  </data>
+  <data name="BtnBuscSerial" xml:space="preserve">
+    <value>Procurar por Serial</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="lblMejora" xml:space="preserve">
+    <value>Melhoria:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblPVP" xml:space="preserve">
+    <value>Preço de Venda:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="PlacCCosto" xml:space="preserve">
+    <value>Selecione um Centro de Custo</value>
+    <comment>Placeholder</comment>
+  </data>
+  <data name="PlacProve" xml:space="preserve">
+    <value>Selecione um Fornecedor</value>
+    <comment>Placeholder</comment>
+  </data>
+  <data name="FieldsetCtaCon" xml:space="preserve">
+    <value>Contas Contábeis</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDAct" xml:space="preserve">
+    <value>Dados de Ativos</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="FieldsetDatAdqu" xml:space="preserve">
+    <value>Dados de Aquisição</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDatAsig" xml:space="preserve">
+    <value>Dados de Alocação</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDatDepr" xml:space="preserve">
+    <value>Dados de Depreciação</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetMontAct" xml:space="preserve">
+    <value>Valores de Ativo</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetPrAso" xml:space="preserve">
+    <value>Produto Associado</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="lblRest" xml:space="preserve">
+    <value>Restante Tags:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="msgCamVaci" xml:space="preserve">
+    <value>Existem campos vazios no formulário. Por favor, verifique as informações inseridas nele.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgCantMay" xml:space="preserve">
+    <value>A quantidade deve ser um número MENOS ou igual à quantidade de Restante Tags.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgCantMen" xml:space="preserve">
+    <value>A quantidade deve ser um número MAIOR do que zero.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgConfDel" xml:space="preserve">
+    <value>Deseja excluir o código:</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgFaltCod" xml:space="preserve">
+    <value>Você deve indicar um codigo.</value>
+    <comment>mensaje alert</comment>
+  </data>
+  <data name="msgIntCant" xml:space="preserve">
+    <value>Digite a quantidade de Tags para gerar.</value>
+    <comment>mensaje alert</comment>
+  </data>
+</root>

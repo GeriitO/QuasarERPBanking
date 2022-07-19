@@ -1,0 +1,205 @@
+﻿@using QuasarERPBanking.Models
+
+@model QuasarERPBanking.Models.ActivoFijo
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string today = DateTime.Now.ToString("dd/MM/yyyy");
+
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Activo Fijo</title>
+
+</head>
+<body>
+    @using (Html.BeginForm("Create", "AF_ASIGNA", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("FormAF_Asigna");
+    }
+
+    <script>
+        $(function () {
+
+
+            $("#load1").hide();
+            $("#load2").show();
+
+
+            habilitartodo();
+            //$("#busqueda").hide();
+            //$("#montos").show();
+            //$("#etiqueta").show();
+            //$("#cantidades").show();
+            $("#AF_DEPREC").prop('checked', true);
+
+            $("#AF_ETIQ_").prop('disabled', true);
+            $("#etiquetas").hide();
+            $("#cantidades").show();
+            $("#busqueda").hide();
+            $("#busquedaCod").show();
+            $("#montos").hide();
+            $("#usuario").hide();
+            $("#af_maestro_AFUNIDAD").prop('disabled', true);
+            $("#af_grupos_AFGRUDES").prop('disabled', true);
+            $("#AF_CODACT").prop('disabled', true);
+            $("#af_maestro_AFNOM").prop('disabled', true);
+
+            $("#cantidad").val("");
+
+
+            @*$("#AF_FECHREAL").datepicker({
+                defaultDate: "@today",
+            });*@
+
+            $("#AF_FECHREAL").datepicker("setDate", "@today");
+            $("#AF_DEPINI").datepicker("setDate", "@today");
+            $("#AF_DEPULT").datepicker("setDate", "@today");
+            
+
+        })
+
+
+
+
+
+        @*//AUTOCOMPLETE Y LLENADO DE LOS CAMPOS
+        $("#codigo_").each(function () {
+
+            $("#codigo_").autocomplete({
+                source: "@Url.Action("getCodigo", "AF_ASIGNA")",
+                minLength: 1,
+                select: function (event, ui) {
+
+                    if (ui.item) {
+
+                        $.ajax({
+                            url: "/AF_ASIGNA/getProdAutocom?term=" + ui.item.value,
+                            success: function (data) {
+                                alert("aaa");
+                                habilitartodo();
+                                //window.location.replace("/CXP_MAESTRO/Edit?cxp_maestro=" + data);
+                                alert($("#AF_CODACT").val());
+
+                                $("#AF_CODACT").val(data.AF_CODACT);
+                                $("#AF_CODEMPL").val(data.AF_CODEMPL);
+                                $("#AF_SERIAL").val(data.AF_SERIAL);
+                                $("#AF_FECH").val(data.strAFFECH);
+                                $("#AF_FECHREAL").val(data.strAFFECHREAL);
+                                $("#AF_CCTO").val(data.AF_CCTO);
+                                $("#AF_USUARIO").val(data.AF_USUARIO);
+                                $("#AF_ETIQ").val(data.AF_ETIQ);
+                                $("#AF_DEPINI").val(data.strAFDEPINI);
+                                $("#AF_DEPULT").val(data.strAFDEPULT);
+                                $("#AF_DEPMESES").val(data.AF_DEPMESES);
+                                $("#AF_DEPMESESYA").val(data.AF_DEPMESESYA);
+                                $("#AF_ORGCOSTO").val(data.AF_ORGCOSTO);
+                                $("#AF_ORGFECHA").val(data.AF_ORGFECHA);
+                                $("#AF_ORGMESESDEP").val(data.AF_ORGMESESDEP);
+                                $("#AF_ADQFECHA").val(data.strAFADQFECHA);
+                                $("#AF_ADQOC").val(data.AF_ADQOC);
+                                $("#AF_ADQFACT").val(data.AF_ADQFACT);
+                                $("#AF_ADQCOMP").val(data.AF_ADQCOMP);
+                                $("#AF_ADQCONT").val(data.AF_ADQCONT);
+                                $("#AF_ADQVIGD").val(data.AF_ADQVIGD);
+                                $("#AF_ADQVIGH").val(data.AF_ADQVIGH);
+                                $("#AF_ADQPROV").val(data.AF_ADQPROV);
+                                $("#AF_CTAACT").val(data.AF_CTAACT);
+                                $("#AF_CTAGTODEP").val(data.AF_CTAGTODEP);
+                                $("#AF_CTADEP").val(data.AF_CTADEP);
+                                $("#AF_VALACT").val(data.AF_VALACT);
+                                $("#AF_VALRES").val(data.AF_VALRES);
+                                $("#AF_VALORI").val(data.AF_VALORI);
+                                $("#AF_DEPACC").val(data.AF_DEPACC);
+                                $("#AF_DEPSEM").val(data.AF_DEPSEM);
+                                $("#AF_ALICUOTA").val(data.AF_ALICUOTA);
+                                $("#AF_VALLIB").val(data.AF_VALLIB);
+                                $("#AF_CANT").val(data.AF_CANT);
+                                $("#AF_MODIFFECHA").val(data.AF_MODIFFECHA);
+                                $("#AF_MODIFHORA").val(data.AF_MODIFHORA);
+                                $("#AF_MODIFUSUA").val(data.AF_MODIFUSUA);
+                                $("#AF_DESFECHA").val(data.AF_DESFECHA);
+                                $("#AF_DES").val(data.AF_DES);
+                                $("#AF_MEJORA").val(data.AF_MEJORA);
+                                $("#AF_PVP").val(data.AF_PVP);
+                                $("#AF_CTOUNIT").val(data.AF_CTOUNIT);
+                                $("#AF_TPOGAR").val(data.AF_TPOGAR);
+                                $("#AF_NROGAR").val(data.AF_NROGAR);
+                                $("#AF_PROVGAR").val(data.AF_PROVGAR);
+                                $("#AF_TELPROVGAR").val(data.AF_TELPROVGAR);
+                                $("#AF_DIRGAR").val(data.AF_DIRGAR);
+                                $("#AF_MARCA").val(data.AF_MARCA);
+                                $("#AF_MOD").val(data.AF_MOD);
+                                $("#AF_FEVENC").val(data.AF_FEVENC);
+                                $("#AF_OBS").val(data.AF_OBS);
+                                $("#AF_UBICACION").val(data.AF_UBICACION);
+                                $("#AF_CODPERT").val(data.AF_CODPERT);
+                                //$("#AF_DEPREC").val(data.AF_DEPREC);
+                                $("#AF_DEPREC").prop('checked', data.AF_DEPREC);
+                                $("#AF_DEPANT").val(data.AF_DEPANT);
+                                $("#AF_ULTDEP").val(data.AF_ULTDEP);
+                                $("#AF_BIENNAC").val(data.AF_BIENNAC);
+                                $("#AF_PARAM1").val(data.AF_PARAM1);
+                                $("#AF_DESCBIEN").val(data.AF_DESCBIEN);
+                                $("#AF_CLASBIEN").val(data.AF_CLASBIEN);
+                                $("#AF_ETIQ_IMPRE").val(data.AF_ETIQ_IMPRE);
+                                $("#AFCTAACTOLD").val(data.AFCTAACTOLD);
+                                $("#AFCTADEPOLD").val(data.AFCTADEPOLD);
+                                $("#AFCTAGTOOLD").val(data.AFCTAGTOOLD);
+                                $("#AF_ETIQ_CONCILIA").val(data.AF_ETIQ_CONCILIA);
+                                $("#AF_COLOR").val(data.AF_COLOR);
+                                $("#AF_MATERIAL").val(data.AF_MATERIAL);
+                                $("#AFECHACAL").val(data.strAFECHACAL);
+
+                                //AFECHACAL = AF_DEPINI.AddMonths(AF_DEPMESES);
+
+                                $("#af_maestro_AFNOM").val(data.af_maestro.AFNOM);
+                                $("#af_maestro_AFUNIDAD").val(data.af_maestro.AFUNIDAD);
+
+
+                                $("#af_grupos_AFGRUDES").val(data.af_grupos.AFGRUDES);
+                                $("#af_grupos_AFGRUCTAACT").val(data.af_grupos.AFGRUCTAACT);
+                                $("#af_grupos_AFGRUCTADEP").val(data.af_grupos.AFGRUCTADEP);
+                                $("#af_grupos_AFGRUCTAGTODEP").val(data.af_grupos.AFGRUCTAGTODEP);
+                                $("#af_grupos_AFGRUMESES").val(data.af_grupos.AFGRUMESES);
+
+
+
+                                $("#AF_ETIQ_").val("");
+                                //$("#AF_ETIQ_").prop('disabled', true);
+
+                                $("#AF_ETIQ").prop('readonly', true);
+                                $("#AF_CODACT").prop('readonly', true);
+
+
+
+                                if ($("#AF_DES").val() == "Asignado" || $("#AF_DES").val() == "Desincorporado") {
+                                    $("#asireasi").hide();
+                                }
+                                else {
+                                    $("#asireasi").show();
+                                }
+
+
+                            }
+                        });
+                    }
+                    else {
+                        alert("Error");
+                    }
+                },
+                error: function () {
+                    alert("Error al Autocompletar");   // remember to call response() even if ajax failed
+                }
+            });
+        });*@
+
+
+
+    </script>
+</body>
+</html>

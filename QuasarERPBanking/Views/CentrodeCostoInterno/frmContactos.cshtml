@@ -1,0 +1,421 @@
+﻿@using QuasarERPBanking
+@model QuasarERPBanking.Models.CC_CTE_CONTACTOS
+@{
+    var CTECOD = "";
+    if (ViewData["CTECOD"] != null)
+    {
+        CTECOD = ViewData["CTECOD"].ToString();
+    }
+    var lstContactos = QuasarERPBanking.Models.CC_CTE_CONTACTOS.ContactosPorCTECOD(CTECOD);
+}
+<!-- jQuery -->
+
+<input type="hidden" id="action">
+<input type="hidden" id="cxp_cod">
+<div id="Cuenta">
+    <fieldset class="ventanaFieldset">
+        <legend>@Resources.CC_CONTACTOS.StringResources.FieldsetCont</legend>
+        <div class="ParrContCuent">            
+                    <div class="ParrContCuentBtn">
+                        <input type="button" id="Add" class="boton" value="@Resources.CC_CONTACTOS.StringResources.BotonAdd" style="margin:10px 20px; font-size:15px; " onclick="" />
+                    </div>
+            
+                <div class="ParrContCuentTxt">
+                    <h1>@Resources.CC_CONTACTOS.StringResources.TextoAdd</h1>
+                </div>
+            
+        </div>
+       
+           
+                    <div id="" style="float: left;width: 100%;">
+                       
+                            <div class="table-responsive limpiar" style="height: 90px; overflow: auto;">
+                                <table border="0" class="tablesorter" style="width:950px;" id="tblContactos">
+                                    <thead>
+                                        <tr>
+                                            <th width="118px">
+                                                @Resources.CC_CONTACTOS.StringResources.lblCod.Replace(":", "")
+                                                @*Codigo*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CC_CONTACTOS.StringResources.lblNom.Replace(":", "")
+                                                @*Nombre*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CC_CONTACTOS.StringResources.lblTel.Replace(":", "")
+                                                @*Telefono*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CC_CONTACTOS.StringResources.lblFax.Replace(":", "")
+                                                @*Fax*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CC_CONTACTOS.StringResources.lblMail.Replace(":", "")
+                                                @*E-Mail*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CC_CONTACTOS.StringResources.lblDir.Replace(":", "")
+                                                @*Dirección*@
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<!--/////////////////////////////////////////////////////////// rellenado por el controlador-->
+                                    </tbody>
+                                </table>
+                            </div>
+                      
+                    </div>
+                
+
+           
+
+
+
+
+       
+    </fieldset>
+
+
+
+</div>
+@*<div id="dlgContact" style="display:none; position:center">
+    <div class="icon-bar">
+
+        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminarcont();" />
+
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="guardarContacto_();" />
+
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialogC();" />
+
+    </div>
+
+    <form id="myForm1_">
+        <fieldset class="ventana">
+            <legend class="limpiar" style="font-size:12px">@Resources.CC_CONTACTOS.StringResources.FieldsetCont</legend>
+            <table>
+                <tr>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CTECONTCOD, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                       
+                        @Html.TextBoxFor(model => model.CTECONTCOD, new { style = "width:200px;", @class = "limpiar form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CTECONTNOM, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CTECONTNOM, new { style = "width:200px;", @class = "limpiar  form-control" })
+                    </td>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CTECONTTEL, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CTECONTTEL, new { style = "width:200px;", @class = "limpiar  form-control" })
+                    </td>
+                </tr>
+                <tr>
+
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CTECONTEMAIL, new { @class = "limpiar" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CTECONTEMAIL, new { style = "width:200px;", @class = "limpiar  form-control" })
+                    </td>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CTECONTFAX, new { @class = "limpiar" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CTECONTFAX, new { style = "width:200px;", @class = "limpiar  form-control" })
+                    </td>
+                </tr>
+                <tr>
+
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CTECONTDIR, new { @class = "limpiar" })
+
+                    </td>
+                    <td colspan="3">
+                        @Html.TextAreaFor(model => model.CTECONTDIR, new { style = "resize:none;", @class = "limpiar  form-control", @cols = 50, @rows = 2 })
+                    </td>
+
+                </tr>
+               
+            </table>
+            @Html.ValidationSummary()
+        </fieldset>
+    </form>
+
+</div>*@
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ModalConctClienInt" style="overflow-y: scroll;">
+    <div @*style="width:100%; padding-top: 5px;"*@ class="modal-dialog" role="document">
+        <div class="modal-content" style="">
+
+            <div class="modal-body">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+               
+
+                    <div class="icon-bar">
+
+                        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminarcont();" />
+
+                        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="guardarContacto_();" />
+
+                        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialogC();" />
+
+                    </div>
+
+                    <form id="myForm1_">
+                        <div class="CajaRell">
+                            <fieldset class="ventanaFieldset">
+                                <legend class="limpiar" style="font-size:12px">@Resources.CC_CONTACTOS.StringResources.FieldsetCont</legend>
+
+                                <div class="ModalContClient">
+                                    @Html.LabelFor(model => model.CTECONTCOD, new { @class = "limpiar" })
+                                    <div>
+
+                                        @Html.TextBoxFor(model => model.CTECONTCOD, new { style = " ", @class = "limpiar form-control" })
+                                    </div>
+                                </div>
+
+
+                                <div class="ModalContClient">
+                                    @Html.LabelFor(model => model.CTECONTNOM, new { @class = "limpiar" })
+                                    <div>
+                                        @Html.TextBoxFor(model => model.CTECONTNOM, new { style = " ", @class = "limpiar  form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="ModalContClient">
+                                    @Html.LabelFor(model => model.CTECONTTEL, new { @class = "limpiar" })
+                                    <div>
+                                        @Html.TextBoxFor(model => model.CTECONTTEL, new { style = " ", @class = "limpiar  form-control" })
+                                    </div>
+                                </div>
+
+
+                                <div class="ModalContClient">
+                                    @Html.LabelFor(model => model.CTECONTEMAIL, new { @class = "limpiar" })
+
+                                    <div>
+                                        @Html.TextBoxFor(model => model.CTECONTEMAIL, new { style = " ", @class = "limpiar  form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="ModalContClient">
+                                    @Html.LabelFor(model => model.CTECONTFAX, new { @class = "limpiar" })
+
+                                    <div>
+                                        @Html.TextBoxFor(model => model.CTECONTFAX, new { style = " ", @class = "limpiar  form-control" })
+                                    </div>
+                                </div>
+
+
+                                <div class="ModalContClient">
+                                    @Html.LabelFor(model => model.CTECONTDIR, new { @class = "limpiar" })
+
+                                    <div >
+                                        @Html.TextAreaFor(model => model.CTECONTDIR, new { style = "resize:none;", @class = "limpiar  form-control", @cols = 50, @rows = 2 })
+                                    </div>
+                                </div>
+
+
+
+
+
+                                @Html.ValidationSummary()
+                            </fieldset>
+                        </div>
+                </form>
+
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+@*url:  "/CXP_CONTACTOS/Delete?cxpcontcod=" + $("#CXPCONTCOD").val(),*@
+
+<script type="text/javascript">
+
+    $("#CTECONTCOD").numericInput();
+
+    
+
+
+
+    function clean() {
+        $("#CTECONTCOD").val("");
+        $("#CTECONTNOM").val("");
+        $("#CTECONTTEL").val("");
+        $("#CTECONTFAX").val("");
+        $("#CTECONTDIR").val("");
+        $("#CTECONTEMAIL").val("");
+        //$("#CXPCONTSEL").val("");
+
+    }
+    function eliminarcont() {
+        if ($("#CTECONTCOD").val() != "") {
+            var resp = confirm("¿Desea elmininar el codigo :  " + $("#CTECONTCOD").val().toUpperCase() + " ?");
+            if (resp) {
+                var strJSON = {
+                    "CTECONTCOD": $("#CTECONTCOD").val(),
+                }
+                $.ajax({
+                    url: "/CC_Contactos/Delete",
+                    type: "POST",
+                    data: JSON.stringify(strJSON),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (msg) {
+                        alert(msg);
+                        loadContacts($("#CTECOD").val());
+                        $("#dlgContact").dialog("close");
+                    }
+                });
+            }
+            else {
+            }
+        }
+        else {
+            alert("Debe indicar un código");
+        }
+    }
+
+    function closeDialogC() { $("#ModalConctClienInt").modal("hide"); }
+
+    function guardarContacto_() {
+        if ($("#CTECONTCOD").val() == "" ||
+            $("#CTECONTNOM").val() == "" ||
+            $("#CTECONTTEL").val() == "" ||
+            $("#CTECONTFAX").val() == "" ||
+            $("#CTECONTDIR").val() == "" ||
+            $("#CTECONTEMAIL").val() == "") {
+            alert("Faltan campos");
+        }
+        else {
+            //alert($("#CTECONTCOD").val());
+            //guarda cada valor en su campo
+            var strJSON = {               
+                "CTECONTNOM": $("#CTECONTNOM").val(),
+                "CTECONTTEL": $("#CTECONTTEL").val(),
+                "CTECONTFAX": $("#CTECONTFAX").val(),             
+                "CTECONTDIR": $("#CTECONTDIR").val(),
+                "CTECONTEMAIL": $("#CTECONTEMAIL").val(),            
+                "CTEEXT": "-",
+                "CTECONTCOD": $("#CTECONTCOD").val(),
+                "CTECOD": $("#CTECOD").val(),
+                "CTELOGIN": "-",
+                "CTECLAVE": "-",
+
+            };
+            //alert($("#CTECOD").val());
+
+            $.ajax({
+                type: "POST",
+                url: "/CC_CONTACTOS/" + $("#action").val(),
+                //data: $('#myForm1_').serialize(),
+                data: JSON.stringify(strJSON),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (msg) {
+                    var cod = msg.substr(msg.length - 1, 1);
+                    //alert(cod);
+                    alert(msg);
+                    if (cod == "0") {
+                        return false;
+                    }
+                    loadContacts($("#CTECOD").val());
+                    $("#dlgContact").dialog("close");
+                }
+            });
+        }
+    }
+    $(function () {
+        /////////////////////////////////////////////////
+        ////////////////////////////////////////////////
+        
+        ////funcion para validar correo electronico
+        $("#CTECONTEMAIL").blur(function () {
+            var _this = $("#CTECONTEMAIL");
+            var _email = $("#CTECONTEMAIL").val();
+
+            var re = /^[a-zA-Z0-9._-]+\@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+            var valid = re.test(_email);
+
+            if (valid) {
+                _this.attr('style', 'background:white');
+            } else {
+                _this.attr('style', 'background:#fc080833');
+                alert("El campo E-Mail no contiene un formato de correo electronico valido \"@@.Dominio\", por favor intente de nuevo.");
+                $("#CTECONTEMAIL").val("");
+                _this.focus();
+               
+            }
+        });
+
+
+
+
+
+
+        ///////////// contador de caracteres para los textarea//////////////////////
+        $("#CTECONTDIR").charCounter(170, {
+            container: '<em id="a" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:400px"></em>',
+            format: "170 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+
+
+        $("#Add").click(function () {
+            $("#action").val("Create");
+            //$("#CXPCONTCOD").prop('readonly', "false");
+            $("#CTECONTCOD").removeAttr("readonly");
+            clean();
+            showDlgContact();
+        });
+    });
+
+    function showDlgContact() {
+        $("#ModalConctClienInt").modal("show");
+        //$("#dlgContact").dialog({
+        //    resizable: false,
+        //    width: 700,
+        //    height: 350,
+        //    modal: true,
+        //    autoOpen: true,
+        //    open: function (event, ui) {
+        //        $(".limpiar").prop('disabled', false);
+        //        $(this).siblings('div.ui-dialog-titlebar').remove();
+        //        $('div.ui-dialog-titlebar').css('background', 'transparent');
+        //    },
+        //    show: {
+        //        effect: "slide",
+        //        duration: 500
+        //    },
+        //    hide: {
+        //        effect: "clip",
+        //        duration: 700
+        //    },
+        //    close: function (event, ui) {
+        //        //$("#usuario").focus();
+        //    }
+
+        //});
+    }
+
+
+
+
+   
+
+
+</script>

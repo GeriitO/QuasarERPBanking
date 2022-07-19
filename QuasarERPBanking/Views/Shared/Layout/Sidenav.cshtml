@@ -1,0 +1,42 @@
+﻿@using QuasarERPBanking.Models;
+@{
+
+}
+
+
+
+<nav class="quasar-color" id="sidebar">
+    <button type="button" id="sidebarCollapse">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+    </button>
+    <div class="sidebar-header">
+        <h3 class="header_h1">QUASAR ERP BANKING</h3>
+    </div>
+    <ul class="list-unstyled components" id="subMenu">
+        <li>
+            <a href="/">
+                <i class="bi bi-house-door"></i>
+                Home
+            </a>
+        </li>
+            @RenderPage("~/Views/Shared/Menu/Menu.cshtml")
+        <li>
+            <a href="#">
+                <i class="bi bi-question-square"></i>
+                Help
+            </a>
+        </li>
+        <li>
+            <a href="Usuario/LogOff">
+                <i class="bi bi-box-arrow-left"></i>
+                Salir
+            </a>
+        </li>
+    </ul>
+
+</nav>

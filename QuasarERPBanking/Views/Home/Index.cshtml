@@ -1,0 +1,221 @@
+﻿@{
+    ViewBag.Title = Resources.StringResources.PestañaBrowser;
+    var fechaQuasar  =QuasarERPBanking.Models.Util.FechaQuasar;
+   
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+@*<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">*@  
+
+
+
+
+<div id="Fecha-dialog">
+    <label style="width:300px; text-align:center; font-size:15px;" class="limpiar"><b>@Resources.StringResources.DlgFechQuasar</b></label>
+    <input type="datetime-local" id="Fecha_Quasar" class="form-control datepicker" style="font-size:15px" placeholder="@Resources.StringResources.GlobalDateLarga" />
+    <input type="hidden" id="fecha_in"/>
+</div>
+
+<script>
+    $("#fondo").each(function () {
+        $(this).width($("#main").width() * 1);
+        
+    });
+</script>
+<div id="init-dialog" title="IMPORTANTE" style="display:none; width:640px;">
+    <span style="margin:22px 18px 0 0;float:left;">
+        <img src="../../Content/themes/base/images/advertencia-animada-amarillo-grande.gif" alt="Advertencia" title="Advertencia" width="72" height="64" />
+    </span>
+    <div style="float:right">
+        <p style="margin-top:16px; width:450px; font-size:larger;">
+            Por favor revise sus datos antes de crear la guía:
+        </p>
+        <h4>
+            Remitente:
+        </h4>
+        <ul style="list-style-type:none;">
+            @*<li><strong>Nombre:</strong>@Session["currentuser"].ToString()</li>*@
+            <li><strong>Departamento o Agencia:</strong> ClienteInternoRemitente</li>
+            <li>
+                <strong>Teléfono:</strong>
+                @*if (ViewBag.contactoActual.Telefono == null || ViewBag.contactoActual.Telefono == "")
+    {
+        <span style="color:#F00">Debe ingresar esta información</span>
+    }
+    else
+    {
+        <span>@ViewBag.contactoActual.Telefono</span>
+    }
+                *@
+            </li>
+            <li>
+                <strong>Extensión:</strong>
+                @*if (ViewBag.contactoActual.Extension == null || ViewBag.contactoActual.Extension == "")
+    {
+        <span style="color:#F00">Debe ingresar esta información</span>
+    }
+    else
+    {
+        <span>@ViewBag.contactoActual.Extension</span>
+    }*@
+            </li>
+            <li>
+                <strong>Dirección:</strong>
+                @*if (ViewBag.contactoActual.Direccion == null || ViewBag.contactoActual.Direccion == "")
+                {
+                    <span style="color:#F00">Debe ingresar esta información</span>
+                }
+                else
+                {
+                    <span>@ViewBag.contactoActual.Direccion</span>
+                }
+                *@
+            </li>
+        </ul>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#Fecha-dialog").hide();
+
+
+        loadDatePicker();
+        $.datepicker.setDefaults($.datepicker.regional["es-VE"]);
+
+        @*$.datepicker.setDefaults($.datepicker.regional["@QuasarERPBanking.ParametrosGlobales.culture"]);        /*@// da problemas con el idioma en ingles 
+
+
+        $('.datepicker').datepicker(
+        {
+            //dateFormat: 'dd/mm/yy',
+            //startDate: '-3d',
+            beforeShow: function(){
+                $(".ui-datepicker").css('font-size', 18);
+
+            },
+            onSelect: function () {
+
+                //var fecha = $(this).val();
+                var fecha = $(this).val();
+                //alert(fecha);
+                $.ajax({
+                    url: "/Home/getfechaQuasar", //+ $("#CXPCOD").val(),
+                    success: function (data) {
+
+                        var arFecha = fecha.split("/");
+
+                        if (new Date(arFecha[2], arFecha[1], arFecha[0], 0, 0, 0, 0).getTime() >
+                            new Date("20" + data.substr(1, 2), data.substr(3, 2), data.substr(5, 2), 0, 0, 0, 0).getTime()) {
+                            //alert("La fecha introducida es MAYOR que la fecha actual de Quasar, por favor introduzca una fecha menor");
+                            alert("@Resources.StringResources.msgFechMayor");
+
+                        }
+                        else if (new Date(arFecha[2], arFecha[1], arFecha[0], 0, 0, 0, 0).getTime() <
+                            new Date("20" + data.substr(1, 2), data.substr(3, 2), data.substr(5, 2), 0, 0, 0, 0).getTime()) {
+                            //alert("La fecha introducida es MENOR que la fecha actual de Quasar, por favor introduzca una fecha mayor");
+                            alert("@Resources.StringResources.msgFechMenor");
+
+                        }
+                        else {
+                            $("#fecha_in").val(fecha);
+                            $("#Fecha-dialog").dialog("close");
+
+                        }
+                    }
+
+                });
+                //return $(this).trigger('change');
+                //
+            }
+        }); //Initialise any date pickers
+
+
+
+
+
+
+        //$(".ui-dialog-titlebar").hide();
+
+      
+
+      
+        //if (($("#Fecha_Quasar").val() == "") && ($("#fecha_in").val()== "")) {
+        //    $("#Fecha-dialog").show();
+        //    $("#Fecha-dialog").dialog("open");
+        //}
+
+        if (("@fechaQuasar" == "") && ($("#Fecha_Quasar").val() == ""))
+          {
+         // else ($("#Fecha_Quasar").val() == ""){}
+              $("#Fecha-dialog").show();
+              $("#Fecha-dialog").dialog("open");
+
+
+        }
+
+
+
+    });
+
+    $("#Fecha-dialog").dialog({
+
+        width: 360,
+        height: 420,
+        modal: true,
+        autoOpen: false,
+        resizable: false,
+        closeOnEscape: false,
+        open: function (event, ui) {
+
+            $('.ui-widget-overlay').addClass('custom-overlay');
+
+            $("#Fecha-dialog").siblings("div.ui-dialog-titlebar").hide();
+
+        },
+
+        //open: function (event, ui) {
+        //    //$(this).css('background', 'url(/Content/imagenes/slide.jpg)');
+
+
+        //},
+
+        //show: {
+        //    effect: "blind",
+        //    duration: 1000
+
+        //},
+        //hide: {
+        //    effect: "explode",
+        //    duration: 1000
+        //},
+        //buttons: {
+        //    "Continuar":
+        //        function () {
+        //            $(this).dialog("close");
+        //            //Se pone el puntero sobre el input de buscar destinatario
+        //            document.getElementById('textAutoComplete').focus();
+        //            //Se hace scroll hacia el internal-window
+        //            $("#internal-window").slideto({
+        //                highlight: false
+        //});
+        //},
+        //    "Actualizar mis datos":
+        //        function () {
+        //            document.location = "/Contacto/EditMyContact";
+        //        }
+        //}
+        //});
+        //$("#Observacion").charCounter(950, {
+        //    container: '<em style="margin:5px;"></em>',
+        //    format: "%1 caracteres restantes",
+        //    pulse: false,
+        //    delay: 100
+    });
+
+
+
+
+</script>

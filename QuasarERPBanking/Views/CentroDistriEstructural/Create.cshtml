@@ -1,0 +1,34 @@
+﻿@using QuasarERPBanking
+
+@model QuasarERPBanking.Models.CentroDistriEstructural
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string today = DateTime.Now.ToString("dd/MM/yyyy");
+
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CENTRO DE COSTO</title>
+
+</head>
+<body>
+    @using (Html.BeginForm("Create", "CentroDistriEstructural", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("Index");
+    }
+
+    <script>
+        $(function () {
+
+
+        })
+
+
+    </script>
+</body>
+</html>

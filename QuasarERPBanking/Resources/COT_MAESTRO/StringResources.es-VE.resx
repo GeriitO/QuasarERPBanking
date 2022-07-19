@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Banner" xml:space="preserve">
+    <value>Cotización</value>
+    <comment>Banner y Tittle</comment>
+  </data>
+  <data name="BtnLimpiarTabla" xml:space="preserve">
+    <value>Limpiar Tabla</value>
+    <comment>boton</comment>
+  </data>
+  <data name="BtnNueva" xml:space="preserve">
+    <value>Nueva</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="DropListOrig" xml:space="preserve">
+    <value>Seleccione el Origen</value>
+    <comment>Selección</comment>
+  </data>
+  <data name="errCC_NOMB" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="FieldsetAprob" xml:space="preserve">
+    <value>Aprobada</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="fieldsetCondicEntr" xml:space="preserve">
+    <value>Condiciones Para La Entrega</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDesc" xml:space="preserve">
+    <value>Descuentos</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetElab" xml:space="preserve">
+    <value>Elaborada</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetProvee" xml:space="preserve">
+    <value>Proveedores</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetProveeAsig" xml:space="preserve">
+    <value>Proveedores A Los Que Se Le Asignará La Cotización</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetRev" xml:space="preserve">
+    <value>Revisada</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetSelecTipProd" xml:space="preserve">
+    <value>Seleccione el tipo de Producto</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetTotal" xml:space="preserve">
+    <value>Totales</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="lblActivoFijo" xml:space="preserve">
+    <value>Activo Fijos</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCC_NOMB" xml:space="preserve">
+    <value>C.C. Origen:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotElabFecha" xml:space="preserve">
+    <value>Fecha:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCotFpago" xml:space="preserve">
+    <value>Forma de Pago:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotGarantia" xml:space="preserve">
+    <value>Garantía:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotLugar" xml:space="preserve">
+    <value>Lugar:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotMoneda" xml:space="preserve">
+    <value>Tipo de Moneda:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotObserv" xml:space="preserve">
+    <value>Observaciones</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotPartida" xml:space="preserve">
+    <value>Partida Presupuesto:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotPlazo" xml:space="preserve">
+    <value>Plazo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotProvcod" xml:space="preserve">
+    <value>Cod. Prov:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblcotprovcod1" xml:space="preserve">
+    <value>Cod. Prov:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCotProvcontacto" xml:space="preserve">
+    <value>N° Cotización Proveedor:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotSolicd" xml:space="preserve">
+    <value>Descripción de la Licitación:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotStatus" xml:space="preserve">
+    <value>Status Cot.: </value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotAdq" xml:space="preserve">
+    <value>Tipo de Adquisición:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCotTransCantOrden" xml:space="preserve">
+    <value>Cantidad:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblDET_CC" xml:space="preserve">
+    <value>Centro de Costro:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotProy" xml:space="preserve">
+    <value>Proyecto:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblfech" xml:space="preserve">
+    <value>Fecha:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFechEmi" xml:space="preserve">
+    <value>Fecha Emisión</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblGlobal" xml:space="preserve">
+    <value>Global</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblInventario" xml:space="preserve">
+    <value>Inventario</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblItem" xml:space="preserve">
+    <value>Por Item</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCotIva" xml:space="preserve">
+    <value>Iva:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNlicitacion" xml:space="preserve">
+    <value>N° Licitación</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblPersona" xml:space="preserve">
+    <value>Persona</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblPorc" xml:space="preserve">
+    <value>%</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblServicios" xml:space="preserve">
+    <value>Servicios</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblSubTotal" xml:space="preserve">
+    <value>Sub Total:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCotTotal" xml:space="preserve">
+    <value>Total:</value>
+    <comment>label</comment>
+  </data>
+  <data name="liCondiciones" xml:space="preserve">
+    <value>Condiciones</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="liObservaciones" xml:space="preserve">
+    <value>Observaciones</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="liPresupuesto" xml:space="preserve">
+    <value>Presupuesto</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="liProveedores" xml:space="preserve">
+    <value>Proveedores</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="liWorkFlow" xml:space="preserve">
+    <value>WorkFlow</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="thCant" xml:space="preserve">
+    <value>Cant.    </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCiudad" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCodigo" xml:space="preserve">
+    <value>Codigo  </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCodProv" xml:space="preserve">
+    <value>Cod. Prov</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCondicion" xml:space="preserve">
+    <value>Condición</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thContacto" xml:space="preserve">
+    <value>Contacto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thDescripción" xml:space="preserve">
+    <value>Descripción  </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thEmail" xml:space="preserve">
+    <value>Email</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thFecha" xml:space="preserve">
+    <value>Fecha  </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thIva" xml:space="preserve">
+    <value>Iva  </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMontoTotal" xml:space="preserve">
+    <value>Monto Total </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMontoUnitario" xml:space="preserve">
+    <value>Monto Unitario </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNombre" xml:space="preserve">
+    <value>Nombre</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNombreContac" xml:space="preserve">
+    <value>Nombre de Contacto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thPorc" xml:space="preserve">
+    <value>%Porc   </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thRamo" xml:space="preserve">
+    <value>Ramo</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thReseña" xml:space="preserve">
+    <value>Reseña</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thSelec" xml:space="preserve">
+    <value>Selec.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thSubTotal" xml:space="preserve">
+    <value>Sub-Total   </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTipo" xml:space="preserve">
+    <value>Tipo  </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="lblASolicitar" xml:space="preserve">
+    <value>A Solicitar</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCotCodelab" xml:space="preserve">
+    <value>N° Cot.:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCOTTRANSFECHARECIBE" xml:space="preserve">
+    <value>Fecha: </value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCOTTRANSORI" xml:space="preserve">
+    <value>Cantidad:</value>
+    <comment>label</comment>
+  </data>
+  <data name="TablaProducto" xml:space="preserve">
+    <value>Productos</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="lblCotSubtotal" xml:space="preserve">
+    <value>Sub Total:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCOTTRANSINVCOD" xml:space="preserve">
+    <value>Cod. Prov</value>
+    <comment>label</comment>
+  </data>
+</root>

@@ -1,0 +1,31 @@
+﻿@using QuasarERPBanking
+
+@model QuasarERPBanking.Models.CentrodeCostoInterno
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Maestro de Proveedores A</title>
+
+    <script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+
+        $("#Contactos").hide();
+        //!$("#CXPCOD").prop('readonly', "true");
+        $("#Actividades").hide();
+
+    });
+    </script>
+</head>
+<body>
+@using (Html.BeginForm("Edit", "CentrodeCostoInterno", FormMethod.Post, new { id = "myform" }))
+{
+    Html.RenderPartial("FormCC_CTESINT");
+}
+</body>
+</html>

@@ -1,0 +1,1612 @@
+﻿@using QuasarERPBanking.Models
+@model QuasarERPBanking.Models.ActivoFijo
+
+
+@{
+
+    var lstCcosto = CentroDistriEstructural.GetCentroCosto();
+    //var lstProve = (new CXP_MAESTRO()).GetProveedores();
+
+
+    //Culture = "en-US";
+    //UICulture = "en-US";
+
+
+    string todaya = DateTime.Now.ToString("MM/dd/yyyy");
+    string today = DateTime.Now.ToString("dd/MM/yyyy");
+
+
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="internal-window" style="width:100%; max-width:80%; min-width:80%;" id="ActivoFijo">
+
+    <div class="internal-title">
+        <h2>@Resources.ActivoFijo.StringResources.BarrTittle</h2>
+        <a href="/">
+            <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
+        </a>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+    <div class="icon-bar" border="0">
+
+        <img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="@Resources.StringResources.GlobalButtonNew" id="nuevo" onclick="window.location.href = '/ActivoFijo/Create'; " />
+
+        <img src="../../Content/themes/base/images/search-icon.png" alt="Buscar" id="Buscar" title="@Resources.StringResources.GlobalButtonBuscar" onclick="window.location.href = '/ActivoFijo'" />
+
+        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminar();" />
+
+        @*<img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="submitform('myform');" />*@
+
+        @*<img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" id="load1" title="@Resources.StringResources.GlobalButtonUp" onclick="submitform('myform');" />*@
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" id="load1" title="@Resources.StringResources.GlobalButtonUp" onclick="EditarEtiq();" />
+
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" id="load2" title="@Resources.StringResources.GlobalButtonUp" onclick="FuncionGuardar()" />
+
+
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="window.location.href ='/';" />
+
+        <img src="../../Content/themes/base/images/search-icon.png" alt="Buscar" title="@Resources.ActivoFijo.StringResources.BtnBuscSerial" onclick="window.location.href = '/AF_SERIALES'" />
+
+
+
+    </div>
+
+
+
+    <div class="CajaRell">
+        <div class="ParrafoAfBanner">
+            <div class="P2BannerActFij1">
+                <div style="position: relative;color: #ffffff;text-align: center;">
+
+                    <img src="../../Content/themes/base/images/banner1.png" style="max-width: 100%;height: 90px;">
+                    <div class="text" id="text">
+                        <b>@Resources.ActivoFijo.StringResources.Banner</b>
+                    </div>
+                </div>
+            </div>
+            <div class="PBannerActFij">
+
+                <div style="height:35px; width:90px;float:left;padding: 5px;">
+                    <label style="color:black" class="limpiar"><b>@Resources.StringResources.LblGlobalBusq</b></label>
+                </div>
+
+                <div>
+                    <input type="text" id="AF_ETIQ_" data-autocomplete="@Url.Action("getActivo", "ActivoFijo")" autocomplete="on" style="width:100%;max-width:50%;float:left;" class="radius, form-control input-number" />
+
+
+
+                </div>
+
+            </div>
+            <div class="P2BannerActFij">
+                <div style="display: inline-block;position: relative;color: #ffffff;text-align: center;">
+
+                    <img src="../../Content/themes/base/images/banner1.png" style="max-width: 100%;height: 90px;">
+                    <div class="text" id="text">
+                        <b>@Resources.ActivoFijo.StringResources.Banner</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="float:left; width:100%;">
+            <div style="width:60%;padding: 5px 1px 10px 10px;float: left;">
+                @Html.LabelFor(model => model.AF_FECH, new { @class = "limpiar" })
+                @Html.TextBoxFor(model => model.AF_FECH, "{0:dd/MM/yyyy}", new
+       {
+           style = "width: 200px; padding-left:10px"@*, @type = "datetime-local"*@,
+           @class = "form-control limpiar asigna",
+           @Value = Util.FechaQuasar,
+           placeholder = Resources.StringResources.GlobalDateLarga
+       })
+
+            </div>
+            <div style="float: left;width: 15%;">
+                @Html.CheckBoxFor(model => model.AF_DEPREC, new { @class = "asigna" })
+                @Html.LabelFor(model => model.AF_DEPREC, new { @class = "limpiar" })
+                @*@Html.TextBoxFor(model => model.AF_DEPREC,null, null)*@
+            </div>
+            <div style="width:24%; float:left;height: 70px;">
+                <div id="asireasi">
+                    <fieldset class="ventanaFieldset">
+                        <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.lblStatus</b></legend>
+                        <div>
+                            <div>
+                                <i>
+                                    <b>
+                                        @Html.TextBoxFor(model => model.AF_DES, new { style = "size=40; width:160px; border:none; background-color:transparent; readonly:", @class = "limpiar" })
+                                    </b>
+                                </i>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:100%; float:left;">
+
+            <fieldset class="ventanaFieldset">
+                <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetDAct</b></legend>
+
+                <div id="etiquetas">
+                    <div class="ParraAFdatos">
+                        <div class="PAFdatos1">
+                            <div class="PAFdatos1-1">
+                                @Html.LabelFor(model => model.AF_ETIQ, new { @class = "limpiar", style = "float: left;padding: 5px;" })
+                                <div style="float: left;">
+                                    @Html.TextBoxFor(model => model.AF_ETIQ, new { style = "size=40; width:100%;float: left;", @class = "form-control limpiar asigna" })
+                                </div>
+                            </div>
+
+                            <div class="PAFdatos1-2">
+                                @Html.LabelFor(model => model.AF_SERIAL, new { @class = "limpiar", style = "float: left;padding: 5px;" })
+                                <div style="float: left;">
+                                    @Html.TextBoxFor(model => model.AF_SERIAL, new { style = "size=40; width:100%;float: left;", @class = "form-control limpiar asigna" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="PAFdatos2">
+                            <div class="PAFdatos2-1">
+                                @Html.LabelFor(model => model.AF_CODPERT, new { @class = "limpiar", style = "float: left; padding: 5px;" })
+                                <div style="float: left;">
+                                    @Html.TextBoxFor(model => model.AF_CODPERT, new { style = "size=40; width:100%;float: left;", @class = "form-control limpiar asigna" })
+                                </div>
+                            </div>
+
+
+                            <div class="PAFdatos2-2">
+                                @Html.LabelFor(model => model.AF_CTOUNIT, new { @class = "limpiar", style = "float: left;padding: 5px;" })
+                                <div style="float: left;">
+                                    @Html.TextBoxFor(model => model.AF_CTOUNIT, new { style = "size=40; width:100%;float: left;", @class = "form-control limpiar asigna" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="cantidades">
+                    <tr>
+                        <td style="width:150px; color:#894952; font-size:11px">
+                            <label style="font-weight:bolder;">@Resources.ActivoFijo.StringResources.lblRest</label>
+                            <span id="MAXETIQ"></span>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td width="100px">
+                            @Html.LabelFor(model => model.cantidad, new { @class = "limpiar" })
+                        </td>
+
+                        <td width="120px">
+
+                            @Html.TextBoxFor(model => model.cantidad, new { style = "size=40; width:100px;", @class = "form-control limpiar", })
+                            @*<input type="text" id="AF_ETIQ" style="width:100px;" class="limpiar" />*@
+
+                        </td>
+                        <td width="100px">
+                            @Html.LabelFor(model => model.AF_CTOUNIT, new { @class = "limpiar" })
+                        </td>
+
+                        <td width="120px">
+
+                            @Html.TextBoxFor(model => model.AF_CTOUNIT, new { id = "costo_", style = "size=40; width:100px;", @class = "form-control limpiar" })
+
+                        </td>
+                        <td width="100px">
+                            @Html.LabelFor(model => model.AF_VALRES, new { @class = "limpiar" })
+                        </td>
+
+                        <td>
+
+                            @Html.TextBoxFor(model => model.AF_VALRES, new { style = "size=40; width:100px;", @class = "form-control limpiar" })
+                        </td>
+
+                    </tr>
+                </table>
+
+                <div style="width:100%; float:left;">
+                    <div>
+                        <fieldset class="ventanaFieldset">
+                            <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetPrAso</b></legend>
+
+
+                            <div style="display: table;clear: both; max-width:99% ;min-width:99%">
+                                <div class="parrafoAf">
+                                    <div>
+                                        @Html.LabelFor(model => model.AF_CODACT, new { @class = "limpiar", style = "float:left;padding: 5px;width: 35%;" })
+                                        @Html.TextBoxFor(model => model.AF_CODACT, new { style = "size=40;width: 55%;", @class = "form-control limpiar asigna" })
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.af_maestro.AFNOM, new { @class = "limpiar", style = "float:left;padding: 5px;width: 35%;" })
+                                        @Html.TextBoxFor(model => model.af_maestro.AFNOM, new { style = "size=40; width: 55%; ", @class = "form-control limpiar" })
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.AF_MOD, new { @class = "limpiar", style = "float:left;padding: 5px;width: 35%;" })
+                                        @Html.TextBoxFor(model => model.AF_MOD, new { style = "size=40;width: 55%; ", @class = "form-control limpiar asigna" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div style="display: table;clear: both; max-width:99% ;min-width:99%">
+                                <div class="parrafoAf2">
+                                    <div>
+                                        @Html.LabelFor(model => model.af_maestro.AFUNIDAD, new { @class = "limpiar", style = "float:left; padding: 5px;" })
+                                        @Html.TextBoxFor(model => model.af_maestro.AFUNIDAD, new { style = "size=40;width: 55%;", @class = "form-control limpiar" })
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.ActivoFijoGrupos.AFGRUDES, new { @class = "limpiar", style = "float:left; padding: 5px;" })
+                                        @Html.TextBoxFor(model => model.ActivoFijoGrupos.AFGRUDES, new { style = "size=40;width: 55%; ", @class = "form-control limpiar" })
+
+                                    </div>
+                                    <div>
+                                        @Html.LabelFor(model => model.AF_MARCA, new { @class = "limpiar", style = "float:left; padding: 5px;" })
+                                        @Html.TextBoxFor(model => model.AF_MARCA, new { style = "size=40; width: 55%;", @class = "form-control limpiar asigna" })
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="ParraAFdatos">
+                    <fieldset class="ventanaFieldset">
+                        <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetDatAsig</b></legend>
+
+                        <div class="ParraAFdatos">
+
+                            <div class="PAFdatos1">
+                                <div class="PAFdaAq-1">
+                                    @Html.LabelFor(model => model.AF_FECHREAL, new { @class = "limpiar", style = "float:left" })
+
+                                    <div style="float: left;">
+                                        @*@Html.TextBoxFor(model => model.AF_FECHREAL, new { style = "size=40; width:200px;", @class = "limpiar" })*@
+                                        @Html.TextBoxFor(model => model.AF_FECHREAL, "{0:dd/MM/yyyy}", new { style = "width: 100%; padding-left:10px", @class = "form-control datepicker limpiar asigna", placeholder = Resources.StringResources.GlobalDateLarga })
+                                    </div>
+                                </div>
+
+                                <div class="PAFdaAq-2">
+                                    @Html.LabelFor(model => model.AF_CODEMPL, new { @class = "limpiar", style = "float:left" })
+
+                                    <div style="float:left;">
+                                        @*   @Html.TextBoxFor(model => model.AF_CODEMPL, new { style = "size=40; width:100%;", @class = "form-control limpiar asigna" })*@
+                                        @Html.TextBoxFor(model => model.AF_CODEMPL, new { style = "size=40; width:100%;float: left;", @class = "form-control limpiar asigna" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="PAFdatos2">
+                                <div class="PAFdatos2-1">
+                                    @Html.LabelFor(model => model.AF_UBICACION, new { @class = "limpiar", style = "float:left" })
+                                    <div>
+                                        @*@Html.TextBoxFor(model => model.AF_UBICACION, new { style = "size=40; width:64%;", @class = "form-control limpiar asigna" })*@
+                                        @Html.TextBoxFor(model => model.AF_UBICACION, new { style = "size=40; float: left;", @class = "form-control limpiar asigna" })
+                                    </div>
+                                </div>
+
+                                <div class="PAFdatos2-2">
+                                    @Html.LabelFor(model => model.AF_CCTO, new { @class = "limpiar", style = "float:left" })
+                                    <div id="Form-select">
+                                        @Html.DropDownListFor(model => model.AF_CCTO, CentroDistriEstructural.GetCC() as SelectList, Resources.ActivoFijo.StringResources.PlacCCosto, htmlAttributes: new { @class = "form-control limpiar asigna", title = "" })
+                                    </div>
+                                </div>
+                                @*<td align="right">
+                                        @Html.TextBoxFor(model => model.AF_CODEMPL, new { style = "size=40; width:200px;", @class = "limpiar" })
+                                    </td>*@
+                            </div>
+                        </div>
+                        @*<td>
+                                 @Html.DropDownListFor(model => model.AF_CCTO, ((IEnumerable<CC_MAESTRO>)lstCcosto).Select(option => new SelectListItem
+                            { Text = (option == null ? "Ninguno" : option.CC_COD.ToString() + " - " + option.CC_NOMB.ToUpper()), Value = option.CC_COD.ToString(), Selected= (Model != null && Model.AF_CCTO != null && option.CC_COD == Model.AF_CCTO) }), "", new { @onchange = "", style = "width: 200px;", title = "Seleccione un Centro de Costo", @class = "limpiar", })
+                             </td>*@
+                    </fieldset>
+                </div>
+            </fieldset>
+        </div>
+
+
+        @* //////////////////////////////////// |  DATOS DE LA ADQUISICIÓN  | \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
+        <div style="width: 100%;float: left;">
+
+            <fieldset class="ventanaFieldset">
+                <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetDatAdqu</b></legend>
+                <div style="float: left;width: 100%;padding: 0px 15px;">
+                    <div class="PafDatosAquiAF">
+                        <div class="DatosAquiAF">
+                            @Html.LabelFor(model => model.AF_ADQFECHA, new { @class = "limpiar" })
+                            <div>
+                                @*@Html.TextBoxFor(model => model.AF_ADQFECHA, new { style = "size=40; width:200px;", @class = "limpiar" })*@
+                                @Html.TextBoxFor(model => model.AF_ADQFECHA, "{0:dd/MM/yyyy}", new { style = "", @type = "datetime-local", @class = "form-control datepicker limpiar asigna", placeholder = Resources.StringResources.GlobalDateLarga })
+                            </div>
+                        </div>
+
+
+                        <div class="DatosAquiAF">
+                            @Html.LabelFor(model => model.AF_ADQOC, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_ADQOC, new { style = "size=40; ", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="DatosAquiAF">
+                            @Html.LabelFor(model => model.AF_ADQFACT, new { @class = "limpiar" })
+                            <div>
+
+                                @Html.TextBoxFor(model => model.AF_ADQFACT, new { style = "size=40; ", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="PafDatosAquiAF">
+                        <div class="DatosAquiAF">
+                            @Html.LabelFor(model => model.AF_ADQCOMP, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_ADQCOMP, new { style = "size=40;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="DatosAquiAF">
+                            @Html.LabelFor(model => model.AF_ADQPROV, new { @class = "limpiar" })
+                            <div>
+                                @*@Html.DropDownListFor(model => model.AF_ADQPROV, ((IEnumerable<CXP_MAESTRO>)lstProve).Select(option => new SelectListItem
+                                    {
+                                        Text = (option == null ? "Ninguno" : option.CXPCOD.ToString() + " - " + option.CXPNOMBRE.ToUpper()),
+                                        Value = option.CXPCOD.ToString(),
+
+                                        Selected = (Model != null && Model.AF_ADQPROV != null && option.CXPCOD == Model.AF_ADQPROV)
+                                    }), Resources.AF_ASIGNA.StringResources.PlacProve, new { @onchange = "", style = "width:150%", title = "", @class = "form-control limpiar asigna", })*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+
+
+
+
+        <div style="width: 100%;float: left;">
+
+            <fieldset class="ventanaFieldset">
+                <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetDatDepr</b></legend>
+                <div class="ParraDepre">
+
+                    <div class="DatosAquiAF">
+                        @Html.LabelFor(model => model.AF_DEPINI, new { @class = "limpiar" })
+                        <div>
+
+                            @*@Html.TextBoxFor(model => model.AF_DEPINI, new { style = "size=40; width:200px;", @class = "limpiar" })*@
+                            @Html.TextBoxFor(model => model.AF_DEPINI, "{0:dd/MM/yyyy}", new { style = "width: 100px;", @type = "datetime-local", @class = "form-control datepicker limpiar asigna", placeholder = Resources.StringResources.GlobalDateCorta, @onchange = "recalcular_fecha_fin()" })
+
+                        </div>
+                    </div>
+
+
+                    <div class="DatosAquiAF">
+                        @Html.LabelFor(model => model.AF_DEPMESES, new { @class = "limpiar" })
+                        <div>
+
+                            @Html.TextBoxFor(model => model.AF_DEPMESES, new { style = "size=40; width:100px;", @class = "form-control limpiar asigna", @onchange = "recalcular_fecha_fin()" })
+                        </div>
+                    </div>
+
+
+                    <div class="DatosAquiAF">
+                        @Html.LabelFor(model => model.AF_DEPMESESYA, new { @class = "limpiar" })
+                        <div>
+
+                            @Html.TextBoxFor(model => model.AF_DEPMESESYA, new
+                   {
+                       style = "size=40; width:100px;",
+                       @class = "form-control limpiar asigna",
+                       placeholder = "0" @*@Value = 0*@ })
+                        </div>
+                    </div>
+
+
+                    <div class="DatosAquiAF">
+                        @Html.LabelFor(model => model.AF_DEPULT, new { @class = "limpiar" })
+                        <div>
+
+                            @*@Html.TextBoxFor(model => model.AF_DEPULT, new { style = "size=40; width:130px;", @class = "limpiar" })*@
+                            @Html.TextBoxFor(model => model.AF_DEPULT, "{0:dd/MM/yyyy}", new { style = "width: 100px;", @type = "datetime-local", @class = "form-control datepicker limpiar asigna", placeholder = Resources.StringResources.GlobalDateCorta })
+
+                        </div>
+                    </div>
+
+
+                    <div class="DatosAquiAF">
+                        @Html.LabelFor(model => model.AFECHACAL, new { @class = "limpiar" })
+                        <div>
+
+                            @*@Html.TextBoxFor(model => model.AF_DEPULT, new { style = "size=40; width:130px;", @class = "limpiar" })*@
+                            @Html.TextBoxFor(model => model.AFECHACAL, "{0:dd/MM/yyyy}", new { style = "width: 100px;", @type = "datetime-local", @class = "form-control datepicker limpiar", placeholder = Resources.StringResources.GlobalDateCorta })
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </fieldset>
+
+        </div>
+        <div style="width: 100%;float: left;">
+
+            <fieldset class="ventanaFieldset">
+                <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetCtaCon</b></legend>
+                <div class="ParrCuentCont">
+
+                    <div class="CuentContAF">
+                        @Html.LabelFor(model => model.ActivoFijoGrupos.AFGRUCTAACT, new { @class = "limpiar" })
+                        <div>
+
+                            @Html.TextBoxFor(model => model.ActivoFijoGrupos.AFGRUCTAACT, new { style = "size=40; width:200px;", @class = "form-control limpiar" })
+                            @Html.HiddenFor(model => model.AF_CTAACT, new { style = "size=40; width:200px;", @class = "form-control limpiar asigna" })
+                            <a id="ModalCta" onclick="ModalCta(AF_CTAACT.id)" class="btn btn-primary btn-fil disabled">...</a>
+                        </div>
+                    </div>
+
+
+                    <div class="CuentContAF">
+                        @Html.LabelFor(model => model.ActivoFijoGrupos.AFGRUCTAGTODEP, new { @class = "limpiar" })
+                        <div>
+
+                            @Html.TextBoxFor(model => model.ActivoFijoGrupos.AFGRUCTAGTODEP, new { style = "size=40; width:200px;", @class = "form-control limpiar" })
+                            @Html.HiddenFor(model => model.AF_CTAGTODEP, new { style = "size=40; width:200px;", @class = "form-control limpiar asigna" })
+                            <a id="ModalCta2" onclick="ModalCta2(AF_CTAGTODEP.id)" class="btn btn-primary btn-fil disabled">...</a>
+                        </div>
+                    </div>
+
+
+                    <div class="CuentContAF">
+                        @Html.LabelFor(model => model.ActivoFijoGrupos.AFGRUCTADEP, new { @class = "limpiar" })
+                        <div>
+                            @Html.TextBoxFor(model => model.ActivoFijoGrupos.AFGRUCTADEP, new { style = "size=40; width:200px;", @class = "form-control limpiar" })
+                            @Html.HiddenFor(model => model.AF_CTADEP, new { style = "size=40; width:200px;", @class = "form-control limpiar asigna" })
+                            @Html.HiddenFor(model => model.AF_DEPMESES, new { style = "size=40; width:200px;", @class = "form-control limpiar asigna" })
+                            <a id="ModalCta3" onclick="ModalCta3(AF_CTADEP.id)" class="btn btn-primary btn-fil disabled">...</a>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </fieldset>
+
+        </div>
+
+        <div style="float:left; width:100%;">
+            <div id="montos">
+                <fieldset class="ventanaFieldset">
+                    <legend class="limpiar"><b>@Resources.ActivoFijo.StringResources.FieldsetMontAct</b></legend>
+
+                    <div class="MontActAF">
+                        <div class="PAMontActAF1">
+                            @Html.LabelFor(model => model.AF_VALACT, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_VALACT, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+                        <div class="PAMontActAF1">
+                            @Html.LabelFor(model => model.AF_VALLIB, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_VALLIB, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+                        <div class="PAMontActAF1">
+                            @Html.LabelFor(model => model.AF_MEJORA, new { @class = "limpiar" })
+                            <div>
+
+                                @Html.TextBoxFor(model => model.AF_MEJORA, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="MontActAF">
+                        <div class="PAMontActAF2">
+                            @Html.LabelFor(model => model.AF_VALRES, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_VALRES, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna", @Value = 0 })
+                            </div>
+                        </div>
+
+
+                        <div class="PAMontActAF2">
+                            @Html.LabelFor(model => model.AF_DEPACC, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_DEPACC, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="MontActAF">
+                        <div class="PAMontActAF1">
+                            @Html.LabelFor(model => model.AF_VALORI, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_VALORI, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+                        <div class="PAMontActAF1">
+                            @Html.LabelFor(model => model.AF_ALICUOTA, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_ALICUOTA, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+                        <div class="PAMontActAF1">
+                            @Html.LabelFor(model => model.AF_PVP, new { @class = "limpiar" })
+                            <div>
+                                @Html.TextBoxFor(model => model.AF_PVP, new { style = "size=40; width:130px;", @class = "form-control limpiar asigna" })
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div>
+
+            <div id="usuario">
+                    <div class="MontActAF">
+                        @Html.LabelFor(model => model.AF_USUARIO, new { @class = "limpiar" })
+                        <div>
+                            <i>
+                                <b>
+                                    @Html.TextBoxFor(model => model.AF_USUARIO, new { style = "size=40; width:130px; border:none; background-color:transparent;", @class = "limpiar asigna" })
+                                </b>
+                            </i>
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="ListCntaCont" style="overflow-y: scroll;">
+        <div @*style="width:100%; padding-top: 5px;"*@ class="modal-dialog" role="document">
+            <div class="modal-content" style="height: 430px;width: 580px;">
+
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    <fieldset class="ventanaFieldset">
+                        <legend style="text-align: center;margin: 0px 85px;font-size: 15px;" class="legend">Cuentas Contables</legend>
+                        <div class="CuadroServCta">
+                            <table style="width:518px; clear:both; margin: inherit" id="tblCtaServ" cellpadding="0" cellspacing="0" border="0">
+                                <thead>
+                                    <tr>
+                                        <th style="width:45%; font-size: 11px;">
+                                            Código
+                                            <input class="BusqCnt form-control ui-autocomplete-input valid" type="text" id="CodCntaCont_" style="width:100%; text-align:right" autocomplete="off">
+                                        </th>
+                                        <th style="width:55%; font-size: 11px;">
+                                            Nombre
+                                            <input class="BusqCnt form-control ui-autocomplete-input valid" type="text" id="DesCntaCont_" style="width:100%;" autocomplete="off">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+@Html.ValidationSummary()
+
+
+
+<script type="text/javascript">
+    //$("#costo_").numericInput();
+
+    $("#costo_").numericInput({ allowFloat: true });
+
+
+
+
+    ///// funcion para separadores de mil y dos decimales (cambiar {4} por {2} para cantidad de decimales)
+    $("#costo_").on({
+        "focus": function (event) {
+            $(event.target).select();
+        },
+        "keyup": function (event) {
+            $(event.target).val(function (index, value) {
+                return value.replace(/\D/g, "")
+                            .replace(/([0-9])([0-9]{2})$/, '$1,$2')
+                //.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+            });
+        }
+    });
+
+    $('.input-number').on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    $(function () {
+
+
+        $("#AF_ETIQ_").numericInput();
+        $("#AF_VALRES").numericInput();
+        $("#AF_ADQOC").numericInput();
+        $("#AF_ADQFACT").numericInput();
+        $("#AF_ADQCOMP").numericInput();
+        $("#AF_DEPMESES").numericInput();
+
+        $("#load2").hide();
+
+
+        //// montos del activo
+        $("#AF_VALACT").prop('readonly', true);
+
+        $("#AF_VALORI").prop('readonly', true);
+        $("#AF_VALLIB").prop('readonly', true);
+        $("#AF_DEPACC").prop('readonly', true);
+        $("#AF_ALICUOTA").prop('readonly', true);
+        $("#AF_MEJORA").prop('readonly', true);
+        $("#AF_PVP").prop('readonly', true);
+
+        /////datos de depreciacion
+        $("#AF_DEPMESESYA").prop('readonly', true);
+        $("#AF_DEPULT").prop('readonly', true);
+        $("#AFECHACAL").prop('readonly', true);
+
+        $("#AF_FECH").prop('readonly', true);
+
+        $("#af_maestro_AFUNIDAD").prop('disabled', true);
+        $("#af_grupos_AFGRUDES").prop('disabled', true);
+        $("#af_maestro_AFNOM").prop('disabled', true);
+
+        //$("AF_VALRES").prop('disabled', true);
+        //$("input").prop('disabled', false);
+
+        //$("#etiqueta").hide();
+        $("#busquedaCod").hide();
+        //$("#busquedaCod").show();
+        $("#cantidades").hide();
+        //$("#cantidades").show();
+
+        //inhabilitartodo();
+        $("#AF_ETIQ_").prop('disabled', false);
+        $("#AF_DEPREC").prop('checked', true);
+        $("#AF_ETIQ_").val("");
+
+
+
+
+
+
+        $("#AF_CTOUNIT").numericInput({ allowFloat: true });
+
+        $("#AF_CTOUNIT").on({
+            "focus": function (event) {
+                $(event.target).select();
+            },
+            "keyup": function (event) {
+                $(event.target).val(function (index, value) {
+                    return value.replace(/\D/g, "")
+                                .replace(/([0-9])([0-9]{2})$/, '$1,$2')
+                    //.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+                });
+            }
+        });
+        //$("#costo_").change(function () {
+
+        //    alert($("#costo_").val());
+        //});
+
+        $("#AF_CTOUNIT").change(function () {
+
+            //////////////para cambiar el punto por la coma/////////////
+            //var elem = $("#AF_CTOUNIT").val();
+            //elem = elem.replace(".", ",");
+            ////alert(elem);
+            ////event.val(elem);
+            ////event = elem;
+            //$("#AF_CTOUNIT").val(elem);
+            //alert($("#AF_CTOUNIT").val());
+
+
+
+            //a($("#AF_CTOUNIT").val());
+
+
+            if (!$("#AF_CTOUNIT").prop('readonly')) {
+                var AF_CTOUNIT = $("#AF_CTOUNIT").val();
+
+                $("#AF_VALACT").val(AF_CTOUNIT);
+                $("#AF_VALORI").val(AF_CTOUNIT);
+
+                //para calcular alicuota
+                var AF_VALACT = $("#AF_VALACT").val();
+                AF_VALACT = AF_VALACT.replace(",", ".");
+                var AF_DEPMESES = $("#AF_DEPMESES").val();
+                var AF_ALICUOTA = AF_VALACT / AF_DEPMESES;
+                //AF_ALICUOTA = AF_ALICUOTA.replace(".", ",");
+
+                //para calcular valor libro
+                var AF_DEPACC = $("#AF_DEPACC").val();
+                var AF_VALLIB = AF_VALACT - AF_DEPACC;
+                //AF_VALLIB = AF_VALLIB.replace(".", ",");
+
+
+                $("#AF_ALICUOTA").val(AF_ALICUOTA.toFixed(2).replace(".", ","));
+                $("#AF_VALLIB").val(AF_VALLIB.toFixed(4).replace(".", ","));
+
+                //AF_VALLIB
+                //AF_DEPACC
+                //AF_ALICUOTA
+
+            }
+        });
+
+
+
+        //$("#AF_DEPMESES").change(function () {
+
+
+        //    var AF_DEPMESES = $("#AF_DEPMESES").val();
+        //    AF_DEPMESES = AF_DEPMESES / 12;
+        //    alert(AF_DEPMESES);
+        //        var AF_DEPINI = $("#AF_DEPINI").val();
+        //        var AF_DEPINI = new Date();
+        //        AF_DEPINI.setYear(AF_DEPINI.getYear() + AF_DEPMESES);
+
+        //        //mes = AF_DEPINI.getMonth() + AF_DEPMESES;
+        //        alert(AF_DEPINI);
+
+
+        //        var AFECHACAL = AF_DEPINI;
+        //        //AFECHACAL = AF_DEPINI.AddMonths(AF_DEPMESES);
+        //        $("#AFECHACAL").val(AFECHACAL);
+        //});
+
+        $("#AF_DEPINI").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+        });
+        $("#AFECHACAL").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+        });
+
+
+        $("#cantidad").numericInput();
+
+
+        $("#cantidad").change(function () {
+
+            var cantidad = $("#cantidad").val();
+            var af_codact = $("#AF_CODACT").val();
+            var maxetiq = $("#MAXETIQ").html();
+            //alert(cantidad);
+            if (cantidad == "" || cantidad == null) {
+                //alert("Introduzca la cantidad de etiquetas a generar");
+                alert('@Resources.ActivoFijo.StringResources.msgIntCant');
+                $('#cantidad').focus();
+
+            }
+            else if (cantidad == 0) {
+                //alert('La cantidad debe ser un número MAYOR que cero');
+                alert('@Resources.ActivoFijo.StringResources.msgCantMen');
+                $("#cantidad").val("");
+                $("#cantidad").focus();
+            }
+            else if (cantidad > maxetiq) {
+                //alert('La cantidad debe ser un número MENOR o igual a la cantidad de Etiquetas Restantes');
+                alert('@Resources.ActivoFijo.StringResources.msgCantMay');
+                $("#cantidad").val("");
+                $("#cantidad").focus();
+            }
+            else {
+                //alert("a");
+                loadcantidad(af_codact, cantidad);
+
+            }
+        });
+
+        function loadcantidad(af_codact, cantidad) {
+
+            //alert(cantidad);
+            $.ajax({
+                url: "/ActivoFijo/getCantidad?af_codact=" + af_codact + "&cantidad=" + cantidad,
+                success: function (tabla) {
+                    //alert(tabla);
+                    //$('#tblSerial  tbody  tr').remove();
+                    //$('#tblSerial').append(tabla);
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+        $("#asireasi").hide();
+        $("#AF_DES").prop('readonly', true);
+        $("#AF_USUARIO").prop('readonly', true);
+        // DATEPICKER
+        loadDatePicker();
+        $.datepicker.setDefaults($.datepicker.regional["@QuasarERPBanking.Models.ParametrosGlobales.culture"]);
+        $('.datepicker').datepicker(
+       {
+           format: 'dd/mm/yy',
+           startDate: '-3d',
+           onSelect: function () {
+               //return $(this).trigger('change');
+               //alert("prueba");
+           }
+       }); //Initialise any date pickers
+
+
+
+
+
+        //AUTOCOMPLETE Y LLENADO DE LOS CAMPOS
+        $("#AF_ETIQ_").each(function () {
+
+            $("#AF_ETIQ_").autocomplete({
+                source: "@Url.Action("getActivo", "ActivoFijo")",
+                minLength: 3,
+                select: function (event, ui) {
+
+                    if (ui.item) {
+
+                        $.ajax({
+                            url: "/ActivoFijo/getActAutocom?term=" + ui.item.value,
+                            success: function (data) {
+
+                                habilitartodo();
+                                //window.location.replace("/CXP_MAESTRO/Edit?cxp_maestro=" + data);
+                                //alert(data.af_maestro.AFNOM);
+
+                                $("#AF_CODACT").val(data.AF_CODACT);
+                                $("#AF_CODEMPL").val(data.AF_CODEMPL);
+                                $("#AF_SERIAL").val(data.AF_SERIAL);
+                                $("#AF_FECH").val(data.strAFFECH);
+                                $("#AF_FECHREAL").val(data.strAFFECHREAL);
+                                $("#AF_CCTO").val(data.AF_CCTO);
+                                $("#AF_USUARIO").val(data.AF_USUARIO);
+                                $("#AF_ETIQ").val(data.AF_ETIQ);
+                                $("#AF_DEPINI").val(data.strAFDEPINI);
+                                $("#AF_DEPULT").val(data.strAFDEPULT);
+                                $("#AF_DEPMESES").val(data.AF_DEPMESES);
+                                $("#AF_DEPMESESYA").val(data.AF_DEPMESESYA);
+                                $("#AF_ORGCOSTO").val(data.AF_ORGCOSTO);
+                                $("#AF_ORGFECHA").val(data.AF_ORGFECHA);
+                                $("#AF_ORGMESESDEP").val(data.AF_ORGMESESDEP);
+                                $("#AF_ADQFECHA").val(data.strAFADQFECHA);
+                                $("#AF_ADQOC").val(data.AF_ADQOC);
+                                $("#AF_ADQFACT").val(data.AF_ADQFACT);
+                                $("#AF_ADQCOMP").val(data.AF_ADQCOMP);
+                                $("#AF_ADQCONT").val(data.AF_ADQCONT);
+                                $("#AF_ADQVIGD").val(data.AF_ADQVIGD);
+                                $("#AF_ADQVIGH").val(data.AF_ADQVIGH);
+                                $("#AF_ADQPROV").val(data.AF_ADQPROV);
+                                //$("#AF_CTAACT").val(data.AF_CTAACT);
+                                //$("#AF_CTAGTODEP").val(data.AF_CTAGTODEP);
+                                //$("#AF_CTADEP").val(data.AF_CTADEP);
+                                //$("#AF_CTAACT").val(data.AF_CTAACT);data.ActivoFijoGrupos.AFGRUCTAACT
+                                $("#AF_CTAACT").val(data.ActivoFijoGrupos.AFGRUCTAACT);
+                                $("#AF_CTAGTODEP").val(data.ActivoFijoGrupos.AFGRUCTAGTODEP);
+                                $("#AF_CTADEP").val(data.ActivoFijoGrupos.AFGRUCTADEP);
+                                $("#AF_DEPMESES").val(data.ActivoFijoGrupos.AFGRUMESES);
+                                $("#AF_VALACT").val(data.AF_VALACT);
+                                $("#AF_VALRES").val(data.AF_VALRES);
+                                $("#AF_VALORI").val(data.AF_VALORI);
+                                $("#AF_DEPACC").val(data.AF_DEPACC);
+                                $("#AF_DEPSEM").val(data.AF_DEPSEM);
+                                $("#AF_ALICUOTA").val(data.AF_ALICUOTA);
+                                $("#AF_VALLIB").val(data.AF_VALLIB);
+                                $("#AF_CANT").val(data.AF_CANT);
+                                $("#AF_MODIFFECHA").val(data.AF_MODIFFECHA);
+                                $("#AF_MODIFHORA").val(data.AF_MODIFHORA);
+                                $("#AF_MODIFUSUA").val(data.AF_MODIFUSUA);
+                                $("#AF_DESFECHA").val(data.AF_DESFECHA);
+                                $("#AF_DES").val(data.AF_DES);
+                                $("#AF_MEJORA").val(data.AF_MEJORA);
+                                $("#AF_PVP").val(data.AF_PVP);
+                                $("#AF_CTOUNIT").val(data.AF_CTOUNIT);
+                                $("#AF_TPOGAR").val(data.AF_TPOGAR);
+                                $("#AF_NROGAR").val(data.AF_NROGAR);
+                                $("#AF_PROVGAR").val(data.AF_PROVGAR);
+                                $("#AF_TELPROVGAR").val(data.AF_TELPROVGAR);
+                                $("#AF_DIRGAR").val(data.AF_DIRGAR);
+                                $("#AF_MARCA").val(data.AF_MARCA);
+                                $("#AF_MOD").val(data.AF_MOD);
+                                $("#AF_FEVENC").val(data.AF_FEVENC);
+                                $("#AF_OBS").val(data.AF_OBS);
+                                $("#AF_UBICACION").val(data.AF_UBICACION);
+                                $("#AF_CODPERT").val(data.AF_CODPERT);
+                                //$("#AF_DEPREC").val(data.AF_DEPREC);
+                                $("#AF_DEPREC").prop('checked', data.AF_DEPREC);
+                                $("#AF_DEPANT").val(data.AF_DEPANT);
+                                $("#AF_ULTDEP").val(data.AF_ULTDEP);
+                                $("#AF_BIENNAC").val(data.AF_BIENNAC);
+                                $("#AF_PARAM1").val(data.AF_PARAM1);
+                                $("#AF_DESCBIEN").val(data.AF_DESCBIEN);
+                                $("#AF_CLASBIEN").val(data.AF_CLASBIEN);
+                                $("#AF_ETIQ_IMPRE").val(data.AF_ETIQ_IMPRE);
+                                $("#AFCTAACTOLD").val(data.AFCTAACTOLD);
+                                $("#AFCTADEPOLD").val(data.AFCTADEPOLD);
+                                $("#AFCTAGTOOLD").val(data.AFCTAGTOOLD);
+                                $("#AF_ETIQ_CONCILIA").val(data.AF_ETIQ_CONCILIA);
+                                $("#AF_COLOR").val(data.AF_COLOR);
+                                $("#AF_MATERIAL").val(data.AF_MATERIAL);
+                                $("#AFECHACAL").val(data.strAFECHACAL);
+
+                                //AFECHACAL = AF_DEPINI.AddMonths(AF_DEPMESES);
+
+                                $("#af_maestro_AFNOM").val(data.af_maestro.AFNOM);
+                                $("#af_maestro_AFUNIDAD").val(data.af_maestro.AFUNIDAD);
+
+                                $("#af_grupos_AFGRUDES").val(data.ActivoFijoGrupos.AFGRUDES);
+                                $("#af_grupos_AFGRUCTAACT").val(data.ActivoFijoGrupos.AFGRUCTAACT);
+                                $("#af_grupos_AFGRUCTADEP").val(data.ActivoFijoGrupos.AFGRUCTADEP);
+                                $("#af_grupos_AFGRUCTAGTODEP").val(data.ActivoFijoGrupos.AFGRUCTAGTODEP);
+                                $("#af_grupos_AFGRUMESES").val(data.ActivoFijoGrupos.AFGRUMESES);
+
+
+
+                                $("#AF_ETIQ_").val("");
+                                //$("#AF_ETIQ_").prop('disabled', true);
+
+                                $("#AF_ETIQ").prop('readonly', true);
+                                $("#AF_CODACT").prop('readonly', true);
+                                //$("#AF_VALRES").prop('readonly', true);
+
+
+                                if ($("#AF_DES").val() == "Asignado" || $("#AF_DES").val() == "Desincorporado") {
+                                    $("#asireasi").hide();
+                                }
+                                else {
+                                    $("#asireasi").show();
+                                }
+
+                                ////quitar atributos datepicker
+                                $("#AF_FECHREAL").datepicker("destroy");
+                                $("#AF_FECHREAL").prop('readonly', true);
+
+                                //$("#AF_FECHREAL").datepicker("destroy");
+                                //$("#AF_FECHREAL").prop('readonly', true);
+
+
+                                //$("#AF_FECH").prop('readonly', true);
+
+                                //$("#AF_CTOUNIT").prop('readonly', true);
+                                //$("#AF_CODACT").prop('readonly', true);
+                                //$("#AF_FECHREAL").prop('readonly', true);
+                                //$("#AF_DEPINI").prop('readonly', true);
+                                //$("#AF_DEPMESES").prop('readonly', true);
+                                //$("#AF_DEPMESESYA").prop('readonly', true);
+                                //$("#AF_DEPULT").prop('readonly', true);
+                                //$("#AFECHACAL").prop('readonly', true);
+                                //$("#AF_VALACT").prop('readonly', true);
+                                //$("#AF_VALLIB").prop('readonly', true);
+                                //$("#AF_MEJORA").prop('readonly', true);
+                                //$("#AF_VALRES").prop('readonly', true);
+                                //$("#AF_DEPACC").prop('readonly', true);
+                                //$("#AF_VALORI").prop('readonly', true);
+                                //$("#AF_ALICUOTA").prop('readonly', true);
+                                //$("#AF_PVP").prop('readonly', true);
+
+
+
+
+                            }
+                        });
+                    }
+                    else {
+                        alert('@Resources.MANTENIMIENTO.StringResources.msgJQError');
+                    }
+                },
+                error: function () {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQAutoc');   // remember to call response() even if ajax failed
+                }
+            });
+        });
+
+
+
+        @*//AUTOCOMPLETE Y LLENADO DE LOS CAMPOS AL BUSCAR POR CODIGO DE ACTIVO
+        $("#AFCOD_").each(function () {
+
+            $("#AFCOD_").autocomplete({
+                source: "@Url.Action("getProdAsigna", "Productos")",
+                minLength: 3,
+            select: function (event, ui) {
+
+                if (ui.item) {
+
+                    $.ajax({
+                        url: "/Productos/getProAutocom?term=" + ui.item.value,
+                        success: function (data) {
+
+                            habilitartodo();
+
+
+                            $("#AFNOM").val(data.AFNOM);
+                            $("#AFDES").val(data.AFDES);
+                            $("#AFGRU").val(data.AFGRU);
+                            $("#AFTIP").val(data.AFTIP);
+                            $("#AFDEP").val(data.AFDEP);
+                            $("#AFMAR").val(data.AFMAR);
+                            $("#AFMOD").val(data.AFMOD);
+                            $("#AFCOD").val(data.AFCOD);
+                            $("#AFUNIDAD").val(data.AFUNIDAD);
+                            $("#AFCATESPECCOD").val(data.AFCATESPECCOD);
+                            $("#AFEXI").val(data.AFEXI);
+                            $("#AFUNIASIG").val(data.AFUNIASIG);
+                            $("#calculo").val(data.calculo);
+
+
+
+                            loadActivo(data.AFCOD);
+                            $("#AFCOD").prop('readonly', true);
+
+                            $("#AFCOD_").val("");
+                            //$("#AFCOD_").prop('readonly', false);
+
+                            //AFUNIASIG SON LAS UNIDADES ASIGNADAS
+                            //POR ASIGNAR SE CALCULA NO SE GUARDA EN LA BD
+                            //AFEXI SON LAS UNIDADES TOTALES
+
+
+                        }
+                    });
+                }
+                else {
+                    alert("Error");
+                }
+            },
+            error: function () {
+                alert("Error al Autocompletar");   // remember to call response() even if ajax failed
+            }
+        });
+    });*@
+
+
+
+
+
+        //AUTOCOMPLETE Y LLENADO DE LOS CAMPOS AL BUSCAR POR CODIGO DE ACTIVO
+        $("#codigo_").each(function () {
+
+            $("#codigo_").autocomplete({
+                source: "@Url.Action("getCodigo", "ActivoFijo")",
+                minLength: 3,
+                select: function (event, ui) {
+
+                    if (ui.item) {
+
+                        $.ajax({
+                            url: "/ActivoFijo/getProdAutocom?term=" + ui.item.value,
+                            success: function (data) {
+                                //alert("bbbb");
+                                habilitartodo();
+                                //window.location.replace("/CXP_MAESTRO/Edit?cxp_maestro=" + data);
+                                //alert(data.af_maestro.AFNOM);
+
+                                //$("#AF_CODACT").val(data.AF_CODACT);
+                                //$("#AF_CODEMPL").val(data.AF_CODEMPL);
+                                //$("#AF_SERIAL").val(data.AF_SERIAL);
+                                //$("#AF_FECH").val(data.strAFFECH);
+                                //$("#AF_FECHREAL").val(data.strAFFECHREAL);
+                                //$("#AF_CCTO").val(data.AF_CCTO);
+                                //$("#AF_USUARIO").val(data.AF_USUARIO);
+                                ////$("#AF_ETIQ").val(data.AF_ETIQ);
+                                //$("#AF_DEPINI").val(data.strAFDEPINI);
+                                //$("#AF_DEPULT").val(data.strAFDEPULT);
+                                //$("#AF_DEPMESES").val(data.AF_DEPMESES);
+                                //$("#AF_DEPMESESYA").val(data.AF_DEPMESESYA);
+                                //$("#AF_ORGCOSTO").val(data.AF_ORGCOSTO);
+                                //$("#AF_ORGFECHA").val(data.AF_ORGFECHA);
+                                //$("#AF_ORGMESESDEP").val(data.AF_ORGMESESDEP);
+                                //$("#AF_ADQFECHA").val(data.strAFADQFECHA);
+                                //$("#AF_ADQOC").val(data.AF_ADQOC);
+                                //$("#AF_ADQFACT").val(data.AF_ADQFACT);
+                                //$("#AF_ADQCOMP").val(data.AF_ADQCOMP);
+                                //$("#AF_ADQCONT").val(data.AF_ADQCONT);
+                                //$("#AF_ADQVIGD").val(data.AF_ADQVIGD);
+                                //$("#AF_ADQVIGH").val(data.AF_ADQVIGH);
+                                //$("#AF_ADQPROV").val(data.AF_ADQPROV);
+                                //$("#AF_CTAACT").val(data.AF_CTAACT);
+                                //$("#AF_CTAGTODEP").val(data.AF_CTAGTODEP);
+                                //$("#AF_CTADEP").val(data.AF_CTADEP);
+                                ////$("#AF_VALACT").val(data.AF_VALACT);
+                                ////$("#AF_VALRES").val(data.AF_VALRES);
+                                ////$("#AF_VALORI").val(data.AF_VALORI);
+                                ////$("#AF_DEPACC").val(data.AF_DEPACC);
+                                //$("#AF_DEPSEM").val(data.AF_DEPSEM);
+                                ////$("#AF_ALICUOTA").val(data.AF_ALICUOTA);
+                                ////$("#AF_VALLIB").val(data.AF_VALLIB);
+                                //$("#AF_CANT").val(data.AF_CANT);
+                                //$("#AF_MODIFFECHA").val(data.AF_MODIFFECHA);
+                                //$("#AF_MODIFHORA").val(data.AF_MODIFHORA);
+                                //$("#AF_MODIFUSUA").val(data.AF_MODIFUSUA);
+                                //$("#AF_DESFECHA").val(data.AF_DESFECHA);
+                                //$("#AF_DES").val(data.AF_DES);
+                                ////$("#AF_MEJORA").val(data.AF_MEJORA);
+                                ////$("#AF_PVP").val(data.AF_PVP);
+                                //$("#AF_CTOUNIT").val(data.AF_CTOUNIT);
+                                //$("#AF_TPOGAR").val(data.AF_TPOGAR);
+                                //$("#AF_NROGAR").val(data.AF_NROGAR);
+                                //$("#AF_PROVGAR").val(data.AF_PROVGAR);
+                                //$("#AF_TELPROVGAR").val(data.AF_TELPROVGAR);
+                                //$("#AF_DIRGAR").val(data.AF_DIRGAR);
+                                //$("#AF_MARCA").val(data.AF_MARCA);
+                                //$("#AF_MOD").val(data.AF_MOD);
+                                //$("#AF_FEVENC").val(data.AF_FEVENC);
+                                //$("#AF_OBS").val(data.AF_OBS);
+                                //$("#AF_UBICACION").val(data.AF_UBICACION);
+                                //$("#AF_CODPERT").val(data.AF_CODPERT);
+                                ////$("#AF_DEPREC").val(data.AF_DEPREC);
+                                //$("#AF_DEPREC").prop('checked', data.AF_DEPREC);
+                                //$("#AF_DEPANT").val(data.AF_DEPANT);
+                                //$("#AF_ULTDEP").val(data.AF_ULTDEP);
+                                //$("#AF_BIENNAC").val(data.AF_BIENNAC);
+                                //$("#AF_PARAM1").val(data.AF_PARAM1);
+                                //$("#AF_DESCBIEN").val(data.AF_DESCBIEN);
+                                //$("#AF_CLASBIEN").val(data.AF_CLASBIEN);
+                                //$("#AF_ETIQ_IMPRE").val(data.AF_ETIQ_IMPRE);
+                                //$("#AFCTAACTOLD").val(data.AFCTAACTOLD);
+                                //$("#AFCTADEPOLD").val(data.AFCTADEPOLD);
+                                //$("#AFCTAGTOOLD").val(data.AFCTAGTOOLD);
+                                //$("#AF_ETIQ_CONCILIA").val(data.AF_ETIQ_CONCILIA);
+                                //$("#AF_COLOR").val(data.AF_COLOR);
+                                //$("#AF_MATERIAL").val(data.AF_MATERIAL);
+                                $("#MAXETIQ").html(data.af_maestro.calculo); //CAMPO PARA VIZUALIZAR LA CANTIDAD DE ETIQUETAS DISPONIBLES
+                                //alert(data.af_maestro.calculo);
+                                //AFECHACAL = AF_DEPINI.AddMonths(AF_DEPMESES);
+                                $("#AF_CODACT").val(data.af_maestro.AFCOD);
+                                $("#af_maestro_AFNOM").val(data.af_maestro.AFNOM);
+                                $("#af_maestro_AFUNIDAD").val(data.af_maestro.AFUNIDAD);
+
+                                $("#AF_CTAACT").val(data.ActivoFijoGrupos.AFGRUCTAACT);
+                                $("#AF_CTAGTODEP").val(data.ActivoFijoGrupos.AFGRUCTAGTODEP);
+                                $("#AF_CTADEP").val(data.ActivoFijoGrupos.AFGRUCTADEP);
+
+
+                                $("#af_grupos_AFGRUDES").val(data.ActivoFijoGrupos.AFGRUDES);
+                                $("#af_grupos_AFGRUCTAACT").val(data.ActivoFijoGrupos.AFGRUCTAACT);
+                                $("#af_grupos_AFGRUCTADEP").val(data.ActivoFijoGrupos.AFGRUCTADEP);
+                                $("#af_grupos_AFGRUCTAGTODEP").val(data.ActivoFijoGrupos.AFGRUCTAGTODEP);
+                                //$("#af_grupos_AFGRUMESES").val(data.ActivoFijoGrupos.AFGRUMESES);
+                                $("#AF_DEPMESES").val(data.ActivoFijoGrupos.AFGRUMESES);
+
+                                //if ($("#AF_DES").val() == "Asignado" || $("#AF_DES").val() == "Desincorporado") {
+                                //    $("#asireasi").hide();
+                                //}
+                                //else {
+                                //    $("#asireasi").show();
+                                //}
+
+
+                                //$("#AF_ETIQ_").val("");
+                                //$("#AF_ETIQ_").prop('disabled', true);
+
+                                //$("#AF_ETIQ").prop('readonly', true);
+
+                                $("#AF_FECH").prop('readonly', true);
+
+                                $("#AF_CTOUNIT").prop('readonly', true);
+                                $("#AF_CODACT").prop('readonly', true);
+                                $("#AF_FECHREAL").prop('readonly', true);
+                                //$("#AF_DEPINI").prop('readonly', true);
+                                //$("#AF_DEPMESES").prop('readonly', true);
+                                $("#AF_DEPMESESYA").prop('readonly', true);
+                                $("#AF_DEPULT").prop('readonly', true);
+                                $("#AFECHACAL").prop('readonly', true);
+                                //$("#AF_VALACT").prop('readonly', true);
+                                //$("#AF_VALLIB").prop('readonly', true);
+                                //$("#AF_MEJORA").prop('readonly', true);
+                                //$("#AF_VALRES").prop('readonly', true);
+                                //$("#AF_DEPACC").prop('readonly', true);
+                                //$("#AF_VALORI").prop('readonly', true);
+                                //$("#AF_ALICUOTA").prop('readonly', true);
+                                //$("#AF_PVP").prop('readonly', true);
+
+
+                                $("#AF_DEPINI").datepicker("setDate", "@today");
+
+                                //$("#AFECHACAL").load(function () {
+                                recalcular_fecha_fin();
+                                //    //alert("aa");
+                                //});
+
+
+                            }
+                        });
+                    }
+                    else {
+                        alert('@Resources.MANTENIMIENTO.StringResources.msgJQError');
+                    }
+                },
+                error: function () {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQAutoc');   // remember to call response() even if ajax failed
+                }
+            });
+        });
+
+
+
+
+
+    })
+
+    function recalcular_fecha_fin() {
+
+        // colocamos la fecha
+        var sFecha = $("#AF_DEPINI").val();
+        //alert(sFecha);
+        var aFecha = sFecha.split("/");
+        //alert(aFecha[0]);
+        //alert(aFecha[1]);
+        //alert(aFecha[2]);
+        //var Fecha = new Date(aFecha);  //[2 y 3]
+        //alert("aFecha = " + aFecha);
+
+        var años = $("#AF_DEPMESES").val(); //los meses a depreciar
+        if (años >= 12) {
+            años = años / 12;
+            //Fecha.setFullYear(Fecha.getFullYear() + años);
+            var Fecha = aFecha[0] + "/" + aFecha[1] + "/" + (Number.parseInt(aFecha[2]) + Number.parseInt(años)).toString();
+
+            $("#AFECHACAL").val(Fecha);
+        }
+        else {
+
+            if ((Number.parseInt(aFecha[1]) + Number.parseInt(años)).toString() > 12) {
+                var Fecha = aFecha[0] + "/" + aFecha[1] + "/" + (Number.parseInt(aFecha[2]) + 1).toString();
+                alert(Fecha);
+                $("#AFECHACAL").val(Fecha);
+            }
+            else {
+                var Fecha = aFecha[0] + "/" + (Number.parseInt(aFecha[1]) + Number.parseInt(años)).toString() + "/" + aFecha[2]
+                $("#AFECHACAL").val(Fecha);
+            }
+        }
+
+    }
+
+
+    function FuncionGuardar() {
+        //alert("aaa");
+        var fechacrea = $('#AF_FECH').val();
+        var depreciar = $('#AF_DEPREC').val();
+
+        var cantidad = $('#cantidad').val();
+        var costo = $('#costo_').val();
+        var valres = $('#AF_VALRES').val();
+
+        var codact = $('#AF_CODACT').val();
+        var modelo = $('#AF_MOD').val();
+        var marca = $('#AF_MARCA').val();
+
+        var fechareal = $('#AF_FECHREAL').val();
+        var codemp = $('#AF_CODEMPL').val();
+        var ubicacion = $("#AF_UBICACION").val();
+        var clientin = $("#AF_CCTO").val();
+
+        var fecadqu = $("#AF_ADQFECHA").val();
+        var nfact = $('#AF_ADQFACT').val();
+        var ordecom = $('#AF_ADQOC').val();
+        var comproban = $('#AF_ADQCOMP').val();
+        var proveedor = $('#AF_ADQPROV').val();
+
+        var depini = $('#AF_DEPINI').val();
+        var depmes = $('#AF_DEPMESES').val();
+        var mesedepr = $('#AF_DEPMESESYA').val();
+        var ultdep = $('#AF_DEPULT').val();
+
+        var ctaact = $("#AF_CTAACT").val();
+        var ctagtodep = $("#AF_CTAGTODEP").val();
+        var ctadep = $("#AF_CTADEP").val();
+
+        if (
+            fechacrea == "" ||
+            depreciar == "" ||
+            cantidad == "" ||
+            costo == "" ||
+            valres == "" ||
+            codact == "" ||
+            modelo == "" ||
+            marca == "" ||
+            fechareal == "" ||
+            codemp == "" ||
+            ubicacion == "" ||
+            clientin == "" ||
+            fecadqu == "" ||
+            nfact == "" ||
+            ordecom == "" ||
+            comproban == "" ||
+            proveedor == "" ||
+            depini == "" ||
+            depmes == "" ||
+            //mesedepr == "" ||
+            ultdep == "" ||
+            ctaact == "" ||
+            ctagtodep == "" ||
+            ctadep == ""
+            ) {
+            //alert("Existen Campos vacios en el formulario. Por favor, verifique la información ingresada en el mismo");
+            alert('@Resources.ActivoFijo.StringResources.msgCamVaci');
+        }
+        else {
+
+            $.post("/ActivoFijo/insertmultiple",
+                 {
+                     "fechacreacio": fechacrea,
+                     "depreciacion": depreciar,
+                     "cantidades": cantidad,
+                     "costos": costo,
+                     "valresidu": valres,
+                     "codactivo": codact,
+                     "modelos": modelo,
+                     "marcas": marca,
+                     "fecharealsi": fechareal,
+                     "codemplea": codemp,
+                     "ubicacione": ubicacion,
+                     "clieinter": clientin,
+                     "fecadqui": fecadqu,
+                     "nfactura": nfact,
+                     "ordecompra": ordecom,
+                     "comprobante": comproban,
+                     "proveedores": proveedor,
+                     "depinicial": depini,
+                     "depremes": depmes,
+                     "mesedeprecia": mesedepr,
+                     "ultdepre": ultdep,
+                     "ctaactivo": ctaact,
+                     "ctagtodepre": ctagtodep,
+                     "ctadepre": ctadep
+
+                 },
+
+                function (data) {
+
+                    if (data != "OK") {
+
+                        //alert(data);
+                        window.location.href = "/ActivoFijo"
+                    } else {
+                        alert('@Resources.StringResources.msgInsertFAIL');
+                        //window.location.href = "/MovimientoActivoFijo/";
+                    }
+                }
+            ).error(function () { alert('@Resources.MANTENIMIENTO.StringResources.msgJQFailProce'); });    //Se ejecuta si hay error
+
+        }
+
+
+    }
+
+
+
+    function EditarEtiq() {
+        //alert("aaaa");
+        var edicion = $(".asigna").serialize();
+        $.post("/ActivoFijo/Edit",
+        edicion,
+        function (data) {
+
+            if (data != 0) {
+
+                alert('@Resources.StringResources.msgInsertOK');
+                window.location.href = "/ActivoFijo/"
+            }
+        });
+    }
+
+
+
+    //AFECHACAL = AF_DEPINI.AddMonths(AF_DEPMESES);
+
+
+    function eliminar() {
+        if ($("#AF_ETIQ").val() != "") {
+            //var resp = confirm("¿Desea elmininar el codigo :  " + $("#AF_ETIQ").val().toUpperCase() + " ?");
+            var resp = confirm('@Resources.ActivoFijo.StringResources.msgConfDel' + $("#AF_ETIQ").val().toUpperCase() + " ?");
+            if (resp) {
+                $(location).attr("href", "/ActivoFijo/Delete?afetiq=" + $("#AF_ETIQ").val())
+                //$("#CXPCOD").val("");
+            }
+            else {
+            }
+        }
+        else {
+            alert('@Resources.ActivoFijo.StringResources.msgFaltCod');
+        }
+    }
+
+
+
+    // .-  MOSTRAR EL MODAL DE CUENTA DE ACTIVO   -.  //
+    function ModalCta(VALOR) {
+        var idCta = 1;
+        Busmodal(idCta);
+    }
+
+    function ModalCta2(VALOR) {
+        var idCta = 4;
+        Busmodal(idCta);
+    }
+
+    function ModalCta3(VALOR) {
+        var idCta = 1;
+        Busmodal(idCta);
+    }
+
+
+    function Busmodal(VALOR) {
+
+        $.ajax({
+            cache: false,
+            type: 'Post',
+            dataType: 'json',
+            url: "/Servicio/CMaestro?term=" + VALOR,
+
+            success: function (data) {
+                if (data != null) {
+                    $('#tblCtaServ  tbody  tr').remove();
+                    $('#tblCtaServ').append(data);
+                    $(".CMCTA").attr("style", "text-align:right; font-size:11px");
+                    $(".CMDES").attr("style", "font-size:11px");
+                }
+            },
+        });
+        $("#ListCntaCont").modal("show");
+    }
+
+    // .-  BUSCADOR DATOS DE CUENTA DE ACTIVO  -.  //
+    $('#CodCntaCont_').keyup(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var valor = $('#CodCntaCont_').val();
+        if (keycode == '13') {
+            this.id = this.id;
+            valor = this.value;
+
+            buscarregistros(valor);
+        } else if (valor == "") {
+            var valor2 = this.id;
+            ModalCta(valor);
+
+        }
+    });
+
+
+    // .-  BUSCADOR DATOS DE CUENTA DE ACTIVO  -.  //
+    $('#DesCntaCont_').keyup(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var valor = $('#DesCntaCont_').val();
+        if (keycode == '13') {
+            this.id = this.id;
+            valor = this.value;
+
+            buscarregistros(valor);
+        } else if (valor == "") {
+            var valor2 = this.id;
+            ModalCta(valor);
+
+        }
+    });
+
+
+    // .-  BUSCADOR DATOS DE CUENTA DE ACTIVO  -.  //
+    function buscarregistros(valor) {
+        idCta = this.id;
+        $.ajax({
+            type: "POST",
+            //url: "/CXP_CIERRE/" + $("#action").val(),
+            url: "/Servicio/CMaestro3?term=" + valor,
+            //data: $('#myForm1_').serialize(),
+            //data: JSON.stringify(strJSON),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    $('#tblCtaServ  tbody  tr').remove();
+                    $('#tblCtaServ').append(data);
+                    $(".CMCTA").attr("style", "text-align:right; font-size:11px");
+                    $(".CMDES").attr("style", "font-size:11px");
+                } else {
+                    window.location.href = "/CXP_SELECTPAGAR/";
+                }
+            }
+
+        })
+    };
+
+
+
+
+
+
+
+
+    //  $("#AF_CTOUNIT").blur(function () {
+    //decimalpuntoAcoma($("#AF_CTOUNIT").val());
+    //  //    //cambiar($("#AF_CTOUNIT").val());
+    //  //    //cambiacoma($("#AF_CTOUNIT").val());
+
+
+
+    //  });
+
+
+    //$("#nuevo").click(function () {
+    //    alert("aaaa");
+    //    $("#montos").show();
+
+    //});
+
+
+    //function ocultar() {
+
+    //    $("#cantidades").show();
+    //    $("#etiquetas").hide();
+    //}
+
+
+
+
+
+
+
+</script>

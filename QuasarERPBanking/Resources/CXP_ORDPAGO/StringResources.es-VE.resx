@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnImpr" xml:space="preserve">
+    <value>Imprimir</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnNuevo" xml:space="preserve">
+    <value>Nuevo</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnProce" xml:space="preserve">
+    <value>Procesar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="FielRetBusUsua" xml:space="preserve">
+    <value>Renstringir Busqueda a:</value>
+    <comment>fielsed</comment>
+  </data>
+  <data name="lblABONO" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblACTPORC" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblAPROB" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblBANCO" xml:space="preserve">
+    <value>Banco</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblBENEF" xml:space="preserve">
+    <value>Beneficiario:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblComp" xml:space="preserve">
+    <value>Comprobantes:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCONC" xml:space="preserve">
+    <value>Concepto:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCTA_ABO" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPCOD" xml:space="preserve">
+    <value>Cuenta:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPFRMP" xml:space="preserve">
+    <value>Forma de Pago</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPNCTA" xml:space="preserve">
+    <value>N° Cheque / Cuenta</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPNOMBRE" xml:space="preserve">
+    <value>Beneficiario:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPRETENC" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPTIMBRE" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblDESCRIPCION" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHA" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHDOC" xml:space="preserve">
+    <value>Fecha Doc:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHVENC" xml:space="preserve">
+    <value>Vence:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFRMPAGO" xml:space="preserve">
+    <value>Forma</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblINSTR" xml:space="preserve">
+    <value>Instrucciones</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMONTO" xml:space="preserve">
+    <value>Monto</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMONTOISLR" xml:space="preserve">
+    <value>Retención de ISLR:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMONTORET" xml:space="preserve">
+    <value> Retención de IVA:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMtnPag" xml:space="preserve">
+    <value>Monto Pagado</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMTOIMP" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblNDOC" xml:space="preserve">
+    <value>Documento</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNROCOMP" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblNROID" xml:space="preserve">
+    <value>Orden Procesada Nro:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNROORDEN" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblNUMERO" xml:space="preserve">
+    <value>Numero</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblOrdPago" xml:space="preserve">
+    <value>Órdenes de Pago</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblOrdPgoComp" xml:space="preserve">
+    <value>Ordenes de Pago del Comprobante</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblREF" xml:space="preserve">
+    <value>Ref. :</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRESUMENIVA" xml:space="preserve">
+    <value>Retención de IVA:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRESUMENTF" xml:space="preserve">
+    <value>Timbre Fiscal:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRETIVA" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblRETRS" xml:space="preserve">
+    <value> Responsabilidad Social:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRSMENTOTAL" xml:space="preserve">
+    <value>Total a Pagar:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblSTATUS" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblSUBT" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="lblTIMBREFISCAL" xml:space="preserve">
+    <value>Timbre Fiscal:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblTOTAL" xml:space="preserve">
+    <value>Total General:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblUSUARIO" xml:space="preserve">
+    <value />
+    <comment>label</comment>
+  </data>
+  <data name="sbtltDetDocSel" xml:space="preserve">
+    <value>Detalle del Documento Seleccionado</value>
+    <comment>Subtitulo</comment>
+  </data>
+  <data name="sbtltFrmPgo" xml:space="preserve">
+    <value>Forma de Pago de la Orden de Pago</value>
+    <comment>Subtitulo</comment>
+  </data>
+  <data name="thAprob" xml:space="preserve">
+    <value>Aprob.        </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thBanco" xml:space="preserve">
+    <value>Banco</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thBenef" xml:space="preserve">
+    <value>Beneficiario</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCntaPagar" xml:space="preserve">
+    <value>Cuenta a Pagar</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thConc" xml:space="preserve">
+    <value>Concepto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCtaCont" xml:space="preserve">
+    <value>Cuenta Contable</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thElim" xml:space="preserve">
+    <value>Elim.         </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thFech" xml:space="preserve">
+    <value>Fecha         </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thFechDoc" xml:space="preserve">
+    <value>Fecha Doc.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thFrmPgo" xml:space="preserve">
+    <value>Forma de Pago</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thInstruc" xml:space="preserve">
+    <value>Instrucciones</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMnto" xml:space="preserve">
+    <value>Monto         </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMonto" xml:space="preserve">
+    <value>Monto          </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNdoc" xml:space="preserve">
+    <value>N° Doc.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNroPago" xml:space="preserve">
+    <value>N° Pago</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNum" xml:space="preserve">
+    <value>Numero</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thProvee" xml:space="preserve">
+    <value>Proovedor     </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thRef" xml:space="preserve">
+    <value>Ref.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thRetISLR" xml:space="preserve">
+    <value>Ret. ISLR     </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thRetIva" xml:space="preserve">
+    <value>Ret. IVA      </value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTtal" xml:space="preserve">
+    <value>Total</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thVenc" xml:space="preserve">
+    <value>Venc.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="TltOrdPagoComp" xml:space="preserve">
+    <value>Órdenes de Pago de los Comprobantes</value>
+    <comment>titulo</comment>
+  </data>
+  <data name="TltOrdPagoUsua" xml:space="preserve">
+    <value>Órdenes de Pago Generadas por Usuarios</value>
+    <comment>Titulo</comment>
+  </data>
+</root>

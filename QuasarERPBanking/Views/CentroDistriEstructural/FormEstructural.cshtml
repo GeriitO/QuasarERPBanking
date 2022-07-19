@@ -1,0 +1,191 @@
+﻿@using QuasarERPBanking
+@model QuasarERPBanking.Models.CentroDistriEstructural
+@{
+    List<QuasarERPBanking.Models.CentroDistriEstructural> padre2 = QuasarERPBanking.Models.CentroDistriEstructural.getpadres();
+    List<QuasarERPBanking.Models.CentroDistriEstructural> hijos2 = QuasarERPBanking.Models.CentroDistriEstructural.gethijos(padre2[0].CC_COD);
+}
+
+
+
+
+
+
+<div id="arboltree2" style="overflow:auto; width:100%; height:360px; background-color:white" title='@Resources.CC_MAESTRO.StringResources.tittleDlgDe'>
+    @*<div class="icon-bar">
+            <img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="@Resources.CXP_MAESTRO.StringResources.tittlebuttoNew" onclick="aceptar();" />
+
+            <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialog();" />
+
+        </div>*@
+    @*<div style="margin-left:8px;">
+        <table>
+            <tr>
+                <td><input type="text" id="h_cod" class="form-control" style="width:100px; background:white;" readonly="readonly" /> </td>
+                <td><input type="text" id="h_nom" class="form-control" style="width:345px; background:white;" readonly="readonly" /></td>
+            </tr>
+        </table>
+    </div>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#red2").treeview({
+                animated: "fast",
+                collapsed: true,
+                unique: false,
+                toggle: function () {
+                    window.console && console.log("%o was toggled", this);
+                }
+            });
+        });
+    </script>
+    <table>
+        <tr>
+            <td>
+                <ul id="red2" class="treeview-gray treeview" style="font-size:12px">
+                    @{
+                        foreach (QuasarERPBanking.Models.CentroDistriEstructural sub3 in padre2)
+                        {
+                            if (sub3.CC_CTEASOC.Trim() == "0")
+                            {
+                                <li class="collapsable">
+                                    <div class="hitarea collapsable-hitarea"></div>
+                                    <span><img src="../../Content/themes/base/images/star_Bicen.png" alt="" style="margin: 0px 0px 0px 0px; cursor:pointer" /></span> 
+                                    <span id="@sub3.CC_COD" class="tex2">@sub3.CC_NOMB</span>
+                                    <ul style="display:block;">
+
+                                        @foreach (QuasarERPBanking.Models.CentroDistriEstructural sub4 in hijos2)
+                                        {
+                                            if (sub4.CC_ULTHIJO == "0")
+                                            {
+                                                <li>
+                                                    <div class="hitarea collapsable-hitarea"></div>
+                                                    @*<span class="ui-icon ui-icon-locked" style="float:left; margin:0 0 0 0;"></span>*@
+
+                                                    @*<span class="ui-icon ui-icon-locked"></span>*@
+                                                    <span class="ui-icon ui-icon-play" style="display:inline-block;"></span>
+
+                                                    <span id="@sub4.CC_COD" class="tex2">@sub4.CC_NOMB</span>
+
+                                                    <ul style="display:block; background-color:rgba(17, 130, 227, 0.11)" id="Tree2_@sub4.CC_COD" class="arbol"></ul>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="treesoon">
+                                                    <span id="@sub4.CC_COD" class="tex2">@sub4.CC_NOMB</span>
+                                                </li>
+                                            }
+                                        }
+
+
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function cargarTreeView_() {
+        var cod = @padre2[0].CC_COD;
+
+        $.post("/CentroDistriEstructural/Get_Tree",
+           {"codigo":cod},
+           function (data) {
+               $.each(data, function (i, data) {
+                   var ids = data.CC_PERT_ESTRUC;
+                   if(data.CC_ULTHIJO == 1){
+                       htmlRow2 = '<li class="treesoon">' +
+                                 '<span id="'+data.CC_COD+'" class="tex2">' + data.CC_NOMB + '' +
+                                 '</span>' +
+                                 '</li>';
+                       $('#Tree2_' + ids).append(htmlRow2);
+                   }
+                   else  //si no es ultimo hijo = 0 se coloca ul con id
+                   {
+                       htmlRow2 ='<li class="collapsable treesoon">' +
+                                '<div class="hitarea collapsable-hitarea"></div>' +
+                                '<span class="ui-icon ui-icon-play" style="display:inline-block;"></span>'+
+                                '<span id="'+data.CC_COD+'" class="tex2">' + data.CC_NOMB + '' +
+                                '</span>' +
+                                '<ul style="display:block; background-color:rgba(17, 130, 227, 0.11)" id="Tree2_'+ data.CC_COD +'" Class="arbol"></ul>' +
+                                '</li>';
+                       $('#Tree2_' + ids).append(htmlRow2);
+                   }
+               });
+           });
+    }
+
+
+
+
+    function showTree2() {
+        $('#Arbolcc').modal({backdrop: 'static', keyboard: false});
+        $("#Arbolcc").modal("show");
+        $("#arboltree2").show();
+
+    }
+
+    function cerrarDialog2() {
+        $('#h_cod').val("");
+        $('#h_nom').val("");
+        $('#red2 span.tex2').css("background","");
+        $("#Arbolcc").modal("hide");
+    }
+
+
+
+    function aceptar(){
+        var codi=$('#h_cod').val();
+        var texto= $('#h_nom').val();
+        if (codi==""|| texto==""){
+            closeDialog();
+        }
+        else{
+            $('#CC_DES_ESTRUC').val(texto);
+            $('#CC_PERT_ESTRUC').val(codi);
+            closeDialog2();
+        }
+    }
+
+    $(function () {
+        cargarTreeView_();
+        $('#red2').on('click', 'span.tex2', function(){
+            $('#red2 span.tex2').css("background","");
+            $(this).css("background","darkturquoise");
+            var codig=$(this).attr('id');
+            var texto=$(this).text();
+            $('#h_cod').val(codig);
+            $('#h_nom').val(texto);
+        })
+    });
+
+
+    function seleccionar2(){
+        var codi=$(' #h_cod').val();
+        var texto= $('#h_nom').val();
+        if (codi==""|| texto==""){
+            cerrarDialog2();
+        }
+        else{
+            $('#CC_DES_ESTRUC').val(texto);
+            $('#CC_PERT_ESTRUC').val(codi);
+            cerrarDialog2();
+        }
+    }
+
+
+
+
+</script>

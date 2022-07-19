@@ -1,0 +1,616 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Banner" xml:space="preserve">
+    <value>Asientos Diarios</value>
+    <comment>Banner y Tittle</comment>
+  </data>
+  <data name="btnAceptar" xml:space="preserve">
+    <value>Aceptar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btndoc" xml:space="preserve">
+    <value>Documentos</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnEliminar" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnIncluir" xml:space="preserve">
+    <value>Incluir</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnLimpiar" xml:space="preserve">
+    <value>Limpiar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnRevisar" xml:space="preserve">
+    <value>Revisar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="btnSalir" xml:space="preserve">
+    <value>Salir</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="divDistImpu" xml:space="preserve">
+    <value>Distribución de Impuesto</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="ErrANTICIPO" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrAPROB" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrBAIMP" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCC_COD" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCODTPO" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCOMP" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCONC" xml:space="preserve">
+    <value>El campo Concepto está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCTA" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPCC" xml:space="preserve">
+    <value>El campo Centro de Costo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPCOD" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPCODALT" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPFRMP" xml:space="preserve">
+    <value>El campo de Forma de Pago está vacío.</value>
+    <comment>label</comment>
+  </data>
+  <data name="ErrCXPPROY" xml:space="preserve">
+    <value>El campo Proyecto está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCXPVP" xml:space="preserve">
+    <value>El campo C. C. Origen está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrDES" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="errEdo" xml:space="preserve">
+    <value>estados</value>
+    <comment>label</comment>
+  </data>
+  <data name="ErrFECHDOC" xml:space="preserve">
+    <value>El campo Fecha está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFECHPERIODO" xml:space="preserve">
+    <value>El campo Fecha está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFECHVENC" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrMTOIMP" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNCTRL" xml:space="preserve">
+    <value>El campo N° Control está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNDOC" xml:space="preserve">
+    <value>El campo N° Doc está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrNFILA" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrORIGCOD" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrPLAZO" xml:space="preserve">
+    <value>El campo Plazol está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrPORC" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrREF" xml:space="preserve">
+    <value>El campo Referencía está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrSUBT" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrSUBTOTAL" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrTOTAL" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrTPODOC" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="ErrUSUARIO" xml:space="preserve">
+    <value />
+    <comment>Error</comment>
+  </data>
+  <data name="fieldsetDetDoc" xml:space="preserve">
+    <value>Detalle del Documentos</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="fieldsetdgfac" xml:space="preserve">
+    <value>Datos Generales de la Factura</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="fieldsetImpues" xml:space="preserve">
+    <value>Impuesto</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="fieldsetTotDoc" xml:space="preserve">
+    <value>Total de Documento</value>
+    <comment>fieldset</comment>
+  </data>
+  <data name="lblANTICIPO" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblAPROB" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblBAIMP" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCC_COD" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCODTPO" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCOMP" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCONC" xml:space="preserve">
+    <value>Concepto:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCTA" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuenCon" xml:space="preserve">
+    <value>Cuenta Contable:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuenCost" xml:space="preserve">
+    <value>Centro de Costo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuentPagar" xml:space="preserve">
+    <value>Cuenta por Pagar </value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCuentPagarAlt" xml:space="preserve">
+    <value>Cuenta por Pagar - Alterno:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPCC" xml:space="preserve">
+    <value>Centro de Costo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPCOD" xml:space="preserve">
+    <value>Cod. Prov:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPCODALT" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPFRMP" xml:space="preserve">
+    <value>Forma de Pago</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPPROY" xml:space="preserve">
+    <value>Proyectos:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPVP" xml:space="preserve">
+    <value>C.C. Origen:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblDES" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblDesc" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>label</comment>
+  </data>
+  <data name="lbldescrip" xml:space="preserve">
+    <value>Descripción:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblEdo" xml:space="preserve">
+    <value>estados</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHDOC" xml:space="preserve">
+    <value>Fecha Doc:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHPERIODO" xml:space="preserve">
+    <value>Fecha:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblFECHVENC" xml:space="preserve">
+    <value>Vence:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblImpues" xml:space="preserve">
+    <value>Impuesto %:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMRDoc" xml:space="preserve">
+    <value>Monto Ref. Doc:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMTOIMP" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNCTRL" xml:space="preserve">
+    <value>N° Control</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNDOC" xml:space="preserve">
+    <value>Documento</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblNFILA" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblORIGCOD" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblperiod" xml:space="preserve">
+    <value>Período:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblPLAZO" xml:space="preserve">
+    <value>Plazo:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblPORC" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblREF" xml:space="preserve">
+    <value>Ref. :</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblSUBT" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblSubTal" xml:space="preserve">
+    <value>Sub-Total:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblSUBTOTAL" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblTOTAL" xml:space="preserve">
+    <value>Total General:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblTPODOC" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblUSUARIO" xml:space="preserve">
+    <value>a</value>
+    <comment>label</comment>
+  </data>
+  <data name="lipre" xml:space="preserve">
+    <value>Presupuesto</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="litdoc" xml:space="preserve">
+    <value>Tipos de Documentos</value>
+    <comment>Pestañas</comment>
+  </data>
+  <data name="placFrmPago" xml:space="preserve">
+    <value>---- Forma De Pago ----</value>
+    <comment>Placeholder</comment>
+  </data>
+  <data name="thRef" xml:space="preserve">
+    <value>Ref.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thConc" xml:space="preserve">
+    <value>Cuenta Contable</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thCuenCost" xml:space="preserve">
+    <value>C. Costos</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thdescrip" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thIva" xml:space="preserve">
+    <value>Iva</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMontImpu" xml:space="preserve">
+    <value>Monto Imp</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thMont" xml:space="preserve">
+    <value>Monto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thNombImp" xml:space="preserve">
+    <value>Nombre Impuesto</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thperiod" xml:space="preserve">
+    <value>Período</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thSubTal" xml:space="preserve">
+    <value>Sub-Total</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTasa" xml:space="preserve">
+    <value>Tasa</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTipoDoc" xml:space="preserve">
+    <value>Tipo Doc.</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="thTotal" xml:space="preserve">
+    <value>Total</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="titulo" xml:space="preserve">
+    <value>Cuenta por Pagar</value>
+    <comment>titulo de la ventana</comment>
+  </data>
+  <data name="ttlOrdPago" xml:space="preserve">
+    <value>Orden de Pago</value>
+    <comment>titulo de la ventana</comment>
+  </data>
+  <data name="lblfechOrd" xml:space="preserve">
+    <value>Fecha de Orden:</value>
+    <comment>label</comment>
+  </data>
+  <data name="BtnDesc" xml:space="preserve">
+    <value>Descuentos</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="BtnMultRs" xml:space="preserve">
+    <value>Ret. Multi. SR.</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="BtnRetDoc" xml:space="preserve">
+    <value>Retener por Doc</value>
+    <comment>label</comment>
+  </data>
+  <data name="BtnRetMult" xml:space="preserve">
+    <value>Ret. Multiples</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="lblcuenta" xml:space="preserve">
+    <value>Cuenta:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRESUMENIVA" xml:space="preserve">
+    <value>Retención de IVA:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRETRS" xml:space="preserve">
+    <value>Retención de ISLR:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblTodas" xml:space="preserve">
+    <value>Todas</value>
+    <comment>label</comment>
+  </data>
+  <data name="thFechDoc" xml:space="preserve">
+    <value>Fecha</value>
+    <comment>tabla</comment>
+  </data>
+  <data name="VtnaFrmPgo" xml:space="preserve">
+    <value>Forma de Pago</value>
+    <comment>Ventana</comment>
+  </data>
+  <data name="lblMRESUMENTOTAL" xml:space="preserve">
+    <value>Total a Pagar:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRESUMENTF" xml:space="preserve">
+    <value>Timbre Fiscal:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblRETENRSOCIAL" xml:space="preserve">
+    <value>Responsabilidad Social:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPNCTA" xml:space="preserve">
+    <value>N° Cheque / Cuenta</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCXPNOMBRE" xml:space="preserve">
+    <value>Beneficiario:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblINSTRUC" xml:space="preserve">
+    <value>Instrucciones:</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblMntPgdo" xml:space="preserve">
+    <value>Total Acumulado a Pagar</value>
+    <comment>label</comment>
+  </data>
+  <data name="RESUMENTOTAL2" xml:space="preserve">
+    <value>Monto Pagado</value>
+    <comment>label</comment>
+  </data>
+</root>

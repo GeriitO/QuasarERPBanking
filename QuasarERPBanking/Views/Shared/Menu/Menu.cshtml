@@ -1,0 +1,38 @@
+﻿@using QuasarERPBanking.Models
+@{
+    Menu menu = ViewBag.menu;
+}
+
+
+@if (menu != null)
+{
+    foreach (SubMenu submenu in menu.submenus)
+    {
+        if (submenu.NombreModulo.Trim() != "")
+        {
+
+            <li>
+                <a href="#@submenu.NombreModulo.Replace(" ", "")" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="@submenu.icons"></i>
+                    @submenu.NombreModulo
+                </a>
+            </li>
+            <ul class="collapse list-unstyled" id="@submenu.NombreModulo.Replace(" ", "")">
+                @foreach (OPC opc in submenu.opciones)
+                {
+                    string url = "/" + opc.Controller + "/" + opc.Action;
+                    string urls = url == "//" ? "#" : url;
+                    string ids = opc.OPCMODULO + opc.OPCCOD;
+                    <li id="@opc.OPCMODULO@opc.OPCCOD">
+
+                        <a href="@urls" @*@url*@> @opc.OPCNOM </a>
+                        <ul id="uls_@ids"></ul>
+
+                    </li>
+                }
+
+            </ul>
+
+        }
+    }
+}

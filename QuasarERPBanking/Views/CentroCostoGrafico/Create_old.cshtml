@@ -1,0 +1,61 @@
+﻿
+        @if (ViewBag.tema == "ChartTheme.Blue")
+        {
+            var grafico = new Chart(width: 800, height: 400, theme: ChartTheme.Blue, themePath: null)
+                .AddTitle("Gastos")
+                .AddSeries(
+                name: "Serie anual",
+                chartType: ViewBag.tipo,
+                xValue: ViewBag.titulo,
+                yValues: ViewBag.resultado)
+
+            .Write();
+        }
+        @if (ViewBag.tema == "ChartTheme.Green")
+        {
+            var grafico = new Chart(width: 800, height: 400, theme: ChartTheme.Green, themePath: null)
+
+                .AddTitle("Gastos")
+                .AddSeries(
+                name: "Serie anual",
+                chartType: ViewBag.tipo,
+                xValue: ViewBag.titulo,
+                yValues: ViewBag.resultado)
+                .Write();
+        }
+        @if (ViewBag.tema == "ChartTheme.Vanilla")
+        {
+            var grafico = new Chart(width: 800, height: 400, theme: ChartTheme.Vanilla, themePath: null)
+
+                .AddTitle("Gastos")
+                .AddSeries(
+                name: "Serie anual",
+                chartType: ViewBag.tipo,
+                xValue: ViewBag.titulo,
+                yValues: ViewBag.resultado)
+                .Write();
+        }
+        @if (ViewBag.tema == "ChartTheme.Vanilla3D")
+        {
+            var grafico = new Chart(width: 800, height: 400, theme: ChartTheme.Vanilla3D, themePath: null)
+
+                .AddTitle("Gastos")
+                .AddSeries(
+                name: "Serie anual",
+                chartType: ViewBag.tipo,
+                xValue: ViewBag.titulo,
+                yValues: ViewBag.resultado)
+                .Write();
+        }
+        @if (ViewBag.tema == "ChartTheme.Yellow")
+        {
+            var grafico = new Chart(width: 800, height: 400, theme: ChartTheme.Yellow, themePath: null)
+
+                .AddTitle("Gastos")
+                .AddSeries(
+                name: "Serie anual",
+                chartType: ViewBag.tipo,
+                xValue: ViewBag.titulo,
+                yValues: ViewBag.resultado)
+                .Write();
+        }

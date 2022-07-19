@@ -1,0 +1,689 @@
+﻿@using QuasarERPBanking
+@using QuasarERPBanking
+@model QuasarERPBanking.Models.CentroDistriGeografica
+@*@model IEnumerable<QuasarERPBanking.CC_MAESTRO>*@
+
+
+@{
+    // List<CC_MAESTRO> padres = new CC_MAESTRO.getpadres();
+    List<QuasarERPBanking.Models.CentroDistriGeografica> padre = QuasarERPBanking.Models.CentroDistriGeografica.getpadres();
+    List<QuasarERPBanking.Models.CentroDistriGeografica> hijos = QuasarERPBanking.Models.CentroDistriGeografica.gethijos(padre[0].CC_COD);
+    List<QuasarERPBanking.Models.CentroDistriGeografica> subhijo = QuasarERPBanking.Models.CentroDistriGeografica.getree(padre[0].CC_COD);
+    string cod = "";
+}
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="internal-window bg-light" id="af_serial">
+
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="h3">@Resources.CC_MAESTRO.StringResources.tittleDG</h2>
+        </div>
+        @* <h2>@Resources.CC_MAESTRO.StringResources.Tittle - <span id="select"></span><span id="cod_"></span></h2> *@
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-create">
+                    <a href="#" id="nuevo" onclick="crear();">
+                        <img src="~/Content/imagenes/icon-add.svg" title="@Resources.StringResources.GlobalButtonNew" alt="Nuevo" width="20" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+                @*<img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminar();" />*@
+                @*<img src="../../Content/icons/32x32/update.png" style="width:26px; background:#f0f0f0;" alt="Actualizar" title="@Resources.CC_MAESTRO.StringResources.BtnActu" id="nuevo" onclick="window.location.href = '/CentroDistriGeografica'; " />*@
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="cc_distribucion col-md-12">
+        <div class="card card-top">
+
+            <div class="cc_distribucion-title card-header">
+                <h3 class="h4 my-3">@Resources.CC_MAESTRO.StringResources.BannerGeo<span id="cod_"></span></h3>
+                @*<label style="font-family:'Segoe UI,sans-serif'; font-size:30px;"><i>@Resources.CC_MAESTRO.StringResources.BannerGeo</i></label>*@
+            </div>
+
+            <div class="cc_distribucion-list col-md-9">
+
+                <div id="treeview" class="treeviewDistGeo">
+                    <div id="arboltree_" class="treeview_DistGeo-list">
+
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+
+                                $("#red").treeview({
+                                    animated: "fast",
+                                    collapsed: true,
+                                    unique: true,
+                                    toggle: function () {
+                                        window.console && console.log("%o was toggled", this);
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <ul id="red" class="list-unstyled treeview">
+
+                            @{
+
+
+
+                                foreach (QuasarERPBanking.Models.CentroDistriGeografica sub in padre)
+                                {
+                                    if (sub.CC_PERT_GEO.Trim() == "")
+                                    {
+                                        <li class="collapsable">
+                                            <div class="hitarea collapsable-hitarea"></div>
+                                            <span id="@sub.CC_COD" class="treeview_vzla tex"><img src="~/Content/imagenes/Flag_of_Venezuela.svg" class="flag_venezuelan" width="20" height="20" alt="" />@sub.CC_DES</span>
+                                            <ul class="list-unstyled list-group list-group-flush">
+
+                                                @foreach (QuasarERPBanking.Models.CentroDistriGeografica sub2 in hijos)
+                                                {
+                                                    if ((subhijo).Exists(x => x.CC_PERT_GEO.Equals(sub2.CC_COD)))
+                                                    {
+                                                        <li class="treesoon line">
+                                                            <div class="hitarea collapsable-hitarea"></div>
+                                                            <span class="ui-icon ui-icon-play"></span>
+                                                            <span id="@sub2.CC_COD" class="tex">@sub2.CC_DES</span>
+                                                            <ul id="Geog_@sub2.CC_COD" class="arbol list-unstyled"></ul>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="treesoon list-group-item">
+                                                            <span id="@sub2.CC_COD" class="tex">@sub2.CC_DES</span>
+                                                        </li>
+                                                    }
+                                                }
+
+
+                                            </ul>
+                                        </li>
+                                    }
+
+
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card card_div">
+            <div id="descrip" class="treeviewDistGeoTable">
+                <div class="card_data">
+                    <table class="table table-responsive table-bordered table-content" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th style="width:20%">
+                                    @Html.DisplayNameFor(model => model.CC_COD)
+                                </th>
+                                <th style="width:80%">
+                                    @Html.DisplayNameFor(model => model.CC_DES)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.ValidationSummary()
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ListadoProve" style="overflow-y: scroll;">
+    <div style="padding-top: 5px;" class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="icon-bar icon-modal">
+                    <div class="icon--bar-create">
+                        <img src="~/Content/imagenes/icon-add.svg" width="22" height="28" alt="Nuevo" title="@Resources.CXP_MAESTRO.StringResources.tittlebuttoNew" onclick="limpiar(); ocultar(); /*validarcodnew();*/" /> <!--redireccionar a create o un funcion jquery-->
+                    </div>
+
+                    <div class="icon--bar-search">
+                        <img src="~/Content/imagenes/icon-search.svg" width="22" height="28" alt="Buscar" title="@Resources.StringResources.GlobalButtonBuscar" id="buscod" onclick="search();" />
+                    </div>
+
+                    <div class="icon--bar-delete">
+                        <img src="~/Content/imagenes/icon-delete.svg" width="22" height="28" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminar2();" />
+                    </div>
+
+                    <div class="icon--bar-save">
+                        <img src="~/Content/imagenes/icon-save.svg" alt="Guardar" id="guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="guardar();" />
+                    </div>
+
+                    <img src="~/Content/imagenes/icon-door_open_exit.svg" class="exit-button" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialogC();" />
+
+                </div>
+
+                <div class="CentCostDistGeoTxt">
+                    <h3 class="CentCostDistGeoTxt-label h3"><i>@Resources.CC_MAESTRO.StringResources.tittleDG</i></h3>
+                </div>
+
+                <form id="myForm1_">
+                    <div id="buscar" style="float:left;">
+                        <div class="ParrBusqDistGeog">
+                            <label style="color:black" class="limpiar"><b>@Resources.StringResources.LblGlobalBusq</b></label>
+                            <div>
+                                <input type="text" id="Search_" data-autocomplete="@Url.Action("getCodigos", "CentroDistriEstructural")" autocomplete="on" style="width:180px;" class="radius form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ventanadatos ">
+                        <div class="distrigeo-title">
+                            <label>@Resources.CC_MAESTRO.StringResources.FieldDatosCC</label>
+                        </div>
+                        <div class="ventanadatos--codname row g-1">
+                            <div id="cod_edit" class="col-md-3">
+                                @Html.LabelFor(model => model.CC_COD, new { @class = "limpiar my-2 " })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.CODEDIT, new { @class = "limpiar my-2 form-control" })
+                                </div>
+                            </div>
+                            <div id="cod_new" class="col-md-3">
+                                @Html.LabelFor(model => model.CC_COD, new { @class = "limpiar my-2" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.CC_COD, new { @class = "limpiar my-2 form-control" })
+                                </div>
+                            </div>
+                            <div class="CodNombreCC col-md-8">
+                                @Html.LabelFor(model => model.CC_DES, new { @class = "limpiar my-2 " })
+                                <div>
+                                    @Html.TextBoxFor(model => model.CC_DES, new { @class = "limpiar my-2 form-control dlg2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ventanadatos row g-1">
+                        <div class="ParrCentrDatosCCHijo ">
+                            <div class="codNomb col-md-3">
+                                @Html.LabelFor(model => model.CC_PERT_GEO, new { @class = "limpiar my-2" })
+                                <div class="div-textbox col-md-8">
+                                    @Html.TextBoxFor(model => model.CC_PERT_GEO, new { @class = "limpiar form-control my-2 dlg" })
+                                </div>
+                            </div>
+                            <div class="NombreCodCC col-md-8">
+                                @Html.LabelFor(model => model.CC_DES_PERT_GEO, new { @class = "limpiar" })
+                                @Html.TextBoxFor(model => model.CC_DES_PERT_GEO, new { @class = "limpiar my-2 form-control dlg" })
+
+
+                            </div>
+                        </div>
+                        <div class="list-search">
+                            <a id="botonAgregar">
+                                <img src="~/Content/imagenes/binoculars-fill.svg" width="34" height="34" class="imgboton" title="@Resources.CC_MAESTRO.StringResources.BtnCCG" onclick="showCCgeo();" />
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @Html.ValidationSummary()
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="Arbolcc" style="overflow-y: scroll;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-height">
+
+            <div class="modal-body">
+                <div class="icon-bar icon-modal exit-button_modal">
+                    <img src="~/Content/imagenes/icon-door_open_exit.svg" class="exit-button_modal" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialogC();" />
+                </div>
+                <div class="CajaRell">
+                    <div class="ModalArbolCC">
+                        <div class="BusqArbolcc my-2">
+                            <input type='text' id='g_cod' class='form-control' readonly='readonly' />
+                        </div>
+                        <div class="BusqArbolcc2 my-2">
+                            <input type='text' id='g_nom' class='form-control' readonly='readonly' />
+                        </div>
+                        <div class="BusqArbolcc3">
+                            @*<img src='../../Content/icons/16x16/accept.png' alt='Nuevo' title='@Resources.INV_NEMAESTRO.StringResources.BtnAdd' onclick='seleccionar();' />*@
+                        </div>
+                    </div>
+
+
+                    <div id="ArbolGeograf">
+                        @using (Html.BeginForm("Edit", "CentroDistriGeografica", FormMethod.Post, new { id = "myForm" }))
+                        {
+                            Html.RenderPartial("FormGeografica");
+                        }
+                    </div>
+                </div>
+
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="AlertDoc" style="overflow-y: scroll; ">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="CajaRell">
+                <div class="modal-body">
+
+                    <div style="width:100%; font-size: 12px;" class="form-group">
+                        <div class="Ttloform">@Resources.StringResources.MantMsgDelete </div>
+                        <div style="text-align:center;float:left;width: 100%;height: 65px;padding: 20px;">
+                            <div style="float:left;width: 10%;"><img src="../../Content/themes/base/images/reclamos-64.png" style="width:30px" /></div>
+                            <div style="float:left;width: 85%;"><span id="SpanInf"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.StringResources.GlobalButtCerrar</button>
+                        <button type="button" class="btn confirm-delete btn-danger" data-dismiss="modal">@Resources.StringResources.GlobalButtonDel</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+
+
+        </div><!-- /.modal-dialog -->
+
+    </div><!-- /.modal -->
+
+
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+
+
+    $("#CC_COD").numericInput();
+
+
+
+    function limpiar(){
+        $(".limpiar").val("");
+        $("#CC_COD").prop('readonly', false);
+        $("#CC_DES").prop('readonly', false);
+        $("#Search_").val("");
+    }
+
+    function editargeo(codigo) {
+        $("#cod_edit").hide();
+        $("#cod_new").show();
+        $("#guardar").attr('onclick','editar();');
+        showDlg();
+        completar(codigo);
+
+    }
+
+
+    function ocultar(){
+        $("#CC_COD").val("");
+
+        $("#cod_edit").hide();
+        $("#cod_new").show();
+        $("#buscar").hide();
+        $("#guardar").attr('onclick','guardar();');
+
+    }
+
+    function validarcodnew(){
+
+
+
+
+
+        $("#CC_COD").focusout(function () {
+            var codigo = $("#CC_COD").val();
+            if(codigo==""){
+                //alert("debe insertar un codigo")
+                //$(".dlg2").prop('readonly', true);
+            }
+            else{
+
+                $(".dlg2").prop('readonly', false);
+                $.ajax({
+                    url: "/CentroDistriGeografica/Exist?cod=" + codigo,
+                    success: function (data) {
+                        if(data==1 ){
+                            alert('@Resources.CC_MAESTRO.StringResources.ErrCodExist');
+                            $("#CC_COD").val("");
+                            //$("#CC_COD").prop('readonly', false);
+                            $(".dlg2").prop('readonly', true);
+                        }
+                        else{
+                            $(".dlg2").prop('readonly', false);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+
+
+
+    function showDlg() {
+        $('#ListadoProve').modal({backdrop: 'static', keyboard: false});
+        $("#ListadoProve").modal("show");
+    }
+
+
+    function showCCgeo(){
+
+        showArbolGeo();
+    }
+
+
+
+    function completar(codigo){
+        $("#cod_new").hide();
+        $("#cod_edit").show();
+        $.ajax({
+            url: "/CentroDistriGeografica/getCodAutocom?term=" + codigo,
+            success: function (data) {
+                //$("#CC_COD").val(data.CC_COD);
+                $("#CODEDIT").val(data.CC_COD);
+                $("#CC_DES").val(data.CC_DES);
+                $("#CC_PERT_GEO").val(data.CC_PERT_GEO);
+                $("#CC_DES_PERT_GEO").val(data.CC_DES_PERT_GEO);
+
+                //$("#CC_COD").removeAttr("readonly");
+                $("#CODEDIT").prop('readonly', true);
+                $("#CC_PERT_GEO").prop('readonly', true);
+                $("#CC_DES_PERT_GEO").prop('readonly', true);
+            }
+        });
+
+        //$("#CC_COD").unbind('focusout');  ///destruye cualquier funcion o evento que tenga un id determinado
+    }
+
+    function crear() {
+        $("#CC_COD").val("");
+        var codigo = $("#cod_").html();
+        var nombre = $('#select').html();
+        if (codigo != "") {
+            //validarcodnew();
+            ocultar();
+            showDlg();
+            $("#CC_PERT_GEO").val(codigo);
+            $("#CC_DES_PERT_GEO").val(nombre);
+            $("#CC_PERT_GEO").prop('readonly', true);
+            $("#CC_DES_PERT_GEO").prop('readonly', true);
+        }
+        else {
+            alert('@Resources.CC_MAESTRO.StringResources.ErrCodEmt');
+        }
+    }
+
+
+    function guardar(){
+
+
+        var cod = $("#CC_COD").val();
+        var nom= $("#CC_DES").val();
+        var pertgeo= $("#CC_PERT_GEO").val();
+        var desgeo= $("#CC_DES_PERT_GEO").val();
+
+
+        if (cod == "" || nom == "" || pertgeo == "" || desgeo == "") {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCampVac');
+        }
+        else
+        {
+            var nuevo = $(".limpiar").serialize();
+            $.post("/CentroDistriGeografica/Create",
+            nuevo,
+            function (data) {
+                if (data != 0) {
+                    alert('@Resources.StringResources.msgInsertOK');
+                    window.location.href = "/CentroDistriGeografica/"
+                }
+            });
+        }
+    }
+
+
+
+    function editar(){
+        var cod = $("#CODEDIT").val();
+        var nom= $("#CC_NOMB").val();
+        var pertgeo= $("#CC_PERT_GEO").val();
+        var desgeo= $("#CC_DES_PERT_GEO").val();
+
+        if (cod == "" || nom == "" || pertgeo == "" || desgeo == "") {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCampVac');
+        }
+        else
+        {    ///no son el mismo serialize cc_cod falta
+            var nuevo = $(".limpiar").serialize();
+            $.post("/CentroDistriGeografica/Edit",
+            nuevo,
+            function (data) {
+                if (data != 0) {
+                    alert('@Resources.StringResources.msgInsertOK');
+                    window.location.href = "/CentroDistriGeografica/"
+                }
+            });
+        }
+    }
+
+    function eliminar() {
+        var codigo= $("#cod_").html();
+        if ($("#cod_").html() != "") {
+            //alert($("#cod_").html());
+
+            var resp = confirm('@Resources.ActivoFijo.StringResources.msgConfDel' + $("#cod_").html() + " - " +$("#select").html().toUpperCase() + " ?");
+            if (resp) {
+                $(location).attr("href", "/CentroDistriGeografica/Delete?ccod=" + codigo)
+            }
+            else {
+            }
+        }
+        else {
+            alert('@Resources.ActivoFijo.StringResources.msgFaltCod');
+        }
+    }
+
+    function eliminar2() {
+        var codigo= $("#CODEDIT").val();
+        var desp =$("#CC_DES").val().toUpperCase();
+        //alert(codigo);
+        if (codigo != "") {
+            //alert($("#cod_").html());
+            $("#AlertDoc").modal("show");
+            span = '@Html.Raw(@Resources.ActivoFijo.StringResources.msgConfDel )'+ codigo  + " - " +desp + " ?";
+            $("#SpanInf").text(span);
+        }
+        else {
+            $("#AlertDoc").modal("show");
+            span = '@Html.Raw(@Resources.ActivoFijo.StringResources.msgFaltCod)';
+            $("#SpanInf").text(span);
+
+        }
+    }
+
+    $('.confirm-delete').on('click', function(e) {
+        e.preventDefault();
+
+        var id =$("#CODEDIT").val();
+        if (id!="") {
+            $(location).attr("href", "/CentroDistriGeografica/Delete2?ccod=" + id)
+        }
+        else {
+            alert('@Resources.ActivoFijo.StringResources.msgFaltCod');
+        }
+
+
+    });
+
+    function closeDialogC() {
+        limpiar();
+        $('#ListadoProve').modal('toggle');
+
+        //$("#dlgCC").dialog("close");
+
+    }
+
+    $("#Search_").each(function () {
+        $("#Search_").autocomplete({
+            source: "@Url.Action("getCodigos", "CentroDistriGeografica")",
+            minLength: 1,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $.ajax({
+                        url: "/CentroDistriGeografica/getCodAutocom?term=" + ui.item.value,
+                        success: function (data) {
+                            $("#CODEDIT").val(data.CC_COD);
+                            //$("#CC_COD").val(data.CC_COD);/// para que se pueda guardar con serialize
+                            $("#CC_DES").val(data.CC_DES);
+                            $("#CC_PERT_GEO").val(data.CC_PERT_GEO);
+                            $("#CC_DES_PERT_GEO").val(data.CC_DES_PERT_GEO);
+                            //$("#CODEDIT").prop('readonly', true);
+                        }
+                    });
+                }
+                else {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQNoItem' + this.value);
+                }
+            }
+        })
+    });
+
+
+    function search() {
+        $("#dlgCC").dialog({
+            height: 450,
+        });
+        $("#buscar").show();
+        $("#guardar").attr('onclick','editar();');
+        limpiar();
+        $("#cod_new").hide();
+        $("#cod_edit").show();
+        $("#CODEDIT").prop('readonly', true);
+    }
+
+
+    function cargarTreeView() {
+        var codigo = @padre[0].CC_COD;
+        //alert(codi2.id);
+        $.post("/CentroDistriGeografica/Get_Geog",
+           {"codigo":codigo.id},
+           function (data) {
+               var old="";
+               $.each(data, function (i, data) {
+                   //if(old==""){
+                   //    old= datos.CC_PERT_GEO;
+                   //}
+                   //else{
+                   //    if (datos.CC_PERT_GEO ==old){
+
+
+                   //    }
+                   //}
+
+
+                   var ids = data.CC_PERT_GEO;
+                   //    if(datos.CC_DES == 1){
+                   //alert(datos.CC_PERT_GEO);
+                   htmlRow_ = '<li class="treesoon">' +
+                             '<span id="'+data.CC_COD+'" class="tex">' + data.CC_DES + '' +
+                             '</span>' +
+                             '<ul id="Geog_' + data.CC_COD +'" Class="arbol list-unstyled"></ul>' +
+                             '</li>';
+                   $('#Geog_' + ids).append(htmlRow_);
+
+               });
+
+           });
+    }
+
+
+    //$("#red li ul li ul.arbol").mouseover(function () {
+    //    $(this).find('li').each(function (i, item) {
+    //        alert(item.CC_NOMB);
+
+    //    });
+    //});
+
+    function llenargrid(codigo) {
+        $.ajax({
+            url: "/CentroDistriGeografica/getGrid?codigo=" + codigo,
+            success: function (tabla) {
+                //alert(tabla);
+                ///si da error agregar en el json del controlador <tbody>
+                $('#dataTable  tbody').remove();
+                $('#dataTable').append(tabla);
+                Grid();
+            }
+        });
+    }
+
+    function Grid(){
+        $('#dataTable').DataTable().destroy();
+        $('#dataTable').DataTable({
+            "destroy":true,
+            "retrieve": true,
+            "paging": false,
+            "recordsFiltered": 2000,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": true
+        });
+    }
+
+    $(function () {
+        $("#buscar").hide();
+        $('#cod_').hide();
+        //$("#arboltree2").hide();
+        //$(".dlg").prop('readonly', true);
+        //$("#cctestabla").show();
+
+        validarcodnew();
+        cargarTreeView();
+        limpiar();
+        //Grid();
+
+
+
+
+        $('#red').on('click', 'span.tex', function(){
+            var codigo=$(this).attr('id');
+            var texto=$(this).text();
+            $('#red span.tex').css("background","");
+            $(this).css("background","darkturquoise");
+            $('#select').html(texto);
+            $('#cod_').html(codigo);
+            llenargrid(codigo);
+
+        })
+
+    });
+
+</script>

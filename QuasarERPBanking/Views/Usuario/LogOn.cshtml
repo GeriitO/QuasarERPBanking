@@ -1,0 +1,59 @@
+﻿@model QuasarERPBanking.Models.Usuario
+@using QuasarERPBanking.Models
+@*@using Resources.USUARIO*@
+@{
+    ViewBag.Title = Resources.StringResources.PestañaBrowLog;
+
+}
+
+@section LoginForm {
+
+    <div class="container container_content">
+
+        @using (Html.BeginForm("LogOn", "Usuario", FormMethod.Post, new { @class = "row g-3 form_login" }))
+        {
+            <div class="card card_login">
+                <img src="~/Content/imagenes/InicioQ.png" class="mb-5 login_img" alt="Logo Quasar" width="250" height="100" />
+                <h3 class="h3">Iniciar Sesión</h3> <!--Parametrizar el idioma-->
+                <div class="col-md-9 d-flex">
+                    <i class="bi bi-person-fill mt-auto mx-2"></i>
+                    @Html.TextBoxFor(m => m.usuario, new { @placeholder = Resources.USUARIO.StringResources.placUsuario, @class = "form-control" })
+                </div>
+                <div class="col-md-9 d-flex">
+                    <i class="bi bi-key-fill mt-auto mx-2"></i>
+                    @Html.PasswordFor(m => m.clave, new { @placeholder = Resources.USUARIO.StringResources.placContraseña, @class = "form-control" })
+                </div>
+                <button type="submit" class="btn quasar-button-color btn-lg mt-4" value="@Resources.USUARIO.StringResources.ButtonLogin" onclick="validarDatos()">Iniciar Sesión</button>
+            </div>
+        }
+    </div>
+}
+
+
+@if (ViewBag.Message == null)
+{
+
+    <div id="splash" style="display:none;">
+        <img src="../../Content/themes/base/images/splash.png" alt="Bienvenida" />
+    </div>
+}
+else
+{
+    @Html.Raw("<div id=\"MensajeOverlay\">Error en los datos</div>")
+
+    <div id="MensajeOverlay_">
+        error
+    </div>
+
+}
+
+<script>
+    function validarDatos() {
+        $.ajax({
+            url: "/Usuario/LogOn",
+            success: function (data) {
+                console.log(data.success);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,202 @@
+﻿@using QuasarERPBanking.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+@using (Html.BeginForm("Index", "CentroCostoGrafico", FormMethod.Post, new { target = "_self" }))
+{
+
+    <div class="internal-window bg-light flex-column">
+
+
+        <div class="form--section-title col-md-12">
+            <h2 class="col-md-6">@Resources.CC_MAESTRO.StringResources.BannerGrf</h2>
+            <div class="form--section-icon col-md-6">
+                <ul class="list-unstyled">
+                    <li class="icon--bar-exit">
+                        <a href="/">
+                            <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form--section-graphic col-md-12">
+            @Html.ValidationSummary(true)
+
+            <div class="graphic--daterange">
+                <h3 class="my-3">Rango de Fecha</h3>
+                <label>Desde:</label>
+                <input type="date" class="form-control my-2" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="fechacombo" name="fechacombo" />
+                <label>Hasta:</label>
+                <input type="date" class="form-control my-2" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="fechacomboh" name="fechacomboh">
+            </div>
+            <div class="graphic--filter">
+                <h3 class="my-3">Filtro de Cuenta</h3>
+                <input type="text" class="my-2" id="cuenta" name="cuenta" />
+                <p>Debe colocar por ejemplo 401 si deseas analizar la cuentas con ese inicial y si desea todos los gastos dejar el cuadro en blanco</p>
+            </div>
+            <div class="graphic--typegraph">
+                <h3 class="my-3">Tipo de Gráfico</h3>
+                <select class="form-select my-2" id="tipo" name="tipo">
+                    <option selected>Seleccionar tipo de gráfica...</option>
+                    <option value="Area"> Area </option>
+                    <option value="Bar"> Bar </option>
+                    <option value="Bubble">Bubble</option>
+                    <option value="BoxPlot">BoxPlot</option>
+                    <option value="Candlestick">Candlestick</option>
+                    <option value="Column"> Column </option>
+                    <option value="Doughnut">Doughnut</option>
+                    <option value="FastLine">FastLine</option>
+                    <option value="Line"> Line </option>
+                    <option value="Pie"> Pie </option>
+                    <option value="Pyramid">Pyramid</option>
+                    <option value="RangeColumn">RangeColumn</option>
+                    <option value="Radar">Radar</option>
+                    <option value="StackedBar"> StackedBar </option>
+                    <option value="StackedColumn"> StackedColumn </option>
+                    <option value="StepLine">StepLine</option>
+                    <option value="StackedArea">StackedArea</option>
+                    <option value="Stock"> Stock </option>
+                    <option value="ThreeLineBreak">ThreeLineBreak</option>
+                </select>
+                <select class="form-select my-2" id="tema" name="tema">
+                    <option selected>Seleccionar tema de la gráfica...</option>
+                    <option value="Blue"> Blue </option>
+                    <option value="Green"> Green </option>
+                    <option value="Vanilla"> Vanilla </option>
+                    <option value="Yellow"> Yellow </option>
+                    <option value="Vanilla3D"> Vanilla3D </option>
+                </select>
+            </div>
+            <input type="button" class="my-2" id="Procesar" value="Buscar" />
+
+        </div>
+        <div>
+            @*<div id="Grafico" style="background-color:cornsilk; height:393px;">
+                    @if (ViewBag.grafo1 != null)
+                    {
+                        <img id="chart" alt="Chart1" src="@ViewBag.grafo1" style="height:390px; width:590px; display:block; margin-left: auto; margin-right: auto;" />
+                    }
+                </div>*@
+
+            <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/chart/chart.min.js")" type="text/javascript"></script>
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    let desde = document.getElementById('fechacombo').value
+    let hasta = document.getElementById('fechacomboh').value
+    //let cuenta = document.getElementById('cuenta').value
+    //let tema = document.getElementById('tema').value
+    //let tema = document.getElementById('tipo').value
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: 'Gráficos',
+                data: [7,10, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<!--<script type="text/javascript">-->
+@*$(document).ready(function () {
+        $("#boton2").click(function () {
+            location.href = '@Url.Action("Index", "CentroCostoGrafico")';
+
+        });
+    })*@
+
+<!--function Generar() {
+    var desde = $("#fechacombo").val();
+    var hasta = $("#fechacomboh").val();
+    var cuenta = $("#cuenta").val();
+    var tema = $("#tema").val();
+    var tipo = $("#tipo").val();
+
+    $.ajax({
+        type: "POST",
+        url: "@Url.Action("dashboard","CentroCostoGrafico")",
+        data: { termino: desde,
+                termino2: hasta,
+                termino3: cuenta,
+                termino4: tipo,
+                termino5: tema
+        },
+        success: function (data) {-->
+@*window.location.href('@Url.Action("Create","CentroCostoGrafico")');*@
+<!--}
+            })
+        }
+
+        $("#Procesar").click(function(){
+            buscar();
+
+        })
+
+        $("#Procesar2").click(function () {
+
+            Generar();
+        })
+
+        function buscar() {
+            var desde = $("#fechacombo").val();
+            var hasta = $("#fechacomboh").val();
+            var cuenta = $("#cuenta").val();
+            var tema = $("#tema").val();
+            var tipo = $("#tipo").val();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Index","CentroCostoGrafico")",
+                data: { termino: desde , termino2: hasta, termino3: cuenta , termino4:tipo , termino5:tema } ,
+                datatype: "json",
+                success: function (data) {
+                    //$("#Grafico").load("#Grafico");
+                    $("#chart").remove();
+                    //$("#Grafico").html('<img  alt="Chart1" src="data:image/jpg;base64,' + data.base64imgage + '" style="height:390px; width:590px; display:block; margin-left: auto; margin-right: auto;" />');
+                    var ruta = '<img id="chart" alt="Chart1" src="data:image/jpg;base64,' + data.base64imgage + '" style="height:390px; display:block; margin-left: auto; margin-right: auto;" />';
+                    //document.getElementById("Grafico").innerHTML = ruta ;
+                    $("#Grafico").append(ruta);
+                }
+
+            })
+        }
+</script>-->

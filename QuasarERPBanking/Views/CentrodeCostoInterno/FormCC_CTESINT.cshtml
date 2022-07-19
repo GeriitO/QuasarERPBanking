@@ -1,0 +1,548 @@
+﻿@using QuasarERPBanking
+@model QuasarERPBanking.Models.CentrodeCostoInterno
+@{
+
+    //var lstCond = CONDICIONES.GetCondicion();
+    var lstCond = QuasarERPBanking.Models.Q_TBLOBJ.getobj("Condiciones");
+    //var lstEdo = ESTADOS.GetEstados();
+    var lstEdo = QuasarERPBanking.Models.Q_TBLOBJ.getobj("Estados");
+
+}
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<form class="row g-3">
+
+    <div class="internal-window bg-light">
+        <div class="form--section-title col-md-12">
+            <div class="col-md-6 internal--title">
+                <h2 class="internal--title-h2">@Resources.CentrodeCostoInterno.StringResources.tittleventana</h2>
+            </div>
+
+            <div class="col-md-6 icon-bar">
+                <ul class="list-unstyled d-flex justify-content-around">
+                    <li class="icon--bar-create">
+                        <a href="#" onclick="window.location.href = '/CentrodeCostoInterno/Create';">
+                            <img src="~/Content/imagenes/icon-add.svg" width="20" height="24" />
+                        </a>
+                    </li>
+                    <li class="icon--bar-search">
+                        <a href="#" id="buscar" onclick="window.location.href = '/CentrodeCostoInterno/Index'; ">
+                            <img src="~/Content/imagenes/icon-search.svg" width="20" height="24" />
+                        </a>
+                    </li>
+                    <li class="icon--bar-delete">
+                        <a href="#" onclick="eliminar();">
+                            <img src="~/Content/imagenes/icon-delete.svg" width="20" height="24" />
+                        </a>
+                    </li>
+                    <li class="icon--bar-save">
+                        <a href="#">
+                            <img src="~/Content/imagenes/icon-save.svg" width="24" height="24" />
+                        </a>
+                    </li>
+                    <li class="icon--bar-exit">
+                        <a href="/">
+                            <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                        </a>
+                    </li>
+                </ul>
+                <!-------------------------------------                 BOTONES DE ACTIVIDADES                  -------------------------------------->
+                @*<img src="../../Content/themes/base/images/reloj.png" alt="Salir" title="@Resources.CXP_MAESTRO.StringResources.tittlebuttonSalir" onclick="showActivities();" id="actReunion" />*@
+            </div>
+        </div>
+
+        <div class="form--section col-md-12 my-4">
+            <div class="form--section-search col-md-6">
+                <label class="py-2">
+                    <b>@Resources.StringResources.LblGlobalBusq</b>
+                </label>
+                <input type="text" id="CTECOD_" data-autocomplete="@Url.Action("getCodigos", "CentrodeCostoInterno")" autocomplete="on" class="form-control form--section-input" />
+            </div>
+            <div class="form--section-condition col-md-6">
+                <b>@Html.LabelFor(model => model.CTECOND, new { @class = "p-2" })</b>
+                <div class="form--section-input">
+                    @Html.DropDownListFor(model => model.CTECOND, ((IEnumerable<QuasarERPBanking.Models.Q_TBLOBJ>)lstCond)/*For(model => model.CXPRELAC,*/ .Select(option => new SelectListItem { Text = (option == null ? "Ninguno" : option.descripcion.ToUpper()), Value = option.descripcion.ToString(),/* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/}), Resources.CentrodeCostoInterno.StringResources.placCond, new { @onchange = "", title = "Seleccione una Condición", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <!--****************************** Menu de pestañas *****************************-->
+        @*<div id="menupestanas">
+                <ul id="tabs">
+                    <li id="LiCuenta" onclick="setCuentas();"><a>@Resources.CentrodeCostoInterno.StringResources.liCuenta</a></li>
+                    <li id="LiContacto" onclick="setContactos();"><a>@Resources.CentrodeCostoInterno.StringResources.liContacto</a></li>
+                    <li id="LiActividad" onclick="setActividades();"><a>@Resources.CentrodeCostoInterno.StringResources.liActividad</a></li>
+                </ul>
+            </div>*@
+
+        <!--****************************** /Menu de pestañas *****************************-->
+
+        <div class="col-md-5 cuenta" id="cuentas">
+            <h3 class="dato-cliente my-2 pb-2">@Resources.CentrodeCostoInterno.StringResources.FieldsetDatos</h3>
+            <div class="cuenta--codigo">
+                <b>@Html.LabelFor(model => model.CTECOD, new { @class = "py-2" })</b>
+                <div>
+                    @Html.TextBoxFor(model => model.CTECOD, new { style = "width:100px;", @class = "limpiar form-control" })
+                </div>
+            </div>
+
+            <div class="cuenta--datos">
+                <div>
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTENOMBRE, new { @class = "my-2" })
+                        <div>
+                            @Html.TextBoxFor(model => model.CTENOMBRE, new { style = "", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTEDIR, new { @class = "my-2" })
+                        <div>
+                            @Html.TextAreaFor(model => model.CTEDIR, new { style = "resize:none;", @class = "limpiar form-control", @cols = 30, @rows = 4 })
+                        </div>
+                    </div>
+
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTECIUDAD, new { @class = "my-2" })
+                        <div>
+                            @Html.TextBoxFor(model => model.CTECIUDAD, new { @class = "my-2 form-control" })
+                        </div>
+
+                        <div class="my-2">
+                            @Html.LabelFor(model => model.CTETELF, new { @class = "my-2" })
+                            <div>
+                                @Html.TextBoxFor(model => model.CTETELF, new { @class = "my-2 form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTEEDO, new { @class = "my-2" })
+                        <div>
+                            @Html.DropDownListFor(model => model.CTEEDO, ((IEnumerable<QuasarERPBanking.Models.Q_TBLOBJ>)lstEdo)/*For(model => model.CXPRELAC,*/.Select(option => new SelectListItem { Text = (option == null ? "Ninguno" : option.descripcion.ToUpper()), Value = option.descripcion.ToString(),    /* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/}), Resources.CentrodeCostoInterno.StringResources.placEdo, new { @class = "my-2 form-control", @placeholder = Resources.CXP_MAESTRO.StringResources.placEdoCXP })
+                        </div>
+                    </div>
+
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTEFAX, new { @class = "my-2" })
+                        <div>
+                            @Html.TextBoxFor(model => model.CTEFAX, new { @class = "my-2 form-control" })
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTECODPOSTAL, new { @class = "my-2" })
+
+                        <div>
+                            @Html.TextBoxFor(model => model.CTECODPOSTAL, new { @class = "my-2 form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-2">
+                <div>
+                    <h3 class="dato-cliente my-2 pb-2">@Resources.CentrodeCostoInterno.StringResources.FieldsetAsignacion</h3>
+
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTECOMPRADOR, new { @class = "my-2" })
+                        <div>
+                            @Html.TextBoxFor(model => model.CTECOMPRADOR, new { @class = "my-2 form-control" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="my-2 pt-2">
+
+                    <h3 class="dato-cliente my-2 pb-2">@Resources.CentrodeCostoInterno.StringResources.FieldsetReseña</h3>
+
+                    <div class="my-2">
+                        @Html.LabelFor(model => model.CTERESENIA, new { @class = "my-2" })
+                        <div>
+                            @Html.TextAreaFor(model => model.CTERESENIA, new { @class = "my-2 form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="Contactos">
+            @using (Html.BeginForm("Edit", "CC_CONTACTOS", FormMethod.Post, new { id = "myForm" }))
+            {
+                if (Model != null)
+                {
+                    ViewData.Add("CTECOD", Model.CTECOD);
+                }
+                Html.RenderPartial("frmContactos", new QuasarERPBanking.Models.CC_CTE_CONTACTOS());
+            }
+        </div>
+
+        <div id="Actividades">
+            @using (Html.BeginForm("Edit", "CC_ACTIVIDADES", FormMethod.Post, new { id = "myForm" }))
+            {
+                if (Model != null)
+                {
+                    //ViewData.Add("CXPCOD", Model.CXPCOD);
+                }
+                QuasarERPBanking.Models.CC_ACTIVIDADES cxp_actividad = new QuasarERPBanking.Models.CC_ACTIVIDADES
+                {
+                    //ACTID = "1",
+                    //ACT_ASUNTO = "aaaa",
+
+                };
+                List<QuasarERPBanking.Models.CC_ACTIVIDADES> lstActividades = new List<QuasarERPBanking.Models.CC_ACTIVIDADES>();
+                //lstActividades.Add(cxp_actividad);
+                if (Model != null)
+                {
+                    lstActividades = QuasarERPBanking.Models.CC_ACTIVIDADES.ActividadesPorCTECOD(Model.CTECOD != null ? Model.CTECOD : "0");
+                }
+                Html.RenderPartial("gridActividades", new QuasarERPBanking.Models.CC_ACTIVIDADES());
+            }
+        </div>
+
+    </div>
+</form>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+<script>
+    function eliminar() {
+        if ($("#CTECOD").val() != "") {
+            var resp = confirm('@Resources.MANTENIMIENTO.StringResources.msgJQConfDel' + $("#CTECOD").val().toUpperCase() + " ?");
+            if (resp) {
+                $(location).attr("href", "/CentrodeCostoInterno/Delete?ctecod=" + $("#CTECOD").val())
+                $("#CTECOD").val("");
+            }
+            else {
+            }
+        }
+        else {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQNoCod');
+        }
+    }
+</script>
+
+@Html.ValidationSummary()
+
+
+
+<script type="text/javascript">
+
+    //href contactos y actividades para modificar y agregar
+
+    function showContact(indice) {
+        var fila = $('#tblContactos tbody tr').eq(indice);
+        var tds = fila.find("td");             // Finds all children <td> elements
+        $("#CTECONTCOD").val(tds.eq(0).text());
+        $("#CTECONTNOM").val(tds.eq(1).text());
+        $("#CTECONTTEL").val(tds.eq(2).text());
+        $("#CTECONTFAX").val(tds.eq(3).text());
+        $("#CTECONTDIR").val(tds.eq(5).text());
+        $("#CTECONTEMAIL").val(tds.eq(4).text());
+
+        //$.each(tds, function() {               // Visits every single <td> element
+        //    alert($(this).text());
+        //    // Prints out the text within the <td>
+        //});
+        $("#CTECONTCOD").prop('readonly', "true");
+        $("#action").val("Edit");
+        showDlgContact();
+    }
+
+    function showActivities(indice) {
+        var fila = $('#gridContent  tbody  tr').eq(indice);
+        var tds = fila.find("td");             // Finds all children <td> elements
+
+        $("#ACTID").val(tds.eq(0).text());
+        $("#ACT_AUTOR").val(tds.eq(5).text());              //
+        $("#ACT_FECHCREA").val(tds.eq(1).text());
+        $("#ACT_FECHREAL").val(tds.eq(2).text());
+        $("#ACT_CUERPO").val(tds.eq(6).text());             //
+        $("#ACT_ASUNTO").val(tds.eq(3).text());
+        $("#ACT_PERSCOMP").val(tds.eq(4).text());
+        $("#lblName").text($("#CTENOMBRE").val());
+
+
+
+        $("#ACTID").prop('readonly', "true");
+        $("#ACT_FECHCREA").prop('readonly', "true");
+        $("#ACT_AUTOR").prop('readonly', "true");
+        $("#action").val("Edit");
+        showDlgActivities();
+    }
+
+    //para bloquear las pestañas de cxpmaestro
+    function setCuentas() {
+        $("#cuentas").show();
+        $("#Contactos").hide();
+        $("#Actividades").hide();
+    }
+
+    function setContactos() {
+        if ($("#CTECOD").val() != "" && $("#CTECOD").val() != null) {
+            $("#cuentas").hide();
+            $("#Actividades").hide();
+            $("#Contactos").show();
+        }
+    }
+
+    function setActividades() {
+        if ($("#CTECOD").val() != "" && $("#CTECOD").val() != null) {
+            $("#cuentas").hide();
+            $("#Contactos").hide();
+            $("#Actividades").show();
+        }
+    }
+
+
+    function cleanCtes() {
+
+        $("#CTECOND").val("");
+        $("#CTENOMBRE").val("");
+        $("#CTEDIR").val("");
+        $("#CTEWEB").val("");
+        $("#CTERELACDESDE").val("");
+        $("#CTERETENC").val("");
+        $("#CTECOMPRADOR").val("");
+        $("#CTEEDO").val("");
+        $("#CTECIUDAD").val("");
+        $("#CTECODPOSTAL").val("");
+        $("#CTEFAX").val("");
+        $("#CTETELF").val("");
+        $("#CTEDIASCRED").val("");
+        $("#CTEBALACT").val("");
+        $("#CTERESENIA").val("");
+        $("#CTECOD").val("");
+        $("#CTECOD_").val("");
+
+
+    }
+
+
+
+    $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+
+    ////////////////////////////PAGE LOAD/////////////////////////////
+    $(function () { // will trigger when the document is ready
+
+        cleanCtes();    // limpia toas las celdas
+        inhabilitartodo();
+
+
+
+
+
+        $("#CTEFAX").change(function () {
+            var _this = $("#CTEFAX");
+            var _email = $("#CTEFAX").val();
+
+            var re = /^[0-9-+()]{1,16}$/;
+            var valid = re.test(_email);
+
+            if (valid) {
+                _this.attr('style', 'background:white');
+            } else {
+                _this.attr('style', 'background:#fc080833');
+                alert('@Resources.MANTENIMIENTO.StringResources.msgJQFax');
+                $("#CTEFAX").val("");
+                //$("#CXPRIF").focus();
+
+            }
+        });
+
+        $("#CTETELF").change(function () {
+            var _this = $("#CTETELF");
+            var _email = $("#CTETELF").val();
+
+            var re = /^[0-9-+()]{1,16}$/;
+            var valid = re.test(_email);
+
+            if (valid) {
+                _this.attr('style', 'background:white');
+            } else {
+                _this.attr('style', 'background:#fc080833');
+                alert('@Resources.MANTENIMIENTO.StringResources.msgJQTelf');
+                $("#CTETELF").val("");
+                //$("#CXPRIF").focus();
+
+            }
+        });
+
+
+        $("#CTECOD").numericInput();
+        $("#CTECODPOSTAL").numericInput();
+
+        $("#actReunion").hide();    //OCULTAR BOTON ACTIVIDADES
+
+        $("#CTECOD").focusout(function () {
+
+            if (!$("#CTECOD").prop('readonly')) {
+                $.ajax({
+                    url: "/CentrodeCostoInterno/getCodigo?term=" + $("#CTECOD").val(),
+                    success: function (data) {
+                        if (data == "1") {
+                            alert("El código ya existe");
+                            inhabilitartodo();
+                            $("#CTECOD").prop('disabled', false);
+                        }
+                        else {
+                            habilitartodo();
+                        }
+                    }
+                });
+            }
+
+        });
+
+
+        $('.datepicker').datepicker(
+            {
+                format: 'dd/mm/yy',
+                startDate: '-3d',
+                onSelect: function () {
+                    //return $(this).trigger('change');
+                    //alert("prueba");
+                }
+            }); //Initialise any date pickers
+
+        $("#CTECOD_").each(function () {
+            $("#CTECOD_").autocomplete({
+                source: $(this).attr("data-autocomplete"),
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+
+                        $.ajax({
+                            url: "/CentrodeCostoInterno/getCodAutocom?term=" + ui.item.value,
+                            success: function (data) {
+                                habilitartodo();
+                                //window.location.replace("/CXP_MAESTRO/Edit?cxp_maestro=" + data);
+                                $("#CTECOND").val(data.CTECOND);
+                                $("#CTENOMBRE").val(data.CTENOMBRE);
+                                $("#CTEDIR").val(data.CTEDIR);
+                                $("#CTEWEB").val(data.CTEWEB);
+                                $("#CTERELACDESDE").val(data.strCTERELACDESDE);
+                                $("#CTERETENC").val(data.CTERETENC);
+                                $("#CTECOMPRADOR").val(data.CTECOMPRADOR);
+                                $("#CTEEDO").val(data.CTEEDO);
+                                $("#CTECIUDAD").val(data.CTECIUDAD);
+                                $("#CTECODPOSTAL").val(data.CTECODPOSTAL);
+                                $("#CTEFAX").val(data.CTEFAX);
+                                $("#CTETELF").val(data.CTETELF);
+                                $("#CTEDIASCRED").val(data.CTEDIASCRED);
+                                $("#CTEBALACT").val(data.CTEBALACT);
+                                $("#CTERESENIA").val(data.CTERESENIA);
+                                $("#CTECOD").val(data.CTECOD);
+
+                                loadContacts(data.CTECOD);
+                                loadActivities(data.CTECOD);
+
+                                $("#actReunion").show();
+
+                                $("#CTECOD").prop('readonly', true);
+
+                            }
+                        });
+
+                    }
+                    else {
+                        alert('@Resources.MANTENIMIENTO.StringResources.msgJQError');
+                    }
+                },
+                error: function () {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQAutoc');   // remember to call response() even if ajax failed
+                }
+            });
+        });
+
+        $("#buscar").click(function () {
+            //$(location).attr("href", "/CXP_MAESTRO/Buscar?cxpcod=" + $("#CXPCOD_").val());
+            $(".limpiar").val("");
+            $("#CTECOD_").val("");
+            $(".limpiar").prop('checked', false);
+            inhabilitartodo();
+
+        });
+
+
+
+        ///////////// contador de caracteres para los textarea//////////////////////
+        $("#CTEDIR").charCounter(170, {
+            container: '<em id="a" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:200px"></em>',
+            format: "170 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+        $("#CTERESENIA").charCounter(170, {
+            container: '<em id="a" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:455px"></em>',
+            format: "170 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+
+
+    })
+
+    function loadContacts(CTECOD) {
+        $.ajax({
+            url: "/CC_CONTACTOS/getContactos?ctecod=" + CTECOD,
+            success: function (tabla) {
+                $('#tblContactos  tbody  tr').remove();
+                $('#tblContactos').append(tabla);
+            }
+        });
+    }
+
+    function loadActivities(CTECOD) {
+        $.ajax({
+            url: "/CC_ACTIVIDADES/getActividades?ctecod=" + CTECOD,
+            success: function (tabla) {
+                $('#gridContent  tbody  tr').remove();
+                $('#gridContent tbody:last').append(tabla);
+
+            }
+        });
+    }
+
+
+    /// para las acciones de los botones de actividades
+    $(function () {
+
+        $("#actReunion").click(function () {
+            //alert();
+            $("#action").val("Create");
+            $("#ACTID").removeAttr("readonly");
+            $("#ACT_AUTOR").removeAttr("readonly");
+            $("#ACT_FECHCREA").removeAttr("readonly");
+            $("#ACT_AUTOR").val(data.usuario);
+
+            //cleanA();
+            showDlgActivities();
+        });
+
+    });
+
+</script>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+    <title>Quasar - PRESUPUESTO</title>
+    <link rel="shortcut icon" href="@Url.Content("~/Content/themes/base/images/favicon.ico")"/>
+
+    <link href="@Url.Content("~/Content/jquery-ui-1.9.2.custom.css")" rel="stylesheet" type="text/css" />
+    
+    <script src="@Url.Content("~/Scripts/jquery-1.8.3.js")" type="text/javascript"></script>
+    <script type='text/javascript' src='@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.js")'></script>
+    <script type='text/javascript' src="@Url.Content("~/Scripts/basic.js?version=1.0.3")"></script>
+    
+    <style type="text/css">
+        #page
+        {
+            background-image:url('../Content/themes/base/images/logo_organizacion.png');
+            background-repeat:no-repeat;
+        }
+        table
+        {
+            margin:1px;
+            border-style:solid;
+            border-color:Black;
+            border-width: 1px;
+            font-family:Arial, Verdana, Lucida Sans;
+            border-spacing:0px;
+        }
+        
+        table *
+        { 
+            border-style:ridge;
+            border-width: 1px;
+            margin:1px;
+            padding:2px;
+
+           
+        }
+    </style>
+   
+</head>
+<body>
+    <div id="page">
+        <div id="main">
+            <noscript>
+                <p style="font-size:large; text-align:center; color:#F00;">
+                Esta página ha sido diseñada para utilizar javascript.
+                Su navegador lo tiene desactivado o no lo soporta.
+                </p>
+            </noscript>
+            @if(ViewBag.Message != null){
+                <p class="field-validation-error" style="color:#F00; font-size:large;text-align:center;">@ViewBag.Message</p>
+            }
+            @RenderBody()
+        </div>
+        <div id="footer" style="text-align:center;">
+            Generado por: @ViewBag.footer
+        </div>
+        @{
+            Html.RenderPartial("Timeout");
+        }
+    </div>
+</body>
+</html>

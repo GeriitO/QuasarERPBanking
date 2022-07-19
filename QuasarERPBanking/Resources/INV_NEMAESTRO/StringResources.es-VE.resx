@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dropCont" xml:space="preserve">
+    <value>-- Seleccione un Contacto --</value>
+    <comment>Label</comment>
+  </data>
+  <data name="ErrCC" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCliCod" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCod" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCodElab" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCodLuga" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrCont" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrConta" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFcont" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFelab" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrFemisi" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrPerson" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrServi" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrStatus" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ErrTab" xml:space="preserve">
+    <value>El campo está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="fieldDetne" xml:space="preserve">
+    <value>Detalle de la Nota de Entrega</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="fieldRequi" xml:space="preserve">
+    <value>Requisiciones realizadas por el Cliente Interno</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="fieldSnres" xml:space="preserve">
+    <value>Señor(es):</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="lblAtn" xml:space="preserve">
+    <value>Atentamente:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCC" xml:space="preserve">
+    <value>Centro de Costo</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCliCod" xml:space="preserve">
+    <value>Código:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCod" xml:space="preserve">
+    <value>Código del Producto</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCodElab" xml:space="preserve">
+    <value>N° de N/E:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCont" xml:space="preserve">
+    <value>Contacto</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblConta" xml:space="preserve">
+    <value>Status conta</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDeposit" xml:space="preserve">
+    <value>Depósito: </value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDirec" xml:space="preserve">
+    <value>Dirección:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFcont" xml:space="preserve">
+    <value>Fecha contable</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFelab" xml:space="preserve">
+    <value>Fecha de Elaboración </value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFemisi" xml:space="preserve">
+    <value>Fecha de Emisión:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblLuga" xml:space="preserve">
+    <value>Lugar:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNom" xml:space="preserve">
+    <value>Nombre:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblPerson" xml:space="preserve">
+    <value>Persona</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblSendEmail" xml:space="preserve">
+    <value>Enviar N/E al Email:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblServi" xml:space="preserve">
+    <value>Observaciones:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Status N/E:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblTab" xml:space="preserve">
+    <value>Tabla</value>
+    <comment>Label</comment>
+  </data>
+  <data name="pesCtesint" xml:space="preserve">
+    <value>Cliente Interno</value>
+    <comment>Pestaña</comment>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Nota de Entrega</value>
+    <comment>Titulo</comment>
+  </data>
+  <data name="ErrMsgDelFifo" xml:space="preserve">
+    <value>Error al Limpiar tabla FiFo</value>
+    <comment>mensaje de error al limpiar la tabla Fifo</comment>
+  </data>
+  <data name="ErrMsgInsNema" xml:space="preserve">
+    <value>Error al Insertar en Nota de Entrega</value>
+    <comment>mensaje de error al insertar en nemaestro</comment>
+  </data>
+  <data name="ErrMsgInsTransNe" xml:space="preserve">
+    <value>Error al Registrar Nota de Entrega en Transacciones</value>
+    <comment>mensaje de error al insertar en transacciones</comment>
+  </data>
+  <data name="BtnAdd" xml:space="preserve">
+    <value>Agregar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="BtnInsert" xml:space="preserve">
+    <value>Insertar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="FielAddDet" xml:space="preserve">
+    <value>Agregar detalles a la Nota de Entrega</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="lblDetCan" xml:space="preserve">
+    <value>Cantidad a Despachar</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDetNom" xml:space="preserve">
+    <value>Nombre del Producto</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDetOpc" xml:space="preserve">
+    <value>Opciones</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDetUnd" xml:space="preserve">
+    <value>Unidad de medida</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblExist" xml:space="preserve">
+    <value>Existencia:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblReqCod" xml:space="preserve">
+    <value>Cod. Prod.</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblReqCodRe" xml:space="preserve">
+    <value>Código ReqM</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblReqDes" xml:space="preserve">
+    <value>A Despachar</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblReqElab" xml:space="preserve">
+    <value>Elaborada</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblRequerido" xml:space="preserve">
+    <value>Requerido</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblStaElab" xml:space="preserve">
+    <value>En Elaboración</value>
+    <comment>Label</comment>
+  </data>
+  <data name="ParrClose" xml:space="preserve">
+    <value>La página se ha cerrado inesperadamente, su usuario estaba trabajando con el cliente interno </value>
+    <comment>Parrafo</comment>
+  </data>
+  <data name="ParrClose2" xml:space="preserve">
+    <value>, este sera eliminado,
+        por favor empiece de nuevo el proceso de nota de entrega con este cliente interno.</value>
+    <comment>Parrafo</comment>
+  </data>
+  <data name="ParrExist" xml:space="preserve">
+    <value>Este producto ya ha sido agregado.
+        Puede cambiar los datos ingresados anteriormente y pulsar el botón "Insertar".</value>
+    <comment>Parrafo</comment>
+  </data>
+  <data name="TitleEdiProd" xml:space="preserve">
+    <value>Editar Producto</value>
+    <comment>titulo</comment>
+  </data>
+  <data name="TitleProdadd" xml:space="preserve">
+    <value>Producto Agregado</value>
+    <comment>titulo</comment>
+  </data>
+  <data name="TitleProdPen" xml:space="preserve">
+    <value>Producto Pendiente</value>
+    <comment>titulo</comment>
+  </data>
+  <data name="TitleSusProd" xml:space="preserve">
+    <value>Sustituir Producto</value>
+    <comment>titulo</comment>
+  </data>
+</root>

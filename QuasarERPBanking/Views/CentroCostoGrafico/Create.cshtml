@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div style="float:left; background-color:azure; height:500px; width:15%; border-style:outset ; padding-left: 10px; padding-right:10px; border-top-width: 10px; margin:5px; border-radius:10px; border-width:1px;">
+    <p style="font:100; font-family:Verdana; font-size:20px; color:cadetblue; text-align:center;">   DashBoard   </p>
+    <br />
+    <p style="font:100; font-family:Verdana; font-size:16px; text-align:justify; color:darkslateblue">Este es el resumen graficos de Operacion realizadas en distintas areas, representado graficamente por los ultimos 6 meses</p>
+    <br/>
+ 
+</div>
+
+<div id="grafico1" style="height:260px; width:75%;float:left; padding:3px; background-color:white;border-style:outset ; padding-left: 10px; border-top-width: 10px; margin:5px; border-radius:10px; border-width:1px;">
+    <div style="position:relative; float:left; width:250px; border-style:none;">
+        <img alt="Chart1" src="@ViewBag.grafo1" style="height:250px; width:250px;" />
+    </div>
+    <div style="position:relative; float:left; width:25%; padding:11px;">
+        <p style="font:100; font-family:Verdana; font-size:14px; color:cadetblue; text-align:center;">Resumen Gastos</p>
+        <table id="tablita" style="background-color:azure; border:3px; border-color:dimgray; border-style:solid;  font-size:12px; border-radius:15px; border-spacing:10px;">
+            <thead style="background-color:darkkhaki;">
+                <tr>
+                    <td style="border-color:darkslateblue; border-style:solid; width:60px;">Mes</td>
+                    <td style="text-align:right; border-color:darkslateblue; border-style:solid; width:200px; ">Monto</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.lista1)
+                {
+                    <tr>
+                        <td style="border-color:darkslateblue; border-style:solid;">@item.mes</td>
+                        <td style="text-align:right; border-color:darkslateblue; border-style:solid;">@item.monto</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="position:relative; float:left;  width:450px; border-style:outset ; padding-left: 10px; border-top-width: 10px; margin:5px; border-radius:5px; border-width:1px;">
+        <img alt="Chart2" src="@ViewBag.grafo2" style="height:245px; width:400px;" />
+    </div>
+</div>
+<br />
+<div style="height:230px;width:75%;float:left;border-style:outset ; padding-left: 10px; border-top-width: 10px; margin:5px; border-radius:10px; border-width:1px; padding:3px; background:white;">
+    <div style="position:relative; float:left; padding-left:10px; width:20%;">
+        <p style="font:100; font-family:Verdana; font-size:14px; color:cadetblue; text-align:center;">Compras</p>
+        <table class="none" style="background-color:azure; border-width:3px; border-style:double; border-color:dimgray; border-style:solid; font-size:12px; border-radius:20px;">
+            <thead style="background-color:darkkhaki;">
+                <tr>
+                    <td style="border-color:darkslateblue; border-style:solid;">Mes</td>
+                    <td style="text-align:right; border-color:darkslateblue; border-style:solid; ">Monto</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.lista4)
+                {
+                    <tr>
+                        <td style="border-color:darkslateblue; border-style:solid;">@item.mes</td>
+                        <td style="text-align:right; border-color:darkslateblue; border-style:solid;">@item.monto</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="position:relative; float:left; padding-left:10px; width:20%;">
+        <p style="font:100; font-family:Verdana; font-size:12px; color:cadetblue; text-align:center;">Despacho</p>
+        <table class="none" style="background-color:azure; border-width:3px; border-style:double; border-color:dimgray; border-style:solid; font-size:12px;" ">
+            <thead  style="background-color:darkkhaki;">
+                <tr>
+                    <td style="border-color:darkslateblue; border-style:solid;">Mes</td>
+                    <td style="text-align:right; border-color:darkslateblue; border-style:solid;">Monto</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.lista3)
+                {
+                    <tr>
+                        <td style="border-color:darkslateblue; border-style:solid;">@item.mes</td>
+                        <td style="text-align:right; border-color:darkslateblue; border-style:solid;">@item.monto</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="position:relative; float:left;  width:45%">
+        <img alt="Chart3" src="@ViewBag.grafo3" style="height:210px; width:500px;" />
+    </div>
+</div>
+

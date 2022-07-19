@@ -1,0 +1,96 @@
+﻿@using QuasarERPBanking
+@model QuasarERPBanking.Models.CentrodeCostoInterno
+@{
+   
+}
+
+
+
+
+
+
+<div id="cctestabla" style="overflow:auto; width:100%; height:360px; background-color:white">
+    <table>
+        <tr><td style="font-size:12px">@Resources.CC_MAESTRO.StringResources.lblIndica</td></tr>
+    </table>
+    <table class="TablaCC" id="TableCCtes" style="width:100%; font-size:12px">              
+        <thead>
+            <tr>
+                <th style="width:auto">
+                    @Html.DisplayNameFor(model => model.CTECOD)
+                </th>
+                <th style="width:auto">
+                    @Html.DisplayNameFor(model => model.CTENOMBRE)
+                </th>               
+            </tr>
+        </thead>
+        <tbody></tbody>
+       
+    </table>
+   
+   
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    function tabladiseño() {
+        $('#TableCCtes').DataTable({
+            "paging": false,
+            "recordsFiltered": 2000,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": true
+        });
+    }
+
+    function gridCCtes() {
+        $.post("/CentrodeCostoInterno/GridCC",
+       function (tabla) {
+           $('#TableCCtes  tbody').remove();
+           $('#TableCCtes').append(tabla);
+           tabladiseño();
+       });
+    }
+
+    function filaselect(id) {
+
+        var codcc = id;
+        var nomcc = $('#nom' + id).html();
+        $("#CC_CTEASOC").val(codcc);
+        $("#CC_DES_CTEASOC").val(nomcc);
+
+        closeDialogCC();
+
+    }
+
+    function closeDialogCC() {
+       
+        $("#ArbolcL").modal("hide");
+    }
+
+    function showCCes2() {
+        $('#ArbolcL').modal({ backdrop: 'static', keyboard: false });
+        $("#ArbolcL").modal("show");
+    }
+
+
+
+
+
+    $(function () {
+        gridCCtes();
+
+    });
+
+
+
+
+</script>

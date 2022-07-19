@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Banner" xml:space="preserve">
+    <value>Producto</value>
+    <comment>Banner</comment>
+  </data>
+  <data name="errCod" xml:space="preserve">
+    <value>El campo CÓDIGO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errCtGas" xml:space="preserve">
+    <value>El campo GASTO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errCtInv" xml:space="preserve">
+    <value>El campo INVENTARIO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errDesc" xml:space="preserve">
+    <value>El campo DESCRIPCIÓN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errDispo" xml:space="preserve">
+    <value>El campo DISPONIBLE está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errExist" xml:space="preserve">
+    <value>El campo EXISTENTE está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errFisica" xml:space="preserve">
+    <value>El campo FÍSICA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errGrupo" xml:space="preserve">
+    <value>El campo GRUPO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errIva" xml:space="preserve">
+    <value>El campo IVA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errMarca" xml:space="preserve">
+    <value>El campo MARCA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errMax" xml:space="preserve">
+    <value>El campo MÁXIMO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errMinimo" xml:space="preserve">
+    <value>El campo MÍNIMO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errModel" xml:space="preserve">
+    <value>El campo MODELO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errNom" xml:space="preserve">
+    <value>El campo NOMBRE está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errOrde" xml:space="preserve">
+    <value>El campo ORDENADA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errProv" xml:space="preserve">
+    <value>El campo COD. PROVEEDOR está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errReor" xml:space="preserve">
+    <value>El campo REORDEN está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errRequer" xml:space="preserve">
+    <value>El campo REQUERIDA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errReservada" xml:space="preserve">
+    <value>El campo RESERVADA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errTipo" xml:space="preserve">
+    <value>El campo TIPO está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errUnidad" xml:space="preserve">
+    <value>El campo UNIDAD está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="errZona" xml:space="preserve">
+    <value>El campo ZONA está vacío.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblCod" xml:space="preserve">
+    <value>Código:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCtGas" xml:space="preserve">
+    <value>Gasto:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCtInv" xml:space="preserve">
+    <value>Inventario:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDesc" xml:space="preserve">
+    <value>Descripción:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDircGto" xml:space="preserve">
+    <value>Directo a Gasto?</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblDispo" xml:space="preserve">
+    <value>Disponible:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblExist" xml:space="preserve">
+    <value>Existente:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblFisica" xml:space="preserve">
+    <value>Física:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGrupo" xml:space="preserve">
+    <value>Grupo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblIva" xml:space="preserve">
+    <value>Iva:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMarca" xml:space="preserve">
+    <value>Marca</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMax" xml:space="preserve">
+    <value>Máximo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblMinimo" xml:space="preserve">
+    <value>Mínimo: </value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblModel" xml:space="preserve">
+    <value>Modelo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblNom" xml:space="preserve">
+    <value>Nombre:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblOrde" xml:space="preserve">
+    <value>Ordenada:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblProv" xml:space="preserve">
+    <value>Cod. Proveedor:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblReor" xml:space="preserve">
+    <value>Reorden:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblRequer" xml:space="preserve">
+    <value>Requerida:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblReservada" xml:space="preserve">
+    <value>Reservada:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblTipo" xml:space="preserve">
+    <value>Tipo:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblUnidad" xml:space="preserve">
+    <value>Unidad:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblZona" xml:space="preserve">
+    <value>Zona:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="TittleVentana" xml:space="preserve">
+    <value>Mantenimiento de Productos</value>
+    <comment>Tittle</comment>
+  </data>
+  <data name="ButtonConsultar" xml:space="preserve">
+    <value>Consultar</value>
+    <comment>Boton</comment>
+  </data>
+  <data name="FieldsetCantidad" xml:space="preserve">
+    <value>Cantidad</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetCosto" xml:space="preserve">
+    <value>Costo</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetCuentas" xml:space="preserve">
+    <value>Cuentas Contables</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetDatos" xml:space="preserve">
+    <value>Datos del Producto</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetNivel" xml:space="preserve">
+    <value>Nivel</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="FieldsetVenta" xml:space="preserve">
+    <value>Precio Venta</value>
+    <comment>Fieldset</comment>
+  </data>
+  <data name="lblGridAnterior" xml:space="preserve">
+    <value>Anterior:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridCantidad" xml:space="preserve">
+    <value>Cantidad</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridCantVend" xml:space="preserve">
+    <value>Cantidades Vendidas:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridCosto" xml:space="preserve">
+    <value>Costo</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridDeposito" xml:space="preserve">
+    <value>Depósito</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridDetal" xml:space="preserve">
+    <value>Detal:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridExistencia" xml:space="preserve">
+    <value>Existencia:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridFecha" xml:space="preserve">
+    <value>Fecha</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridMayor" xml:space="preserve">
+    <value>Mayor:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridUltima" xml:space="preserve">
+    <value>Última Compra:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridValoracion" xml:space="preserve">
+    <value>Valoración:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblGridVentasAcu" xml:space="preserve">
+    <value>Ventas Acumuladas:</value>
+    <comment>Label</comment>
+  </data>
+  <data name="lblCC_NOMB" xml:space="preserve">
+    <value>C.C. Origen</value>
+    <comment>label</comment>
+  </data>
+  <data name="lblCodExist" xml:space="preserve">
+    <value>El Código de Producto Existe.</value>
+    <comment>Label</comment>
+  </data>
+</root>

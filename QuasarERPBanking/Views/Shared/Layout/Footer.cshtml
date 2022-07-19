@@ -1,0 +1,15 @@
+﻿@using QuasarERPBanking.Models;
+@{
+    bool actionIsLogOn = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString() == "LogOn";
+}
+
+<footer>
+    <div class="footer_imgQuasar">
+        <div id="" style="image-orientation:unset; background-image: url(../../Content/themes/base/images/Quasar.png);height:40px; width:185px;background-repeat:no-repeat"></div>
+    </div>
+    <div class="footer_date">
+        <b>
+            @Util.ContactoActual()        -         @DateTime.Now.ToString("dddd, d De MMMM Del yyyy")
+        </b>
+    </div>
+</footer>

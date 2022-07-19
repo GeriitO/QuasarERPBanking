@@ -1,0 +1,28 @@
+﻿@using QuasarERPBanking 
+
+@model QuasarERPBanking.Models.ActivoFijo
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Activo Fijo</title>
+
+    <script type="text/javascript">
+    $(function () { 
+
+        $('.datepicker').datepicker(); //Initialise any date pickers
+         
+    });
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm("Edit", "AF_ASIGNA", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("FormAF_Asigna");
+    }
+</body>
+</html>

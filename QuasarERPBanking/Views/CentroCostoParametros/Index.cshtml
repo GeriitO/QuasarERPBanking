@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Parámetros</title>
+</head>
+<body>
+    @using (Html.BeginForm("Index", " CentroCostoParametros", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("FormCC_Parametros");
+
+    }
+
+</body>
+</html>
