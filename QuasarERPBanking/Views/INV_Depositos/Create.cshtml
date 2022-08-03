@@ -1,0 +1,118 @@
+﻿@model QuasarERPBanking.Models.INV_DEPOSITOS
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal" style="font-size:12px">
+        
+        <hr style="border-top:transparent" />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVDEPCOD, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVDEPCOD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVDEPCOD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVDEPDES, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVDEPDES, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVDEPDES, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVDEPCLASE, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVDEPCLASE, new { htmlAttributes = new { @class = "form-control", @maxLength = "1" } })
+                @Html.ValidationMessageFor(model => model.INVDEPCLASE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVDEPRESP, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVDEPRESP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVDEPRESP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVDEPMAIL, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVDEPMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVDEPMAIL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <table>
+                    <tr>
+                        <td>
+                            @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
+                            @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
+                            <input type="image" title="" src="../../Content/themes/base/images/check.png" style="width:30px;" />
+                        </td>
+                        <td style="width:300px; padding-left:140px">
+                            <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/INV_DEPOSITOS'" style="width:30px; cursor:pointer" />
+                            @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-shadow: 3px 3px 5px #2c2c2d;">
+                            <label>@Resources.StringResources.GlobalButtonNew</label>
+                        </td>
+                        <td style="padding-left:115px; text-shadow: 3px 3px 5px #2c2c2d">
+                            <label>@Resources.StringResources.MantVolverList</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+
+<script type="text/javascript">
+    $("#INVDEPCOD").numericInput();
+ 
+    $(function () {
+        /////////////////////////////////////////////////
+        ////////////////////////////////////////////////
+
+        ////funcion para validar correo electronico
+        $("#INVDEPMAIL").blur(function () {
+            var _this = $("#INVDEPMAIL");
+            var _email = $("#INVDEPMAIL").val();
+
+            var re = /^[a-zA-Z0-9._-]+\@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+            var valid = re.test(_email);
+
+            if (valid) {
+                _this.attr('style', 'background:white');
+            } else {
+                _this.attr('style', 'background:#fc080833');
+                alert("El campo E-Mail no contiene un formato de correo electronico valido \"@@.Dominio\", por favor intente de nuevo.");
+                //$("#INVDEPMAIL").val("");
+                $("#INVDEPMAIL").focus();
+
+            }
+        });
+
+
+    })
+
+
+
+
+</script>

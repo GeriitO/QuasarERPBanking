@@ -1,0 +1,85 @@
+﻿@model QuasarERPBanking.Models.INV_DEPOSITOS
+
+<img src="../../Content/themes/base/images/advertencia-animada-amarillo-grande.gif" style="width:40px" />
+<h3 style="font-size:15px; color:#bc1717;"><b>@Resources.StringResources.MantMsgDelete</b></h3>
+
+<div>
+    
+    <hr style="border-top:transparent" />
+    <dl class="dl-horizontal" style="font-size:12px">
+        <dt>
+            @Html.DisplayNameFor(model => model.INVDEPCOD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INVDEPCOD)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.INVDEPDES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INVDEPDES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INVDEPCLASE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INVDEPCLASE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INVDEPRESP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INVDEPRESP)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INVDEPMAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INVDEPMAIL)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <table>
+                <tr>
+                    <td style="padding-left:50px">
+                        @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
+                        @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
+                        <input type="image" title="" src="../../Content/themes/base/images/eliminar.png" style="width:40px;" />
+                    </td>
+                    <td style="width:300px; padding-left:140px">
+                        <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/INV_DEPOSITOS'" style="width:40px; cursor:pointer" />
+                        @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-shadow: 3px 3px 5px #2c2c2d; padding-left:50px">
+                        <label>@Resources.StringResources.GlobalButtonDel</label>
+                    </td>
+                    <td style="padding-left:115px; text-shadow: 3px 3px 5px #2c2c2d">
+                        <label>@Resources.StringResources.MantVolverList</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        @*<div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>*@
+    }
+</div>

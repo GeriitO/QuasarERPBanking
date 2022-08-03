@@ -1,0 +1,105 @@
+﻿@model IEnumerable<QuasarERPBanking.Models.CXP_ACTIVIDADES>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_AUTOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_FECHCREA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_CXPCOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_FECHREAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_ASUNTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_CUERPO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_PERSOUR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_PERSCOMP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_DESC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_CORSRES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_CORATN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_CORTPO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACT_ADJ)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_AUTOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_FECHCREA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_CXPCOD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_FECHREAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_ASUNTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_CUERPO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_PERSOUR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_PERSCOMP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_DESC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_CORSRES)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_CORATN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_CORTPO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACT_ADJ)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

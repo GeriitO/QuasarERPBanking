@@ -1,0 +1,115 @@
+﻿@model QuasarERPBanking.Models.INV_GRUPOS
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal" style="font-size:12px">
+      
+        <hr style="border-top:transparent"/>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.INVGRUCOD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">*@
+                @Html.HiddenFor(model => model.INVGRUCOD, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "width:200px" } })
+                @Html.ValidationMessageFor(model => model.INVGRUCOD, "", new { @class = "text-danger" })
+            @*</div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVGRUDES, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVGRUDES, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVGRUDES, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVCTAINV, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVCTAINV, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVCTAINV, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVCTAGTO, htmlAttributes: new { style = "margin-top:16px", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVCTAGTO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVCTAGTO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.ACTIVO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ACTIVO)
+                    @Html.ValidationMessageFor(model => model.ACTIVO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.USUARIO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUARIO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUARIO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FECHA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FECHA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FECHA, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <table>
+                    <tr>
+                        <td style="padding-left:7px">
+                            @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
+                            @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
+                            <input type="image" title="" src="../../Content/themes/base/images/save.png" style="width:30px;" />
+                        </td>
+                        <td style="width:300px; padding-left:140px">
+                            <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/INV_GRUPOS'" style="width:30px; cursor:pointer" />
+                            @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-shadow: 3px 3px 5px #2c2c2d; padding-left:5px">
+                            <label>@Resources.StringResources.GlobalButtonUp</label>
+                        </td>
+                        <td style="padding-left:115px; text-shadow: 3px 3px 5px #2c2c2d">
+                            <label>@Resources.StringResources.MantVolverList</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>*@
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+
+<script type="text/javascript">
+   
+    $("#INVCTAINV").numericInput();
+    $("#INVCTAGTO").numericInput();
+
+</script>

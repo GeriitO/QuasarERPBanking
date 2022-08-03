@@ -1,0 +1,63 @@
+﻿@model QuasarERPBanking.Models.INV_TIPO
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal" style="font-size:12px">
+        @*<h4>INV_TIPO</h4>*@
+        <hr style="border-top:transparent"/>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVTIPCOD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVTIPCOD, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.INVTIPCOD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INVTIPDES, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INVTIPDES, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INVTIPDES, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*<div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>*@
+
+
+            <div class="col-md-offset-2 col-md-10">
+                <table>
+                    <tr>
+                        <td style="padding-left:7px">
+                            @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
+                            @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
+                            <input type="image" title="" src="../../Content/themes/base/images/save.png" style="width:30px;" />
+                        </td>
+                        <td style="width:300px; padding-left:140px">
+                            <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/INV_TIPO'" style="width:30px; cursor:pointer" />
+                            @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-shadow: 3px 3px 5px #2c2c2d; padding-left:5px">
+                            <label>@Resources.StringResources.GlobalButtonUp</label>
+                        </td>
+                        <td style="padding-left:115px; text-shadow: 3px 3px 5px #2c2c2d">
+                            <label>@Resources.StringResources.MantVolverList</label>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@

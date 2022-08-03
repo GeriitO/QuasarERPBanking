@@ -1,0 +1,694 @@
+﻿@using QuasarERPBanking.Models
+@using QuasarERPBanking
+@model QuasarERPBanking.Models.Inventario
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel=stylesheet href="ruta/960.css" type="text/css">
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var grupos = INV_GRUPOS.getGrupos_();
+    var tipo = INV_TIPO.GetTipos();
+    var zona = INV_ZONAS.GetZonas();
+    var TCosto = ViewBag.TCosto;
+}
+
+@Html.AntiForgeryToken()
+
+<div class="internal-window bg-light">
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">@Resources.Inventario.StringResources.TittleVentana</h2>
+        </div>
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-around">
+                <li class="icon--bar-create">
+                    <a href="#" onclick="window.location.href = '/inventario/Create';">
+                        <img src="~/Content/imagenes/icon-add.svg" width="20" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-search">
+                    <a href="#" id="buscar" onclick="inhabilitartodo(); window.location.href = '/Inventario/Index';">
+                        <img src="~/Content/imagenes/icon-search.svg" width="20" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-delete">
+                    <a href="#" onclick="eliminar();">
+                        <img src="~/Content/imagenes/icon-delete.svg" width="20" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-save">
+                    <a href="#" onclick="submitform('myform');">
+                        <img src="~/Content/imagenes/icon-save.svg" width="24" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+            </ul>
+            <!-------------------------------------                 BOTONES DE ACTIVIDADES                  -------------------------------------->
+            @*<img src="../../Content/themes/base/images/reloj.png" alt="Salir" title="@Resources.CXP_MAESTRO.StringResources.tittlebuttonSalir" onclick="showActivities();" id="actReunion" />*@
+        </div>
+    </div>
+
+    <div class="form--section col-md-12 my-4">
+        <div class="form--section-search col-md-6">
+            <label class="limpiar py-2">
+                <b>@Resources.StringResources.LblGlobalBusq</b>
+            </label>
+            <div>
+                <input type="text" id="INVCOD_" data-autocomplete="@Url.Action("getCodigos", "Inventario")" autocomplete="on" class="form-control form--section-input" />
+            </div>
+        </div>
+        <div class="form--section-condition col-md-6">
+            <b>@Html.LabelFor(model => model.INVCOD, new { style = "color:#0000b3", @class = "limpiar" })</b>
+            <div class="form--section-input">
+                @Html.TextBoxFor(model => model.INVCOD, new { style = "", @class = "limpiar form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="divDatosProductos form-control">
+            <div class="limpiar">
+                <b>@Resources.Inventario.StringResources.FieldsetDatos</b>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.INVNOM, new { @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVNOM, new { @class = "form-control limpiar asigna input-text" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVDES, new { @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVDES, new { @class = "form-control limpiar asigna input-text" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.INVREF, new { style = "", @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVREF, new { style = "", @class = "form-control limpiar asigna input-text" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVGRU, new { @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVGRU, new { @class = "form-control limpiar asigna input-text" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.INVMAR, new { @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVMAR, new { @class = "form-control limpiar asigna input-text" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVTIP, new { @class = "limpiar" })
+                    @Html.DropDownListFor(model => model.INVTIP, ((IEnumerable<INV_TIPO>)tipo).Select(option => new SelectListItem
+               {
+                        Text = (option == null ? "Ninguno" : option.INVTIPCOD.ToString() + " - " + option.INVTIPDES.ToUpper()),
+                 Value = option.INVTIPCOD.ToString(), /*Selected = (Model != null && Model.AFGRU != null && option.CXPCOD == Model.AF_ADQPROV) */
+                    }),
+                 Resources.Productos.StringResources.plcGrupo, new { @onchange = "", title = "", @class = "form-control limpiar asigna input-text", })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.INVMOD, new { @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVMOD, new { @class = "form-control limpiar asigna input-text" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVZON, new { style = "", @class = "limpiar" })
+                    @Html.DropDownListFor(model => model.INVZON, ((IEnumerable<INV_ZONAS>)zona).Select(option => new SelectListItem
+               {
+                        Text = (option == null ? "Ninguno" : option.INVZONCOD.ToString() + " - " + option.INVZONDES.ToUpper()),
+                   Value = option.INVZONCOD.ToString(), /*Selected = (Model != null && Model.AFGRU != null && option.CXPCOD == Model.AF_ADQPROV) */
+                    }),
+                   Resources.Productos.StringResources.plcGrupo, new { @onchange = "", title = "", @class = "form-control limpiar asigna input-text", })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divInventarioNivel col-md-8 my-2">
+        <div class="form-control">
+            <div class="limpiar">
+                <b>@Resources.Inventario.StringResources.FieldsetNivel</b>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.INVMIN, new { @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVMIN, new { @class = "form-control limpiar asigna input-text" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVMAX, new { style = "", @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVMAX, new { style = "", @class = "form-control limpiar asigna input-text" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVREO, new { style = "", @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVREO, new { style = "", @class = "form-control limpiar asigna input-text" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col columnaLateral my-2">
+        <div class="row">
+            @Html.LabelFor(model => model.INVUNI, new { style = "", @class = "limpiar" })
+            @Html.TextBoxFor(model => model.INVUNI, new { style = "", @class = "form-control limpiar asigna input-text" })
+        </div>
+    </div>
+
+    <div class="divCuentasContables col-md-8 my-2">
+        <div class="form-control">
+            <div class="limpiar">
+                <b>@Resources.Inventario.StringResources.FieldsetCuentas</b>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.INVCTAINV, new { style = "", @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVCTAINV, new { style = "", @class = "limpiar form-control" })
+                    <a id="ModalCta" onclick="ModalCta(INVCTAINV.id)" class="btn btn-primary btn-fil disabled">...</a>
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.INVCTAGTO, new { style = "", @class = "limpiar" })
+                    @Html.TextBoxFor(model => model.INVCTAGTO, new { style = "", @class = "limpiar form-control" })
+                    <a id="ModalCta" onclick="ModalCta2(INVCTAGTO.id)" class="btn btn-primary btn-fil disabled">...</a>
+                </div>
+                @*<div class="col">
+                        @Html.CheckBoxFor(model => model.INVGASTO)
+                        @Html.LabelFor(model => model.INVGASTO, new { style = "", @class = "limpiar" })
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="col columnaLateral my-2">
+        <div class="row">
+            @Html.LabelFor(model => model.INVIVA, new { @class = "limpiar", })
+            <input id="iva" class="form-control limpiar asigna input-text" /><span style="font-size:12px"> %</span>
+        </div>
+    </div>
+    <div class="divInventarioCosto my-2">
+        <div class="limpiar">
+            <b>@Resources.Inventario.StringResources.FieldsetCosto</b>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblGridAnterior</label>
+                <label id="lblanterior">0,00</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblGridUltima</label>
+                <label id="lblultima">0,00</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblGridExistencia</label>
+                <label id="lblexistencia">0</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblGridValoracion</label>
+                <label id="lblvaloracion">0,00</label>
+            </div>
+        </div>
+    </div>
+    <div class="col divInvCostoTable form-control my-2">
+        <div class="row">
+            <div id="tablacost">
+                <div>
+                    <table class="limpiar table" id="tblFifos">
+                        <thead>
+                            <tr>
+                                <th width="20%">
+                                    @Resources.Inventario.StringResources.lblGridCantidad
+                                    @*Cantidad*@
+                                </th>
+                                <th width="30%">
+                                    @Resources.Inventario.StringResources.lblGridCosto
+                                    @*Costo*@
+                                </th>
+                                <th width="25%">
+                                    @Resources.Inventario.StringResources.lblGridValoracion.Replace(":", "")
+                                    @*Valoración*@
+                                </th>
+                                <th width="20%">
+                                    @Resources.Inventario.StringResources.lblGridFecha
+                                    @*Fecha*@
+                                </th>
+                                <th width="15%">
+                                    @Resources.Inventario.StringResources.lblGridDeposito
+                                    @*Depósito*@
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--/////////////////////////////////////////////////////////// rellenado por el controlador-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divInventarioCantidad my-2 col-md-12">
+        <div class="form-control">
+        <div class="limpiar">
+            <b>@Resources.Inventario.StringResources.FieldsetCantidad</b>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblRequer</label>
+                <label id="lblrequerido">0</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblOrde</label>
+                <label id="lblordenada">0</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblFisica</label>
+                <label id="lblfisica">0</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblGridExistencia</label>
+                <label id="lblexistencia1">0</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblReservada</label>
+                <label id="lblreservada">0</label>
+            </div>
+            <div class="col">
+                <label>@Resources.Inventario.StringResources.lblDispo</label>
+                <label id="lbldisponible">0</label>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+@* *****************campo que sera visible solo para venta******************* *@
+@*<div class="" id="Ventas">
+
+        <fieldset class="ventanaFieldset">
+            <legend class="limpiar"><b>@Resources.Inventario.StringResources.FieldsetVenta</b></legend>
+            <div class="ParrPrecVent">
+
+
+                <div class="limpiar ParrPrecVent1">
+                    <label>@Resources.Inventario.StringResources.lblGridDetal</label>
+                </div>
+
+
+                <div class="limpiar ParrPrecVent1">
+                    <label>@Resources.Inventario.StringResources.lblGridMayor</label>
+                </div>
+
+                <div class="limpiar ParrPrecVent1">
+                    <label>@Resources.Inventario.StringResources.lblGridCantVend</label>
+                </div>
+
+
+                <div class="limpiar ParrPrecVent1">
+                    <label>@Resources.Inventario.StringResources.lblGridVentasAcu</label>
+
+                </div>
+                <div>
+                    <input class="bottom" type="button" value="@Resources.Inventario.StringResources.ButtonConsultar" />
+                </div>
+
+            </div>
+        </fieldset>
+    </div>*@
+
+
+
+
+@* ************ vENTANA DE CUENTAS CONTABLES ************ *@
+<div class="modal fade" tabindex="-1" role="dialog" id="ListCntaCont" style="overflow-y: scroll;">
+    <div @*style="width:100%; padding-top: 5px;"*@ class="modal-dialog" role="document">
+        <div class="modal-content" style="height: 430px;width: 510px;">
+
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <fieldset class="ventanaFieldset">
+                    <legend style="text-align: center;margin: 0px 85px;font-size: 15px;" class="legend">Cuentas Contables</legend>
+                    <div class="CuadroServCta">
+                        <table style="width:518px; clear:both; margin: inherit" id="tblCtaServ" cellpadding="0" cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    <th style="width:45%; font-size: 11px;">Código </th>
+                                    <th style="width:55%; font-size: 11px;"> Nombre </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </fieldset>
+
+
+
+                @*<div class="TotalCotNew">
+                        <div style="width: 61%;float: left;">
+                            <fieldset>
+                                <legend class="legend">@Resources.COT_MAESTRO.StringResources.FieldsetTotal</legend>
+
+                                @Html.LabelFor(model => model.COTSUBTOTAL, new { style = "", @class = "letra" })
+                                @Html.TextBoxFor(model => model.COTSUBTOTAL, new { style = "", @class = "form-control", disabled = "disabled" })
+
+                                @Html.LabelFor(model => model.COTIVA, new { style = "", @class = "letra" })
+                                @Html.TextBoxFor(model => model.COTIVA, new { style = "", @class = "form-control", disabled = "disabled" })
+
+                                @Html.LabelFor(model => model.COTTOTAL, new { style = "", @class = "letra" })
+                                @Html.TextBoxFor(model => model.COTTOTAL, new { style = "", @class = "form-control", disabled = "disabled" })
+
+                            </fieldset>
+                        </div>
+                    </div>*@
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+@Html.ValidationSummary()
+
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+@*<script>*@
+
+<script type="text/javascript">
+
+
+    $("#INVCOD").numericInput();
+    $("#INVMIN").numericInput();
+    $("#INVMAX").numericInput();
+    $("#INVREO").numericInput();
+    $("#INVUNI").numericInput();
+
+    //PARA EL GRID
+    function loadFifo(INVCOD) {
+        $.ajax({
+            url: "/INV_FIFO/getFifo?invcod=" + INVCOD,
+            success: function (tabla) {
+                $('#tblFifos  tbody  tr').remove();
+                $('#tblFifos').append(tabla);
+                loadExistencia();
+            }
+        });
+    }
+
+    //function loadExistencia() {
+
+    //    //var i = $("#tblFifos tr").length + 1;
+    //    //var contado = 0;
+
+    //    //alert($("#lblexistencia").html());
+    //    //alert($("#td0").html());
+    //    //var tds1="";
+    //    //var tds2="";
+    //    var total=0;
+    //    alert("aaaaa");
+
+    //   var tds1 = parseInt($("#td0").html());
+    //   var tds2 = parseInt($("#td1").html());
+
+    //   alert(tds1);
+    //   alert(tds2);
+    //   // $("#prueba").val(tds1);
+    //   //$("#prueba2").val(tds2);
+    //   //var nueva= parseInt($("#prueba").val());
+    //   //var nueva2= parseInt($("#prueba2").val());
+    //   total=tds1 + tds2;
+    //   $("#lblexistencia").html(total);
+    //   //alert(total);
+    //   //$("#INVREO").val(total);
+    //    //alert(tds1);
+    //    //alert(tds2);
+    //    //alert($("#td1").html());
+    //}
+
+
+    function loadExistencia() {
+        var acumu=0;
+        $("#tblFifos  tbody  tr").each(function(index, element){
+            acumu +=parseInt($(element).find("td").eq(0).html());
+        });
+        $("#lblexistencia").html(acumu);
+        $("#lblexistencia1").html(acumu);
+        valoracion();
+    }
+
+
+
+    function valoracion() {
+        var acumula=0;
+        $('#tblFifos  tbody  tr').each(function(index, element){
+            //acumula +=parseFloat($(element).find("td").eq(2).html().replace(",", "."));
+            acumula +=parseFloat($(element).find("td").eq(2).html().replace(/\./g,'').replace(",","."));
+        });
+        //acumula=acumula.toString().replace(".",",");
+        //var a=   acumula;
+        //var b = a.split(",");
+
+        //var monto=b[0];
+        //var decimal=b[1];
+
+        var monto = number_format(acumula,"2");
+
+        $("#lblvaloracion").html(monto);
+
+    }
+
+
+
+
+
+
+
+
+    function loadPage() {
+        if ("@TCosto" == "FIFO")
+        {
+            $("#tablacost").show();
+        }
+        else{
+
+            $("#tablacost").hide();
+            //$("#just").css('margin','400px');
+
+        }
+
+
+        var showVentas = @ViewBag.hasSales;
+        if (showVentas)
+        {
+            $("#Ventas").show();
+
+        }
+        else
+        {
+            $("#Ventas").hide();
+        }
+        $("#grupoID").each(function () {
+            $(this).autocomplete({
+                source: $(this).attr("data-autocomplete"),
+                minLength: 3,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        $("#grupoID").val(ui.item.value);
+                    }
+                }
+            });
+        });
+
+
+    }
+
+
+    function eliminar() {
+        if ($("#INVCOD").val() != "")
+        {
+            var resp = confirm('@Resources.MANTENIMIENTO.StringResources.msgJQConfDel' + $("#INVCOD").val().toUpperCase() + " ?");
+            if (resp) {
+                $(location).attr("href", "/Inventario/Delete?invcod=" + $("#INVCOD").val())
+            }
+
+        }else
+        {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQNoCod');
+        }
+
+    }
+
+
+
+
+    $(function (){
+
+        loadPage();
+
+
+
+        $("#INVCOD_").each(function () {
+            $("#INVCOD_").autocomplete({
+                source: $(this).attr("data-autocomplete"),
+                minLength: 3,
+                select: function (event, ui) {
+                    if (ui.item) {
+
+                        $.ajax({
+                            url: "/Inventario/getCodAutocom?term=" + ui.item.value,
+                            success: function (data) {
+
+                                habilitartodo();
+                                //window.location.replace("/CXP_MAESTRO/Edit?cxp_maestro=" + data);
+                                $("#INVCOD").prop('readonly', true);
+                                $("#INVNOM").val(data.INVNOM);
+                                $("#INVDES").val(data.INVDES);
+                                $("#INVREF").val(data.INVREF);
+                                $("#INVGRU").val(data.INVGRU);
+                                $("#INVTIP").val(data.INVTIP);
+                                $("#INVUBI").val(data.INVUBI);
+                                $("#INVDEP").val(data.INVDEP);
+                                $("#INVZON").val(data.INVZON);
+                                $("#INVMAR").val(data.INVMAR);
+                                $("#INVMOD").val(data.INVMOD);
+                                $("#INVSER").val(data.INVSER);
+                                $("#INVUNI").val(data.INVUNI);
+                                $("#INVMIN").val(data.INVMIN);
+                                $("#INVMAX").val(data.INVMAX);
+                                $("#INVEXI").val(data.INVEXI);
+                                //alert(data.INVIVA);
+                                //$("#MAXETIQ").html(data.af_maestro.calculo);
+                                var iva= data.INVIVA.replace(",",".");
+                                var for_iva= number_format(iva,"2");
+                                $("#iva").html(for_iva);
+                                //$("#iva").html(data.INVIVA);
+                                $("#INVPREMAY").val(data.INVPREMAY);
+                                $("#INVPREPROM").val(data.INVPREPROM);
+                                $("#INVPREDET").val(data.INVPREDET);
+                                //lblanterior
+                                //lblultima">
+                                //$("#INVCOSANT").val(data.INVCOSANT);
+                                var cosan= data.INVCOSANT.replace(",",".");
+                                var for_ant= number_format(cosan,"2");
+                                $("#lblanterior").html(for_ant);
+                                //$("#lblanterior").html(data.INVCOSANT);
+                                $("#INVCOSPRO").val(data.INVCOSPRO);
+                                //$("#INVCOSACT").val(data.INVCOSACT);
+
+                                var ulti= data.INVCOSACT.replace(",",".");
+                                var for_ulti= number_format(ulti,"2");
+                                $("#lblultima").html(for_ulti);
+                                //$("#lblultima").html(data.INVCOSACT);
+                                $("#INVCOSVAL").val(data.INVCOSVAL);
+                                $("#INVREO").val(data.INVREO);
+                                $("#lblordenada").html(data.INVORD);
+                                $("#INVRES").val(data.INVRES);
+                                $("#INVFIS").val(data.INVFIS);
+                                $("#INVCOD").val(data.INVCOD);
+                                $("#INVCANTREQ").val(data.INVCANTREQ);
+                                $("#INVCTAGTO").val(data.INVCTAGTO);
+                                $("#INVCTAINV").val(data.INVCTAINV);
+                                $("#lbldisponible").html(data.INVDISP);
+                                $("#INVSERD").val(data.INVSERD);
+                                $("#INVSERO").val(data.INVSERO);
+                                $("#INVVAL").val(data.INVVAL);
+                                $("#INVADJ").val(data.INVADJ);
+                                $("#INVISLR").val(data.INVISLR);
+                                $("#INVGASTO").prop('checked', data.INVGASTO);
+                                $("#INVMARCAJE").val(data.INVMARCAJE);
+                                //$("#USUARIO").val(data.USUARIO);
+
+
+                                loadFifo(data.INVCOD);
+
+                                //loadfunciones();
+                                //loadExistencia();
+
+                                //alert("modificar la suma de existencia");
+                                //var tds1 = parseInt($("#td0").html());
+                                //var tds2 = parseInt($("#td1").html());
+                                //var total=tds1 + tds2;
+                                //$("#lblexistencia").html(total);
+                                //$("#lblexistencia1").html(total);
+
+                                //valoracion();
+
+
+
+                            }
+                        });
+
+                    }
+                    else {
+                        alert('@Resources.MANTENIMIENTO.StringResources.msgJQError');
+                    }
+                },
+                error: function() {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQAutoc');   // remember to call response() even if ajax failed
+                }
+            });
+        });
+
+        $("#buscar").click(function () {
+            //$(location).attr("href", "/CXP_MAESTRO/Buscar?cxpcod=" + $("#CXPCOD_").val());
+            $("#INVCOD_").val("");
+            $(".limpiar").val("");
+            $("#INVCOD_").prop('disabled', false);
+            $(".limpiar").prop('checked', false);
+        } );
+    })
+    //==============.- ABRIR VENTANA CUENTA CONTABLE -.==============//
+    function ModalCta(VALOR) {
+        var idCta = 1;
+        Busmodal(idCta);
+    }
+
+    function ModalCta2(VALOR) {
+        var idCta = 4;
+        Busmodal(idCta);
+    }
+
+    function ModalCta3(VALOR) {
+        var idCta = 1;
+        Busmodal(idCta);
+    }
+
+    function Busmodal(VALOR) {
+        var idCta = VALOR;
+        $.ajax({
+            cache: false,
+            type: 'Post',
+            dataType: 'json', // importante para que
+            //data: { "selected": JSON.stringify(selected) }, // jQuery convierta el array a JSON
+            url: "/Servicio/CMaestro?term="+ VALOR,
+            success: function (data) {
+                if (data != null) {
+                    $('#tblCtaServ  tbody  tr').remove();
+                    $('#tblCtaServ').append(data);
+                    $(".CMCTA").attr("style", "text-align:right; font-size:11px");
+                    $(".CMDES").attr("style", "font-size:11px");
+                }
+            },
+        });
+        $("#ListCntaCont").modal("show");
+    }
+
+    //==============.- ELEGIR CUENTA CONTABLE -.==============//
+    function clickCliente(valor,VALOR) {
+        VALOR = VALOR;
+        if(VALOR=="4"){
+            $("#INVCTAGTO").val(valor)
+        }else if(VALOR=="1"){
+            $("#INVCTAINV").val(valor)
+        }
+        $("#ListCntaCont").modal("hide");
+        $("#ModalCta").prop('disabled', false);
+    }
+
+</script>
+
+@*</script>*@

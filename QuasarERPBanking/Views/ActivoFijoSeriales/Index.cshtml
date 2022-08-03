@@ -1,0 +1,81 @@
+﻿@using QuasarERPBanking.Models
+@using QuasarERPBanking
+@model QuasarERPBanking.Models.ActivoFijoSeriales
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="internal-window bg-light" id="af_serial">
+
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">@Resources.ActivoFijoSeriales.StringResources.tittleVentana</h2>
+        </div>
+
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-search">
+                    <a href="#">
+                        <img src="~/Content/imagenes/icon-search.svg" title="@Resources.ActivoFijoSeriales.StringResources.BtnActiFijo" onclick="window.location.href = '/ActivoFijo';" alt="Nuevo" width="20" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="divRestringirBusqueda my-2 form-control">
+        <div class="limpiar">
+            <b>@Resources.ActivoFijoSeriales.StringResources.FieldsetRestr</b>
+        </div>
+        <div class="row">
+            <div class="col my-2">
+                @Resources.ActivoFijoSeriales.StringResources.lblIntrodu
+                <input type="text" id="AF_SERIAL_" data-autocomplete="@Url.Action("getSerial", "ActivoFijoSeriales")" autocomplete="on" class="radius form-control input-text my-2" />
+            </div>
+            <div class="col my-2">
+                @Resources.ActivoFijo.StringResources.lblNumAct.Replace(":", "")
+            </div>
+            <div class="col my-2">
+                @Resources.ActivoFijo.StringResources.lblSerial.Replace(":", "")
+            </div>
+        </div>
+    </div>
+</div>
+@Html.ValidationSummary()
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#AF_SERIAL_").keypress(function (event) {
+            var keycode = event.keyCode || event.which;
+            if (keycode == '13') {
+                //alert($("#AF_SERIAL_").val());
+                loadSerial($("#AF_SERIAL_").val());
+
+            }
+        });
+
+
+    })
+
+    //PARA EL GRID
+    function loadSerial(AF_SERIAL) {
+        //alert(AF_SERIAL);
+        $.ajax({
+            url: "/ActivoFijoSeriales/getSerial?af_serial=" + AF_SERIAL,
+            success: function (tabla) {
+                //alert(tabla);
+                $('#tblSerial  tbody  tr').remove();
+                $('#tblSerial').append(tabla);
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Maestro de Cuentas a Pagar</title>
+
+    <script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+        inhabilitartodo();
+        
+        $("#Contactos").hide();
+        $("#Actividades").hide();
+    });
+    </script>
+</head>
+<body>
+@using (Html.BeginForm("Edit", "CXP_MAESTRO", FormMethod.Post, new { id = "myform" }))
+{
+    Html.RenderPartial("FormCXP_Maestro");
+    
+}
+    @*<script>
+        $(function () {
+
+            inhabilitartodo();
+        })
+
+   </script>*@
+</body>
+</html>

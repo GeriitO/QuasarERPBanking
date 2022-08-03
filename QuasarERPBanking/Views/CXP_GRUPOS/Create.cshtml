@@ -1,0 +1,33 @@
+﻿@using QuasarERPBanking.Models
+
+@model QuasarERPBanking.Models.CXP_GRUPOS
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Maestro de Proveedores A</title>
+   
+</head>
+<body>
+@using (Html.BeginForm("Create", "CXP_GRUPOS", FormMethod.Post, new { id = "myform" }))
+{
+    Html.RenderPartial("FormCXP_Grupos");
+}
+
+    <script>
+    $(function () {
+        //habilitartodo();  
+        $("#Contactos").hide();
+        habilitartodo();
+        $("#CXPCOD_").prop('disabled', true);
+    })
+
+   
+     </script>
+</body>
+</html>

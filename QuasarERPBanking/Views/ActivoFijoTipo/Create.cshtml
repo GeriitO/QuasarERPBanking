@@ -1,0 +1,58 @@
+﻿@model QuasarERPBanking.Models.ActivoFijoTipo
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="internal-window bg-light">
+        <div class="form--section-title col-md-12">
+            <div class="col-md-6 internal--title">
+                <h2 class="internal--title-h2">@Resources.Inventario.StringResources.TittleVentana</h2>
+            </div>
+
+            <div class="col-md-6 icon-bar">
+                <ul class="list-unstyled d-flex justify-content-end">
+                    <li class="icon--bar-exit">
+                        <a href="/">
+                            <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-control mt-3">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.AFTIPCOD, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(model => model.AFTIPCOD, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AFTIPCOD, "", new { @class = "text-danger" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.AFTIPDES, htmlAttributes: new { style = "", @class = "" })
+                    @Html.EditorFor(model => model.AFTIPDES, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AFTIPDES, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group ParrGridActInt">
+                <div class="imagenesActivosFijosTipos">
+                    <div class="imagenActFijoTipos1">
+                        <input type="image" class="input-image" title="" src="~/Content/imagenes/check-circle.png" />
+                        <div class="crear-activofijo">
+                            <label>@Resources.StringResources.GlobalButtonNew</label>
+                        </div>
+                    </div>
+                    <div class="imagenActFijoTipos2">
+                        <img src="~/Content/imagenes/icon-arrow-return-left.svg" class="return-img" alt="Buscar" title="" onclick="window.location.href = '/ActivoFijoTipo'" style="width:30px; cursor:pointer" />
+                        <div class="retornar-activofijo">
+                            <label>@Resources.StringResources.MantVolverList</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

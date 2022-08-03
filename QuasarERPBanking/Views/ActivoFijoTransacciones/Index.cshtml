@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Movimiento de Productos</title>
+
+    <script type="text/javascript">
+    $(function () { 
+        //$('.datepicker').datepicker(); //Initialise any date pickers
+        //$("#cantidades").hide();
+    });
+    </script>
+
+</head>
+<body>
+    
+    @using (Html.BeginForm("Index", "AF_TRANSACCIONES", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("FormAF_Transacciones");
+
+    }
+
+</body>
+</html>
+

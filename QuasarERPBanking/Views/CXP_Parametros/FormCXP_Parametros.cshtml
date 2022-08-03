@@ -1,0 +1,255 @@
+﻿@using QuasarERPBanking.Models
+@using QuasarERPBanking
+@model QuasarERPBanking.Models.CXP_PARAMETROS
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="internal-window" style="margin: auto; width:850px">
+
+    <div class="internal-title">
+        <h2>@Resources.CC_PARAMETROS.StringResources.tittleParametros</h2>
+        <a href="/">
+            <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
+        </a>
+    </div>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+    <div class="icon-bar" border="0">
+
+
+        @*<img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="Nuevo" onclick="window.location.href = '/INV_MAESTRO/Create';" />
+
+            <img src="../../Content/themes/base/images/search-icon.png" alt="Buscar" title="Buscar" onclick="inhabilitartodo(); window.location.href = '/INV_MAESTRO/Index';" />
+
+
+            <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="Eliminar" onclick="eliminar();" />*@
+
+
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="submitform('myform');" />
+
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="window.location.href ='/';" />
+    </div>
+
+
+
+
+
+    <div>
+        <table>
+            <tr>
+                <td style="width:840px; text-align:center; padding:10px">
+                    @*<img style="width: 423px; height: 246px;" src="../../Content/themes/base/images/reunion.png"/>*@
+                    <label style="font-family:'Segoe UI,sans-serif'; font-size:30px;"><i>@Resources.CXP_MAESTRO.StringResources.lblParam</i></label>
+                    <hr style="border-color:rgba(8, 65, 101, 0.35); width:500px" />
+                </td>
+            </tr>
+        </table>
+
+        <fieldset class="ventana" style="width:830px">
+            <legend class="limpiar"><b>@Resources.CC_PARAMETROS.StringResources.FieldsetCompos</b></legend>
+            <table width="800"> 
+                <tr>
+                <td>                  
+                        <table style="width:auto">
+                            <tr>
+                                <td style="padding-left:12px; width:130px">@Html.LabelFor(model => model.CPPPARNOMB, new { style = "", @class = "limpiar" })</td>
+                                <td style="padding-left:30px;">@Html.TextBoxFor(model => model.CPPPARNOMB, new { style = "", @class = "limpiar form-control" })</td>
+                                <td style="padding-left:50px; width:175px">@Html.LabelFor(model => model.CPPPARACTID, new { style = "", @class = "limpiar" })</td>
+                                @*<td>
+                                    @Html.TextBox("LM", "LM", new { style = "width:26px;", @class = "limpiar form-control" })
+                                </td>*@
+                                <td style="padding-left:25px;"> @Html.TextBoxFor(model => model.CPPPARACTID, new { style = "", @class = "limpiar form-control" })</td>
+                             
+                            </tr>
+                        </table>
+                    </td></tr> 
+               
+                                                                    
+                            <tr>                             
+                                <td>
+                                    <div>
+                                        <fieldset style="width:800px;">
+                                            <legend class="limpiar" style=""><b>@Resources.CC_PARAMETROS.StringResources.FieldsetDatos</b></legend>
+                                            <table width="800">
+                                                <tr>
+                                                    <td width=150px>
+                                                        @Html.LabelFor(model => model.CPPPARTRANSID, new { style = "", @class = "limpiar" })
+                                                    </td>
+                                                    @*<td>
+                                                        @Html.TextBox("LM", "LM", new { style = "width:26px;", @class = "limpiar form-control" })
+                                                    </td>*@
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.CPPPARTRANSID, new { style = "width:200px;", @class = "limpiar form-control" })
+                                                    </td>
+                                                    <td width=150px>
+                                                        @Html.LabelFor(model => model.CPPPARLOTE, new { style = "", @class = "limpiar" })
+                                                    </td>
+                                                    @*<td>
+                                                        @Html.TextBox("PC", "PC", new { style = "width:26px;", @class = "limpiar form-control" })
+                                                    </td>*@
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.CPPPARLOTE, new { style = "width:200px;", @class = "limpiar form-control" })
+                                                    </td>
+                                                </tr>
+                                                </table>                                       
+                                        </fieldset>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <fieldset class="ventana" style="width:810px; height:180px;">
+                                            <legend class="limpiar" style=""><b>@Resources.CC_PARAMETROS.StringResources.FieldsetDatos</b></legend>
+                                            <table>
+                                                 <tr>
+                                                    <td style="">
+                                                        @Html.CheckBoxFor(model => model.CPPPARINTMG)
+                                                    </td>
+
+                                                    <td width="160px">
+                                                        @Html.LabelFor(model => model.CPPPARINTMG, new { style = "", @class = "limpiar" })
+                                                    </td>
+
+                                                    <td style="width:175px">
+                                                        @Html.LabelFor(model => model.CPPPARDIRMG, new { style = "", @class = "limpiar" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.CPPPARDIRMG, new { style = "width:400px", @class = "limpiar form-control"})
+                                                    </td>                                                 
+                                                </tr>
+                                                <tr>
+                                                    <td style="">
+                                                        @Html.CheckBoxFor(model => model.CPPPARINTCC)
+                                                    </td>
+
+                                                    <td >
+                                                        @Html.LabelFor(model => model.CPPPARINTCC, new { style = "", @class = "limpiar" })
+                                                    </td>
+
+                                                    <td >
+                                                        @Html.LabelFor(model => model.CPPPARDIRCC, new { style = "", @class = "limpiar" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.CPPPARDIRCC, new { style = "width:400px", @class = "limpiar form-control"})
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">
+                                                        @Html.CheckBoxFor(model => model.CPPPARINTIMP)
+                                                    </td>
+
+                                                    <td >
+                                                        @Html.LabelFor(model => model.CPPPARINTIMP, new { style = "", @class = "limpiar" })
+                                                    </td>
+
+                                                    <td >
+                                                        @Html.LabelFor(model => model.CPPPARDIRIMP, new { style = "", @class = "limpiar" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.CPPPARDIRIMP, new { style = "width:400px", @class = "limpiar form-control"})
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        @Html.LabelFor(model => model.CPPUNIDTRIB, new { style = "", @class = "limpiar" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => model.CPPUNIDTRIB, new { style = "resize:none; width:70px; text-align:center", @class = "limpiar form-control"})      
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+
+                                    </div>
+                                </td>
+                            </tr>              
+            </table>
+        </fieldset>
+
+        <fieldset class="ventana" style="width:833px; height:160px;">
+            <legend class="limpiar" style=""><b>@Resources.CC_PARAMETROS.StringResources.FieldsetDatos</b></legend>
+            <table style="width:800px">
+                <tr>
+                    <td>
+
+
+                        <div id="gridContent" style="padding:0px; width:820px; height:140px">
+                            @{
+                                var grid = new WebGrid(new List<QuasarERPBanking.Models.CXP_PARAMETROS>(), ajaxUpdateContainerId: "gridContent", rowsPerPage: 1000);
+                                //System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-VE");
+                            }
+
+                            @grid.GetHtml(
+                                    tableStyle: "webgrid-table Ancho-tabla",
+                                    headerStyle: "webgrid-header",
+                                    footerStyle: "webgrid-footer",
+                                    alternatingRowStyle: "webgrid-alternating-row",
+                                    selectedRowStyle: "webgrid-selected-row",
+                                    rowStyle: "webgrid-row-style",
+                                    mode: WebGridPagerModes.All,
+                                    caption: "",
+                                    columns:
+                                    grid.Columns(
+                //grid.Column("Asociar", format: item => @Html.CheckBox("Active", (bool)((item.PREPROCOD == ViewBag.ProyectoSeleccionado) ? true : false), new { value = @item.PREPART, @onclick = "active(this)" }), style: "colDescWidth", canSort: false),
+                grid.Column("ACTID", Resources.CXP_PARAMETROS.StringResources.lblNom.Replace(":", ""), format: @<text> <span class="display-mode" style="width:500px"> <label id="lblDET_PLAN9">@item.ACTID.ToString(@*"n", culture*@)</label></span></text>, style: "codigos", canSort: false),
+                grid.Column("ACT_AUTOR", Resources.CXP_PARAMETROS.StringResources.lblLote.Replace(":", ""), format: @<text>  <span class="display-mode">@item.ACT_AUTOR </span> @*<label id="PartidaID" class="edit-mode">@item.PREPART</label>*@ </text>, style: "descripciones", canSort: false),
+                grid.Column("ACT_FECHCREA", Resources.CXP_PARAMETROS.StringResources.lblTrId.Replace(":", ""), format: @<text>  <span class="display-mode">@item.ACT_FECHCREA </span> @*<label id="Descripcion" class="edit-mode">@item.PRE_NOMB</label>*@ </text>, style: "descripciones", canSort: false),
+                grid.Column("ACT_FECHREAL", Resources.CXP_PARAMETROS.StringResources.lblId.Replace(":", ""), format: @<text>  <span> <label id="lblTotal">@item.ACT_FECHREAL.ToString(@*"n", culture*@)</label> </span></text>, style: "fechas", canSort: false),
+                grid.Column("ACT_ASUNTO", Resources.CXP_PARAMETROS.StringResources.lblIntMG.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_ASUNTO.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "codigos", canSort: false),
+                grid.Column("ACT_CUERPO", Resources.CXP_PARAMETROS.StringResources.lblDirMG.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_PERSCOMP.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "codigos", canSort: false),
+                 grid.Column("ACT_AUTOR", Resources.CXP_PARAMETROS.StringResources.lblIntCC.Replace(":", ""), format: @<text>  <span class="display-mode">@item.ACT_AUTOR </span> @*<label id="PartidaID" class="edit-mode">@item.PREPART</label>*@ </text>, style: "descripciones", canSort: false),
+                grid.Column("ACT_FECHCREA", Resources.CXP_PARAMETROS.StringResources.lblDirMG.Replace(":", ""), format: @<text>  <span class="display-mode">@item.ACT_FECHCREA </span> @*<label id="Descripcion" class="edit-mode">@item.PRE_NOMB</label>*@ </text>, style: "descripciones", canSort: false),
+                grid.Column("ACT_FECHREAL", Resources.CXP_PARAMETROS.StringResources.lblIntImp.Replace(":", ""), format: @<text>  <span> <label id="lblTotal">@item.ACT_FECHREAL.ToString(@*"n", culture*@)</label> </span></text>, style: "fechas", canSort: false),
+                grid.Column("ACT_ASUNTO", Resources.CXP_PARAMETROS.StringResources.lblDirMG.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_ASUNTO.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "codigos", canSort: false),
+                grid.Column("ACT_CUERPO", Resources.CXP_PARAMETROS.StringResources.lblUnid.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_PERSCOMP.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "codigos", canSort: false)
+
+
+                ))
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </fieldset>
+
+
+    </div>
+
+</div>
+@Html.ValidationSummary()
+
+<script type="text/javascript">
+
+  
+    $(function () {
+       
+        //function loadActivities(CXPCOD) {
+            $.ajax({
+                //url: "/CXP_PARAMETROS/getGrid?cxpcod=" + CXPCOD,
+                url: "/CXP_PARAMETROS/getGrid",
+                success: function (tabla) {
+                    $('#gridContent  tbody  tr').remove();
+                    $('#gridContent tbody:last').append(tabla);
+                }
+            });
+        //}
+
+
+    })
+
+</script>
+
+
+
+
+
+
+

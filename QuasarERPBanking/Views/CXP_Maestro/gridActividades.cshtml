@@ -1,0 +1,379 @@
+﻿@using Resources.CXP_ACTIVIDADES
+
+
+
+
+@model QuasarERPBanking.Models.CXP_ACTIVIDADES
+
+@{
+    Layout = null;
+   
+
+}
+<div>
+    <table>
+        <tr>
+            @*<td width="70px">
+                <div>
+                    <input type="button" id="AddAct" class="boton" value="Agregar" style="margin:10px 20px; font-size:15px; " onclick="" />
+                </div>
+            </td>*@
+            <td style="padding-bottom:20px; font-size:10px; padding:0px 0px 0px 60px;">
+                <h1>@Resources.CXP_ACTIVIDADES.StringResources.TextoActividad</h1>
+            </td>
+        </tr>
+    </table>
+    <div id="gridContent" style="padding:20px; ">
+        @{
+            var grid = new WebGrid(new List<QuasarERPBanking.Models.CXP_ACTIVIDADES>(), ajaxUpdateContainerId: "gridContent", rowsPerPage: 1000);
+            //System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-VE");
+        }
+
+        @grid.GetHtml(
+        tableStyle: "webgrid-table Ancho-tabla",
+        headerStyle: "webgrid-header",
+        footerStyle: "webgrid-footer",
+        alternatingRowStyle: "webgrid-alternating-row",
+        selectedRowStyle: "webgrid-selected-row",
+        rowStyle: "webgrid-row-style",
+        mode: WebGridPagerModes.All,
+        caption: "",
+        columns:
+            grid.Columns(
+                //grid.Column("Asociar", format: item => @Html.CheckBox("Active", (bool)((item.PREPROCOD == ViewBag.ProyectoSeleccionado) ? true : false), new { value = @item.PREPART, @onclick = "active(this)" }), style: "colDescWidth", canSort: false),
+                @*grid.Column("Accion", format: @<text>
+                        <button id="editar" name="editar" class="edit-PRE_DET display-mode" style=" @((item.PRETIPO != "G" && item.PRETIPO != "") ? "display: none;" : "") ">Editar</button>
+                        <button class="save-PRE_DET edit-mode">Salvar</button>
+                        <button class="cancel-PRE_DET edit-mode">Cancelar</button>
+                    </text>, style: "col3Width", canSort: false),*@
+                grid.Column("ACTID", StringResources.lblCod.Replace(":",""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN9">@item.ACTID.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN9" value="@item.PRECOST9" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "col2Width", canSort: false),
+                grid.Column("ACT_AUTOR", StringResources.lblAutor.Replace(":", ""), format: @<text>  <span class="display-mode">@item.ACT_AUTOR </span> @*<label id="PartidaID" class="edit-mode">@item.PREPART</label>*@ </text>, style: "col1Width", canSort: false),
+                grid.Column("ACT_FECHCREA", StringResources.lblFechaCre.Replace(":", ""), format: @<text>  <span class="display-mode">@item.ACT_FECHCREA </span> @*<label id="Descripcion" class="edit-mode">@item.PRE_NOMB</label>*@ </text>, style: "colDescWidth", canSort: false),
+                grid.Column("ACT_FECHREAL", StringResources.lblFecha.Replace(":", ""), format: @<text>  <span> <label id="lblTotal">@item.ACT_FECHREAL.ToString(@*"n", culture*@)</label> </span></text>, style: "col2Width", canSort: false),
+                grid.Column("ACT_ASUNTO", StringResources.lblAsunto.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_ASUNTO.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "col2Width", canSort: false),
+                grid.Column("ACT_CUERPO", StringResources.lblCuerpo.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_PERSCOMP.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "col2Width", canSort: false),
+                grid.Column("ACT_PERSCOMP", StringResources.lblAsistentes.Replace(":", ""), format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_PERSCOMP.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "col2Width", canSort: false)
+
+                ))
+    </div>
+</div>
+
+
+
+
+
+<div id="dlgActivities" style="display:none; position:center">
+    <div class="icon-bar">
+
+        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="EliminarActividad();" />
+
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="guardarActividad();" />
+
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialogA();" />
+
+    </div>
+
+    <form id="myForm2">
+        <fieldset class="ventana" style="border-color:transparent">
+            @*<legend class="limpiar"><b>Minuta de Reunión</b></legend>*@
+
+            <table width="550">
+
+
+                <tr>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.ACTID, new { @class = "limpiar" })
+
+                    </td>
+                    <td width="260px">
+                        @Html.TextBoxFor(model => model.ACTID, new { style = "width:100px;", @class = "limpiar form-control" })
+
+                    </td>
+
+                    <td width="63px">
+                        @Html.LabelFor(model => model.ACT_FECHCREA, new { @class = "limpiar" })
+
+                    </td>
+                    <td>
+                        @*@Html.TextBoxFor(model => model.ACT_FECHCREA, new { style = "width:200px;", @class = "limpiar" })*@
+                        @Html.TextBoxFor(model => model.ACT_FECHCREA, "{0:dd/MM/yyyy}", new { style = "width: 160px;", @type = "datetime-local", @class = "form-control datepicker limpiar", placeholder = "Introduzca la fecha aquí." })
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td width="170px">
+                        @Html.LabelFor(model => model.ACT_AUTOR, new { @class = "limpiar" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextBoxFor(model => model.ACT_AUTOR, new { style = "width:200px;", @class = "limpiar form-control" })
+                      
+
+                    </td>
+
+
+
+
+                </tr>
+            </table>
+
+            <table width="550" height="60">
+                <tr>
+                    <td style="text-align:center">
+                        @*<img style="width: 423px; height: 246px;" src="../../Content/themes/base/images/reunion.png"/>*@
+                        <label style="font-family:'Lucida Handwriting'; font-size:20px;" ><i>@Resources.CXP_ACTIVIDADES.StringResources.lblMinuta</i></label>
+                        
+                    </td>
+                   
+                </tr>
+            </table>
+
+           
+
+            <table width="550" height="50">
+                <tr>
+                    <td style="text-align:center">
+                        <label >@Resources.CXP_ACTIVIDADES.StringResources.lblCliente </label>
+                        <label class="limpiar" id="lblName"> </label>
+
+                    </td>
+                </tr>
+            </table>
+            <table width="550" height="50">
+                <tr>
+
+                    <td style="padding-left:170px" width="50px">
+
+                        @Html.LabelFor(model => model.ACT_FECHREAL, new { @class = "limpiar" })
+                    </td>
+
+                    <td>
+                        @Html.TextBoxFor(model => model.ACT_FECHREAL, "{0:dd/MM/yyyy}", new { style = "width: 160px;", @type = "datetime-local", @class = "form-control datepicker limpiar", placeholder = "Introduzca la fecha aquí." })
+                    </td>
+
+                </tr>
+
+              
+            </table>
+
+
+
+            <fielset>
+                <legend class="limpiar" style="font-size:12px; "><b>@Resources.CXP_ACTIVIDADES.StringResources.FieldsetLogistica</b></legend>
+
+                <table width="550" height="70">
+                    <tr>
+                        <td width="110px">
+                            @Html.LabelFor(model => model.ACT_PERSCOMP, new { @class = "limpiar", })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.ACT_PERSCOMP, new { style = "width:438px;", @class = "limpiar form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="63px">
+                            @Html.LabelFor(model => model.ACT_ASUNTO, new { @class = "limpiar" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.ACT_ASUNTO, new { style = "width:438px;", @class = "limpiar form-control" })
+                        </td>
+                    </tr>
+                </table>
+            </fielset>
+
+            <fielset>
+                <legend class="limpiar" style="font-size:12px;"><b>@Resources.CXP_ACTIVIDADES.StringResources.FieldsetResumen</b></legend>
+                <table width="550" height="100">                   
+                    <tr>
+                        <td width="110px">
+                            @Html.LabelFor(model => model.ACT_CUERPO, new { @class = "limpiar" })
+
+                        </td>
+                        <td colspan="4">
+                            @Html.TextAreaFor(model => model.ACT_CUERPO, new { style = "resize:none;", @class = "limpiar form-control", @cols = 50, @rows = 3 })
+
+                        </td>
+                    </tr>
+
+
+                </table>
+            </fielset>
+        </fieldset>
+    </form>
+
+</div>
+
+
+
+<script>
+    function cleanA() {
+        $("#ACT_AUTOR").val("");
+        $("#ACT_FECHCREA").val("");
+        $("#ACT_CXPCOD").val("");
+        $("#ACT_FECHREAL").val("");
+        $("#ACT_ASUNTO").val("");
+        $("#ACT_CUERPO").val("");
+        $("#ACT_PERSOUR").val("");
+        $("#ACT_PERSCOMP").val("");
+        $("#ACT_DESC").val("");
+        $("#ACT_CORSRES").val("");
+        $("#ACT_CORATN").val("");
+        $("#ACT_CORTPO").val("");
+        $("#ACT_ADJ").val("");
+    }
+
+    //$("ACT_CXPCOD").val(tds.eq(0).text());
+    //$("ACT_PERSOUR").val(tds.eq(0).text());
+    //$("ACT_DESC").val(tds.eq(0).text());
+    //$("ACT_CORSRES").val(tds.eq(0).text());
+    //$("ACT_CORATN").val(tds.eq(0).text());
+    //$("ACT_CORTPO").val(tds.eq(0).text());
+    //$("ACT_ADJ").val(tds.eq(0).text());
+    function EliminarActividad() {
+        //alert($("#ACTID").val());
+        if ($("#ACTID").val() != "") {
+            var resp = confirm("¿" + '@Resources.StringResources.msgConfDelAct ' + $("#ACTID").val().toUpperCase() + " ?");
+            if (resp) {
+                var strJSON = {
+                    "cxpactid": $("#ACTID").val(),
+                }
+                $.ajax({
+                    url: "/CXP_ACTIVIDADES/Delete",
+                    type: "POST",
+                    data: JSON.stringify(strJSON),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (msg) {
+                        //alert(msg);
+                        alert('@Resources.StringResources.msgDeleteOK');
+                        loadActivities($("#CXPCOD").val());
+                        $("#dlgActivities").dialog("close");
+                    }
+                });
+            }
+            else {
+            }
+        }
+        else {
+            //alert("Debe indicar un código");
+            alert('@Resources.StringResources.errorCodVacio');
+        }
+    }
+    function closeDialogA() { $("#dlgActivities").dialog("close"); }
+
+
+    function guardarActividad() {
+        //guarda cada valor en su campo
+        if ($("#ACT_AUTOR").val() == "" ||
+          $("#ACT_FECHCREA").val() == "" ||
+          $("#ACT_FECHREAL").val() == "" ||
+          $("#ACT_ASUNTO").val() == "" ||
+          $("#ACT_CUERPO").val() == "" ||
+          $("#ACT_PERSCOMP").val() == "" ||
+          $("#ACTID").val() == "") {
+            //alert("Faltan campos");
+            alert('@Resources.StringResources.errCampsVaciosAct');
+        }
+        else {
+            var strJSON = {
+                "ACT_AUTOR": $("#ACT_AUTOR").val(),
+                "ACT_FECHCREA": $("#ACT_FECHCREA").val(),
+                "ACT_CXPCOD": $("#CXPCOD").val(),
+                "ACT_FECHREAL": $("#ACT_FECHREAL").val(),
+                "ACT_ASUNTO": $("#ACT_ASUNTO").val(),
+                "ACT_CUERPO": $("#ACT_CUERPO").val(),
+                "ACT_PERSOUR": "-",
+                "ACT_PERSCOMP": $("#ACT_PERSCOMP").val(),
+                "ACT_DESC": "-",
+                "ACT_CORSRES": "-",
+                "ACT_CORATN": "-",
+                "ACT_CORTPO": "-",
+                "ACTID": $("#ACTID").val(),
+                "ACT_ADJ": "-",
+            };
+            //alert($("#action").val());
+            $.ajax({
+                type: "POST",
+                url: "/CXP_ACTIVIDADES/" + $("#action").val(),
+                //data: $('#myForm1_').serialize(),
+                data: JSON.stringify(strJSON),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (msg) {
+                    //alert(msg);
+                    alert('@Resources.StringResources.msgEditOK');
+                    loadActivities($("#CXPCOD").val());
+                    $("#dlgActivities").dialog("close");
+                },
+                error: function (result) {
+                    alert(JSON.stringify(result));
+                    //alert(result.readyState);
+                }
+            });
+        }
+    }
+
+
+
+
+
+
+
+
+
+    $(function () {
+        $("#AddAct").click(function () {
+            $("#action").val("Create");
+            $("#ACTID").removeAttr("readonly");
+            $("#ACT_AUTOR").removeAttr("readonly");
+            $("#ACT_FECHCREA").removeAttr("readonly");
+            cleanA();
+            showDlgActivities();
+            alert(contacto);
+        });
+
+
+
+
+        ///////////// contador de caracteres para los textarea//////////////////////
+        $("#ACT_CUERPO").charCounter(200, {
+            container: '<em id="a" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:370px"></em>',
+            format: "200 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+    });
+
+    function showDlgActivities() {
+        $("#dlgActivities").dialog({
+            resizable: false,
+            width: 610,
+            height: 600,
+            modal: true,
+            autoOpen: true,
+            open: function (event, ui) {
+                $(".limpiar").prop('disabled', false);
+                $(this).siblings('div.ui-dialog-titlebar').remove();
+                $('div.ui-dialog-titlebar').css('background', 'transparent');
+
+            },
+            show: {
+
+                effect: "slide",
+                duration: 500
+            },
+            hide: {
+                effect: "clip",
+                duration: 700
+            },
+            close: function (event, ui) {
+                //$("#usuario").focus();
+            }
+
+        });
+    }
+
+</script>

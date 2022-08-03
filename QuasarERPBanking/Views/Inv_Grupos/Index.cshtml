@@ -1,0 +1,89 @@
+﻿@model IEnumerable<QuasarERPBanking.Models.INV_GRUPOS>
+
+
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+<p style="font-size:16px;">
+    @Html.ActionLink(Resources.StringResources.MantCrear, "Create")
+</p>
+
+<table class="table" style="font-size:11px">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.INVGRUCOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVGRUDES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVCTAINV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVCTAGTO)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.ACTIVO)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.USUARIO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FECHA)
+            </th>*@
+        <th>@Resources.MANTENIMIENTO.StringResources.lblAccion</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.INVGRUCOD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INVGRUDES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INVCTAINV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INVCTAGTO)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ACTIVO)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.USUARIO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FECHA)
+                </td>*@
+            <td>
+                @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new { id = item.INVGRUCOD }) |
+                @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new { id = item.INVGRUCOD }) |
+                <span id="@item.INVGRUCOD">
+                    @if (item.ACTIVO)
+                {
+                        <a href="javascript: desActivar(@item.INVGRUCOD)">@Resources.StringResources.MantDesactivar</a>
+                    }
+                    else
+                    {
+                        <a href="javascript: desActivar(@item.INVGRUCOD)">@Resources.StringResources.MantActivar</a>
+                    }
+                </span>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    function desActivar(id) {
+        $.ajax({
+            url: "/INV_GRUPOS/ActivarDesactivar/" + id,
+            success: function (result) {
+                $('#' + id).html(result);
+            }
+        });
+    }
+</script>
+

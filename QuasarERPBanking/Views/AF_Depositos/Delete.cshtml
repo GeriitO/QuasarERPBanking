@@ -1,0 +1,89 @@
+﻿@model QuasarFPMWeb.Models.AF_DEPOSITOS
+<div class="internal-window" style="width:30%;">
+    <div class="CajaRell">
+        <div class="internal-title">
+            <h2>@Resources.Inventario.StringResources.TittleVentana</h2>
+            <a href="/">
+                <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
+            </a>
+        </div>
+        <div class="ImgTiposAF">
+            <div class="ImgTiposAF1">
+                <img src="../../Content/themes/base/images/advertencia-animada-amarillo-grande.gif" style="width:40px" />
+                <h3 style="font-size:15px; color:#bc1717;"><b>@Resources.StringResources.MantMsgDelete</b></h3>
+            </div>
+        </div>
+
+
+        <div class="ImgTiposAF">
+
+
+            <dl class="dl-horizontal" style="font-size:12px;width: 100%;">
+                <dt>
+                    @Html.DisplayNameFor(model => model.AFDEPCOD)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AFDEPCOD)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AFDEPDES)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AFDEPDES)
+                </dd>
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AFDEPMAIL)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AFDEPMAIL)
+                </dd>
+
+            </dl>
+
+
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            <div class="form-actions no-color ImgTiposAF">
+
+
+                <div class="ImgTiposAF1">
+                    @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
+                    @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
+                    <input type="image" title="" src="../../Content/themes/base/images/eliminar.png" style="width:40px;" />
+                    <div style="text-shadow: 3px 3px 5px #2c2c2d;">
+                        <label>@Resources.StringResources.GlobalButtonDel</label>
+                    </div>
+                </div>
+                <div class="ImgTiposAF1">
+                    <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/AF_DEPOSITOS'" style="width:40px; cursor:pointer" />
+                    @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
+                    <div style="text-shadow: 3px 3px 5px #2c2c2d">
+                        <label>@Resources.StringResources.MantVolverList</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+            @*<div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>*@
+        }
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model QuasarERPBanking.Models.ActivoFijoCategorias
+
+<div class="internal-window bg-light">
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">Activo Fijo Categorías</h2>
+        </div>
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="divEliminarCategoria form-control mt-3">
+        <div class="row mt-2 mb-3">
+            <div class="col col-md-3 imageWarning">
+                <img src="../../Content/themes/base/images/advertencia-animada-amarillo-grande.gif" width:40 />
+                <h3 class="mensajeAdvertencia"><b>@Resources.StringResources.MantMsgDelete</b></h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                @Html.DisplayNameFor(model => model.AFGRUCOD)
+                @Html.DisplayFor(model => model.AFGRUCOD)
+            </div>
+            <div class="col">
+                @Html.DisplayNameFor(model => model.AFGRUDES)
+                @Html.DisplayFor(model => model.AFGRUDES)
+            </div>
+            <div class="col">
+                @Html.DisplayNameFor(model => model.AFGRUCTAACT)
+                @Html.DisplayFor(model => model.AFGRUCTAACT)
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group ParrGridActInt">
+                <div class="imagenesActivosFijosTipos">
+                    <div class="imagenActFijoTipos1">
+                        <input type="image" class="input-image" title="" src="~/Content/imagenes/icon-delete.svg" />
+                        <div class="guardar-activofijo">
+                            <label>@Resources.StringResources.GlobalButtonDel</label>
+                        </div>
+                    </div>
+                    <div class="imagenActFijoTipos2">
+                        <img src="~/Content/imagenes/icon-arrow-return-left.svg" class="return-img" alt="Buscar" title="" onclick="window.location.href = '/ActivoFijoCategorias'" style="width:30px; cursor:pointer" />
+                        <div class="retornar-activofijo">
+                            <label>@Resources.StringResources.MantVolverList</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<QuasarERPBanking.Models.INV_TIPO>
+
+<p style="font-size:16px;">
+    @Html.ActionLink(Resources.StringResources.MantCrear, "Create")
+
+</p>
+<table style="font-size:12px" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.INVTIPCOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVTIPDES)
+        </th>
+        <th>@Resources.MANTENIMIENTO.StringResources.lblAccion</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.INVTIPCOD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INVTIPDES)
+        </td>
+        <td>
+            @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new { id = item.INVTIPCOD }) |
+
+            @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new { id = item.INVTIPCOD })
+            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        </td>
+    </tr>
+}
+
+</table>

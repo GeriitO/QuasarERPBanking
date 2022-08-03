@@ -1,0 +1,1674 @@
+﻿@using QuasarERPBanking.Models
+@using QuasarERPBanking
+@model QuasarERPBanking.Models.ActivoFijoTransacciones
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+@{
+    ViewBag.Title = "Nueva Requisición";
+    string today = DateTime.Now.ToString("dd/MM/yyyy");
+    string defaultDate = DateTime.Now.AddDays(7).ToString("dd/MM/yyyy");
+    string maxDate = DateTime.Now.AddYears(1).ToString("dd/MM/yyyy");
+    var lstTrans = new TPOS_TRANSACCIONES().GetTransacciones("ACT");
+
+}
+
+@*<script src="@Url.Content("~/scripts/jquery.dataTables.min.js")" type="text/javascript"></script>*@
+
+
+<div class="internal-window bg-light">
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">@Resources.ActivoFijoTransacciones.StringResources.Tittle</h2>
+        </div>
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form--section col-md-12 my-4">
+        <div class="col-md-6">
+            <label class="movimientoProducto-title">@Resources.ActivoFijoTransacciones.StringResources.Banner</label>
+        </div>
+        <div class="form--section-time col-md-6">
+            @Html.TextBoxFor(model => model.TRANS_FECHA, "{0:dd/MM/yyyy}", new
+               {
+                   style = "width: 100px; padding-left:15px",
+                   @Value = Util.FechaQuasar,
+                   @class = "form-control limpiar",
+                   placeholder = Resources.StringResources.GlobalDateCorta,@*autofocus = "autofocus"*@})
+        </div>
+    </div>
+
+    <div class="col-md-5 cuenta">
+        <b>@Html.LabelFor(model => model.TRANS_TIPO, new { @class = "limpiar my-2" })</b>
+        @Html.DropDownListFor(model => model.TRANS_TIPO,
+              ((IEnumerable<TPOS_TRANSACCIONES>)lstTrans).Select(option => new SelectListItem
+          {
+                       Text = (option == null ? "Ninguno" : option.DESCRIPCION),
+                  Value = (option == null ? "0" : option.TPOCOD.ToString()),
+              }), Resources.ActivoFijoTransacciones.StringResources.PlacTipoTrans,
+              new
+                   {
+                       @onchange = "",
+                       style = "width: 140px;",
+                  @class = "limpiar form-control mb-2",
+                       id = "drop",
+                   })
+    </div>
+
+    <input type="hidden" id="objJson" name="objJson" />
+
+
+    <div class="form--movimiento" id="transacciones">
+        <div class="form--movimiento-datos">
+            <div class="cuenta--codigo">
+                <label class="limpiar my-2"><b>@Resources.StringResources.LblGlobalBusq</b></label>
+                <div class="movimiento--busqueda-input mb-4">
+                    <input type="text" id="Trans_" data-autocomplete="@Url.Action("getProduc", "Productos")" autocomplete="on" style="width:180px;" class="radius form-control" />
+                </div>
+            </div>
+            <!-- BUSQUEDA DE PRODUCTO -->
+            @*<div>
+                    <label style="display:block;font-weight:bolder;">Nombre del Producto</label>
+                    <input type="text" name="busqProd" id="busqProd" style="width:100%; min-width:200px;" />
+                </div>*@
+
+            <!-- DETALLES DEL PRODUCTO -->
+            <div id="DetProd" class="form--detalles">
+                <h5 class="h5">@Resources.ActivoFijoTransacciones.StringResources.lblDetalle</h5>
+
+                <label class="my-2"><b>@Resources.ActivoFijoTransacciones.StringResources.lblCod</b></label>
+                <span id="codProd"></span>
+                <br />
+                <label><b>@Resources.ActivoFijoTransacciones.StringResources.lblNom</b></label>
+                <span id="nombreProd"></span>
+
+                <hr style="border-color:rgba(8, 65, 101, 0.35)" />
+
+                <div class="row">
+                    <div class="col">
+                        <label style="font-weight:bolder;">@Resources.ActivoFijoTransacciones.StringResources.lblCant</label>
+                        <input type="text" id="cantReq" style="width:100px" class="form-control campo" />
+                    </div>
+                    <div class="col">
+                        <label style="font-weight:bolder;">@Resources.ActivoFijoTransacciones.StringResources.lblFecha</label>
+                        <input type="text" id="fecmovin" style="width:100px; background-color:#fff; cursor:inherit" readonly="readonly" class="form-control datepicker limpiar campo2" />
+                    </div>
+                    <div class="col">
+                        <label style="font-weight:bolder;">@Resources.ActivoFijoTransacciones.StringResources.lblCosto </label>
+                        <input type="text" id="costin" style="width:100px" class="form-control" placeholder="0,0000" />
+                    </div>
+                    <div class="col">
+                        <label style="font-weight:bolder;">@Resources.ActivoFijoTransacciones.StringResources.lblRef</label>
+                        <input type="text" id="referin" style="width:100px" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label style="font-weight:bolder;">@Resources.ActivoFijoTransacciones.StringResources.lblDoc</label>
+                        <input type="text" id="documin" style="width:100px" class="form-control" />
+                    </div>
+                    @*<div class="col">
+                        <input type="text" id="filas" style="width:100px" class="form-control" />
+                    </div>*@
+                    <div class="col">
+                        <a class="icon--input-create" id="botonAgregar">
+                            <img src="~/Content/imagenes/icon-add.svg" title="@Resources.CC_CONTACTOS.StringResources.BotonAdd" style="width:30px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CARRITO -->
+        <div class="form--carrito">
+
+            @*<div style="margin:5px 4px 15px 4px">
+                    <label for="fechaEntrega" style="font-weight:bolder;">Fecha de Entrega: </label>
+                    @Html.TextBoxFor(model => model.TRANS_FECHA, new { style = "size=40; width:100px;", @class = "form-control limpiar", @Value = Util.FechaQuasar, })
+                    @*<input id="fechaEntrega" style="width:125px" />
+                </div>*@
+            <table id="tablaCarrito" class="table table-striped table-hover tabla-carrito">
+                <thead class="table-primary">
+                    <tr id="head">
+                        <th style="width:7%">@Resources.ActivoFijoTransacciones.StringResources.lblCod.Replace(":", "")</th>
+                        <th style="width:20%">@Resources.ActivoFijoTransacciones.StringResources.lblNom.Replace(":", "")</th>
+                        <th style="width:12%">@Resources.ActivoFijoTransacciones.StringResources.lblFechMov</th>
+                        <th style="width:5%">@Resources.ActivoFijoTransacciones.StringResources.lblCant</th>
+                        <th style="width:15%">@Resources.ActivoFijoTransacciones.StringResources.lblCosto</th>
+                        <th style="width:15%">@Resources.ActivoFijoTransacciones.StringResources.lblRef</th>
+                        <th style="width:15%">@Resources.ActivoFijoTransacciones.StringResources.lblDoc</th>
+                        <th style="width:8%">@Resources.ActivoFijoTransacciones.StringResources.lblOpc</th>
+                    </tr>
+                </thead>
+                <tbody id="tBodyCarrito" class="">
+                    @if (ViewBag.productosReq != null)
+                    {
+                        List<ActivoFijoTransacciones> prList = ViewBag.productosReq;
+                        foreach (ActivoFijoTransacciones pr in prList)
+                        {
+                            string rowId = "row" + pr.Productos.AFCOD;
+                            string code = "code" + pr.Productos.AFCOD;
+                            string nomb = "nomb" + pr.Productos.AFCOD;
+                            string fecmov = "fecmov" + pr.Productos.AFCOD;
+                            string cant = "cant" + pr.Productos.AFCOD;
+                            string cost = "cost" + pr.Productos.AFCOD;
+                            string refer = "refer" + pr.Productos.AFCOD;
+                            string docum = "docum" + pr.Productos.AFCOD;
+                            string identificador = "id" + pr.Productos.AFCOD;
+                            //int ids = 1;
+
+                            <tr id="@rowId">
+                                @*<td id="identificador"></td>*@
+                                <td id="@code" class="codigo">@pr.TRANS_PROD</td>
+                                <td id="@nomb">@pr.Productos.AFNOM</td>
+                                <td id="@fecmov" class="fechamov">@pr.TRANS_FECHAMOV</td>
+                                <td id="@cant" class="cantidad">@pr.TRANS_CANT</td>
+                                <td id="@cost" class="costo">@pr.TRANS_MONTO</td>
+                                <td id="@refer" class="referencia">@pr.TRANS_REF</td>
+                                <td id="@docum" class="documento">@pr.TRANS_DOC</td>
+                                <td>
+                                    <img src="../../Content/themes/base/images/delete-icon.png"  alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminarElemento('@rowId');" />
+                                    <img src="../../Content/themes/base/images/save-icon.png" alt="editar" title="@Resources.StringResources.GlobalButtonDel" onclick="editarElemento('@pr.Productos.AFCOD');" />
+
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+
+            @*<div id="adicionales" style="clear:both;margin-top:10px;display:none;">
+                    <label for="lugar" style="font-weight:bolder;">Lugar: </label>
+                    <br />
+                    <input type="text" id="lugar" style="min-width:350px" />
+                    <br />
+                    <label for="observaciones" style="font-weight:bolder;">Observaciones: </label>
+                    <br />
+                    <textarea id="observaciones" rows="3" cols="45"></textarea>
+                </div>*@
+
+            <div style="clear:both; padding-top:10px;">
+                @*<a class="imgBtn" id="botonAdicionales">
+                        <img src="../../Content/icons/16x16/page_edit.png" alt="Agregar datos adicionales" />
+                        Agregar datos adicionales
+                    </a>*@
+                <a id="botonProcesar">
+                    <img src="~/Content/imagenes/check-circle.png" alt="Procesar" width="30" />
+                    @Resources.ActivoFijoTransacciones.StringResources.BotonProcesar
+                </a>
+                <a id="insertar" style="margin-left:650px" onclick="showDlgInsert()">
+                    <img src="~/Content/imagenes/box-arrow-in-up.svg" alt="Insertar" width="30" />
+                    @Resources.ActivoFijoTransacciones.StringResources.BotonFilaNew
+                </a>
+            </div>
+
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div id="dialog-form" title="@Resources.ActivoFijoTransacciones.StringResources.FieldEditProc">
+
+        <fieldset class="ventana" style="border:none">
+            @*<legend class="limpiar"><b>Editar Producto</b></legend>*@
+
+            <label> @Resources.ActivoFijoTransacciones.StringResources.lblCod</label>
+            <span id="codEdit"></span>
+            <br />
+            <label> @Resources.ActivoFijoTransacciones.StringResources.lblNom </label>
+            <span id="nombEdit"></span>
+            <br />
+            <hr style="border-color:rgba(8, 65, 101, 0.35)" />
+            <table>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblCant: </label></td>
+                    <td><input type="text" id="cantEdit" style="width:50px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblFecha: </label></td>
+                    <td><input type="text" id="fechaEdit" style="width:100px; margin-left:40px; background-color:#fff; cursor:inherit" readonly="readonly" class="datepicker limpiar form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblCosto: </label></td>
+                    <td><input type="text" id="costoEdit" style="width:100px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblRef: </label></td>
+                    <td><input type="text" id="referEdit" style="width:100px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblDoc: </label></td>
+                    <td><input type="text" id="documenEdit" style="width:100px; margin-left:40px" class="form-control" /></td>
+                </tr>
+
+            </table>
+
+
+            @*<br />
+                <label> fecha: </label>
+                <input type="text" id="fechaEdit" style="width:100px; margin-left:40px" class="datepicker limpiar form-control" />
+                <br />
+                <label> costo: </label>
+                <input type="text" id="costoEdit" style="width:100px; margin-left:40px" class="form-control" />
+                <br />
+                <label> referencia: </label>
+                <input type="text" id="referEdit" style="width:100px; margin-left:40px" class="form-control" />
+                <br />
+                <label> documento: </label>
+                <input type="text" id="documenEdit" style="width:100px; margin-left:40px" class="form-control" />*@
+        </fieldset>
+    </div>
+
+    <div id="dialog-refresh" title="@Resources.ActivoFijoTransacciones.StringResources.FieldSustProc">
+
+        <fieldset class="ventana" style="border:none">
+            @*<legend class="limpiar"><b>Editar Producto</b></legend>*@
+
+            <table>
+                <tr>
+                    <td height="60px" width="70px" align="center" style="text-align:right"><label style="color:black" class="limpiar"><b>@Resources.StringResources.LblGlobalBusq</b></label></td>
+
+                    <td>
+                        <input type="text" id="Trans_Refresh" data-autocomplete="@Url.Action("getProduc", "Productos")" autocomplete="on" style="width:280px;" class="radius form-control" />
+                    </td>
+                </tr>
+            </table>
+
+
+            <label> @Resources.ActivoFijoTransacciones.StringResources.lblCod </label>
+            <span id="codEdit1"></span>
+            <br />
+            <label> @Resources.ActivoFijoTransacciones.StringResources.lblNom </label>
+            <span id="nombEdit1"></span>
+            <br />
+            <hr style="border-color:rgba(8, 65, 101, 0.35)" />
+            <table>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblCant: </label></td>
+                    <td><input type="text" id="cantEdit1" style="width:50px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblFecha: </label></td>
+                    <td><input type="text" id="fechaEdit1" style="width:100px; margin-left:40px; background-color:#fff; cursor:inherit" readonly="readonly" class="datepicker limpiar form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblCosto: </label></td>
+                    <td><input type="text" id="costoEdit1" style="width:100px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblRef: </label></td>
+                    <td><input type="text" id="referEdit1" style="width:100px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.lblDoc: </label></td>
+                    <td><input type="text" id="documenEdit1" style="width:100px; margin-left:40px" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" id="codold" style="width:100px; margin-left:40px" class="" /></td>
+                </tr>
+
+            </table>
+        </fieldset>
+    </div>
+
+    <div id="dialog-added" title="@Resources.ActivoFijoTransacciones.StringResources.FieldProcAdd" style="display:none">
+        <p>
+            @Resources.ActivoFijoTransacciones.StringResources.ParrExist
+            @*Este producto ya ha sido agregado.
+                Puede cambiar los datos ingresados anteriormente y pulsar el botón "Agregar".*@
+        </p>
+    </div>
+    <div id="insert-dialog" title="@Resources.ActivoFijoTransacciones.StringResources.BotonFilaNew" style="display:none">
+        <p>
+
+            <table>
+                <tr>
+                    <td><label> @Resources.ActivoFijoTransacciones.StringResources.ParrAddProc</label></td>
+                    <td><input type="text" id="nfila" style="width:100px; margin-left:40px" /></td>
+                </tr>
+            </table>
+        </p>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $("#transacciones").hide();
+    $("#filas").hide();
+
+    $("#drop").change(function () {
+        //alert($("#drop").val());
+        if ($("#drop").val() != "") {
+            $("#transacciones").show();
+            $("#Trans_").focus();
+        }
+        else {
+            $("#transacciones").hide();
+        }
+
+    });
+
+
+    $("#nfila").blur(function () {
+        //alert($("#drop").val());
+        var num = $("#nfila").val();
+        $("#filas").val(num);
+
+    });
+
+
+    ///////////  SIMULACION DE TABULADOR AL DARLE ENTER
+
+    $("#cantEdit").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#fechaEdit").focus();
+        }
+    });
+
+
+    $("#costoEdit").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#referEdit").focus();
+        }
+    });
+
+
+    $("#referEdit").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#documenEdit").focus();
+        }
+    });
+
+    $("#documenEdit").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            actualizarCantidad();
+        }
+    });
+
+    $("#cantEdit1").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#fechaEdit1").focus();
+        }
+    });
+
+    $("#costoEdit1").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#referEdit1").focus();
+        }
+    });
+
+
+    $("#referEdit1").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#documenEdit1").focus();
+        }
+    });
+
+    $("#documenEdit1").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            actualizarRegistro();
+        }
+    });
+
+
+
+
+    /////////////////////////////////////////////////
+
+
+
+
+
+
+    ////funcion para validar correo electronico
+    //$('#referin').keyup(function () {
+    //    var _this = $('#referin');
+    //    var _email = $('#referin').val();
+
+    //    var re = /^[a-zA-Z0-9._-]+\@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    //    var valid = re.test(_email);
+
+    //    if (valid) {
+    //        _this.attr('style', 'background:white');
+    //    } else {
+    //        _this.attr('style', 'background:#FF4A4A');
+    //    }
+    //});
+
+    ///simular tabulador
+    Tab();
+
+
+    $("#TRANS_FECHA").prop('readonly', true);
+
+
+    // DATEPICKER
+    loadDatePicker();
+    $.datepicker.setDefaults($.datepicker.regional["@QuasarERPBanking.Models.ParametrosGlobales.culture"]);
+    $('.datepicker').datepicker(
+   {
+       format: 'dd/mm/yy',
+       startDate: '-3d',
+       onSelect: function () {
+           //return $(this).trigger('change');
+           //alert("prueba");
+       }
+   }); //Initialise any date pickers
+
+
+
+
+
+    $("#Trans_").each(function () {
+        //alert("AFCOD");
+        $("#Trans_").autocomplete({
+            source: "@Url.Action("getProduc", "Productos")",
+            minLength: 2,
+
+
+            select: function (event, ui) {
+
+                if (ui.item) {
+
+                    //alert("aaa");
+                    mostrarDetalles(ui.item);
+                }
+                else {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQNoItem' + this.value);
+                }
+            }
+
+
+        })
+
+    });
+
+    $("#Trans_Refresh").each(function () {
+        //alert("AFCOD");
+        $("#Trans_Refresh").autocomplete({
+            source: "@Url.Action("getProduc", "Productos")",
+            minLength: 2,
+
+
+            select: function (event, ui) {
+
+                if (ui.item) {
+
+                    //_this.attr('style', 'background:#fc080833');
+                    //var a = $("#tBodyCarrito").removeAttr();
+                    //var newtr = "<tr style='display:none'><td id='someid'></td><td></td></tr>"
+                    //$("tr#row211").parent().replaceWith(newtr);
+                    //alert(a);
+                    //modificartr();
+                    //alert("aaa");
+                    mostrarDetallesRf(ui.item);
+                }
+                else {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQNoItem' + this.value);
+                }
+            }
+
+
+        })
+
+    });
+
+
+    //$("#tBodyCarrito tr").click(function () {
+    //    var divID = this.id;//Or $(this).attr("id");
+    //    //Your code here
+    //});
+
+
+
+    function mostrarDetalles(producto) {
+        //alert("bbb");
+        var a = producto.label;
+        var prodc = a.split("-");
+        //alert(prodc);
+        //alert(prodc[0]);
+        //alert(producto.label);
+        //$('#codProd').html(producto.id);
+        //$('#nombreProd').html(producto.label);
+
+        var productos = prodc[0].replace(" ", "");
+        //alert(productos);
+
+        $('#codProd').html(productos);
+        $('#nombreProd').html(prodc[1]);
+
+        //alert($("#row" + prodc[0]).length);
+        //alert($("#row" + productos).val().length);
+        if ($("#row" + productos).length) {//SI el producto ya fue agregado
+            $('#cantReq').val($('#cant' + productos).html());
+            $('#fecmovin').val($('#fecmov' + productos).html());
+            $('#costin').val($('#cost' + productos).html());
+            $('#referin').val($('#refer' + productos).html());
+            $('#documin').val($('#docum' + productos).html());
+            //$("#dialog-added").dialog("open");
+            showDlgExiste();
+        } else {
+            $('#cantReq').val(''); //cantidad requerida
+            $('#fecmovin').val('');
+            $('#costin').val('');
+            $('#referin').val('');
+            $('#documin').val('');
+            $('#cantReq').focus();
+        }
+
+        //$.getJSON('/Requisiciones/DetallesProducto?',
+        //            { cod: producto.id },
+        //            function result(data, status) {
+        //                //alert(data.cod + " " + data.nombre);
+        //                //MOSTRAR LOS DETALLES EN LOS CAMPOS
+        //                $('#codProd').html(data.cod);
+        //                $('#nombreProd').html(data.nombre);
+        //                $('#descProd').html(data.descripcion);
+        //                $('#marcaProd').html(data.marca);
+        //            }
+        //);
+    }
+
+
+    function mostrarDetallesRf(producto) {
+        //alert("bbb");
+        var a = producto.label;
+        var prodc = a.split("-");
+        //alert(prodc);
+        //alert(prodc[0]);
+        //alert(producto.label);
+        //$('#codProd').html(producto.id);
+        //$('#nombreProd').html(producto.label);
+
+        var productos = prodc[0].replace(" ", "");
+        //alert(productos);
+
+        $('#codEdit1').html(productos);
+        $('#nombEdit1').html(prodc[1]);
+        $("#cantEdit1").focus();
+
+
+
+        //alert($("#row" + prodc[0]).length);
+
+        if ($("#row" + productos).length) {//SI el producto ya fue agregado
+            $('#cantReq').val($('#cant' + productos).html());
+            $('#fecmovin').val($('#fecmov' + productos).html());
+            $('#costin').val($('#cost' + productos).html());
+            $('#referin').val($('#refer' + productos).html());
+            $('#documin').val($('#docum' + productos).html());
+            $('#codProd').html(productos);
+            $('#nombreProd').html(prodc[1]);
+            $("#dialog-refresh").dialog("close");
+            showDlgExiste();
+        } else {
+            //$('#cantReq').val(''); //cantidad requerida
+            $('#cantEdit1').focus();
+        }
+
+
+    }
+
+    /////////////////BOTON AGREGAR CANTIDADES O AL PRESIONAR ENTER ////////////////////////
+
+
+    //$("#botonAgregar").hover(function () {
+
+    //    //    $(this).css("color", "pink");
+    //    //}, function () {
+    //    //    //$(this).css("background-color", "pink");
+    //    $(this).css('cursor', 'pointer');
+    //    //$(this).fadeOut(100);
+    //    //$(this).fadeIn(70);
+    //});
+
+
+    $('#botonAgregar').bind('click', function () {
+        //alert($('#cantReq').val());
+        var cod = $('#codProd').html();
+        var nombre = $('#nombreProd').html();
+        var cantidades = $('#cantReq').val();
+        var fecmov = $('#fecmovin').val();
+        //var twoPlacedFloat = parseFloat(yourString).toFixed(2)
+        var costo = $('#costin').val();
+        //var costo = parseFloat(cost.toFixed(2));
+        //alert(costo);
+        var referencia = $('#referin').val();
+        var documento = $('#documin').val();
+
+
+
+
+        //alert(fecmov);
+        if (!(nombre == "" || fecmov == "" || costo == "" || referencia == "" || documento == "")) {
+            //limpiarProductoActual();
+            //$('#cantReq').focus();
+        }
+
+        agregarProducto(cod, nombre, cantidades, fecmov, costo, referencia, documento);
+
+    });
+
+    $('#documin').keypress(function (e) {
+        if (e.which == 13) {//SI es enter
+            agregarProducto(
+                $('#codProd').html(),
+                $('#nombreProd').html(),
+                $('#cantReq').val(),
+                $('#fecmovin').val(),
+                $('#costin').val(),
+                $('#referin').val(),
+                $('#documin').val()
+            );
+        }
+    });
+
+
+    //////////////////////revisar //////////////////////////
+
+    //function SoloNumeroDecimal(id) {
+    //    //PARA LLAMARLO EN EL OBJETO ---> onkeypress="solo_JQdecimal(this.id)"
+    //    alert(id);
+    //    $(id).on('keypress', function (e) {
+    //        alert(e);
+    //        // Backspace = 8, Enter = 13, ’0′ = 48, ’9′ = 57, ‘.’ = 46
+    //        var field = $(this);
+    //        key = e.keyCode ? e.keyCode : e.which;
+
+    //        if (key == 8) return true;
+    //        if (key > 47 && key < 58) {
+    //            if (field.val() === "") return true;
+    //            var existePto = (/[.]/).test(field.val());
+    //            if (existePto === false) {
+    //                regexp = /.[0-9]{10}$/; //PARTE ENTERA 10
+    //            }
+    //            else {
+    //                regexp = /.[0-9]{2}$/; //PARTE DECIMAL2
+    //            }
+    //            return !(regexp.test(field.val()));
+    //        }
+    //        if (key == 46) {
+    //            if (field.val() === "") return false;
+    //            regexp = /^[0-9]+$/;
+    //            return regexp.test(field.val());
+    //        }
+    //        return false;
+    //    });
+    //}
+
+    /////////////////////////////////// validacion de numeros ///////////////////////////////
+
+    //// valida que solo sean numeros sin puntos ni comas
+    function NoEsNumeroMayorQueCero(var1) {
+        return Math.floor(var1) != var1 || !$.isNumeric(var1) || var1 <= 0;
+    }
+
+
+
+    /// solo deja escribir numeros positivos y un solo punto
+    $("#costin").numericInput({ allowFloat: true });
+
+    /// solo numeros sin decimal
+    $("#cantReq").numericInput();
+    $("#cantEdit").numericInput();
+    $("#cantEdit1").numericInput();
+
+
+    ///// funcion para separadores de mil y dos decimales (cambiar {4} por {2} para cantidad de decimales)
+    $("#costin").on({
+        "focus": function (event) {
+            $(event.target).select();
+        },
+        "keyup": function (event) {
+            $(event.target).val(function (index, value) {
+                return value.replace(/\D/g, "")
+                            .replace(/([0-9])([0-9]{4})$/, '$1,$2')
+                //.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+            });
+        }
+    });
+
+    $("#costoEdit").on({
+        "focus": function (event) {
+            $(event.target).select();
+        },
+        "keyup": function (event) {
+            $(event.target).val(function (index, value) {
+                return value.replace(/\D/g, "")
+                            .replace(/([0-9])([0-9]{4})$/, '$1,$2')
+                //.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+            });
+        }
+    });
+
+    $("#costoEdit1").on({
+        "focus": function (event) {
+            $(event.target).select();
+        },
+        "keyup": function (event) {
+            $(event.target).val(function (index, value) {
+                return value.replace(/\D/g, "")
+                            .replace(/([0-9])([0-9]{4})$/, '$1,$2')
+                //.replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+
+    //// solo numeros y permite puntos
+    function NoEsNumeroMayor(var1) {
+        //return Math.floor(var1) != var1 || !$.isNumeric(var1) || var1 <= 0;
+        //return Math.abs(var1) != var1 || !$.isNumeric(var1) || var1 <= 0;
+        return Math.abs(var1) != var1 || !$.isNumeric(var1);
+    }
+
+
+
+
+
+
+    ///////////////// GRID DINAMICO DE AGREGAR ////////////////
+
+    function agregarProducto(cod, nombre, cantidades, fecmov, costo, referencia, documento) {
+        //alert(fechamov);
+
+        if (cod == "" || cod == null) {
+
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQSinPro');
+            limpiarProductoActual();
+        }
+        else if (NoEsNumeroMayorQueCero(cantidades)) {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCantMen');
+            $('#cantReq').focus();
+        }
+            //else if (NoEsNumeroMayor(costo)) {
+            //    alert('el costo debe ser un número mayor que cero');
+            //    $('#costin').focus();
+            //}
+        else if (nombre == "" || fecmov == "" || costo == "" || referencia == "" || documento == "") {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCampVac');
+            //$('#cantReq').focus();
+        }
+
+            //else if (NoEsNumeroMayor(costo)) {
+            //    alert('el costo debe ser un número mayor que cero');
+            //    $('#cost').focus();
+            //}
+
+        else {
+            if ($("#row" + cod).length) {//SI el producto ya fue agregado
+                cantidades = parseInt(cantidades, 10); //Se pasa a entero (por si tiene un punto al final)
+                $('#cant' + cod).html(cantidades);
+                $('#fecmov' + cod).html(fecmov);
+                $('#cost' + cod).html(costo);
+                $('#refer' + cod).html(referencia);
+                $('#docum' + cod).html(documento);
+
+
+                resaltar('row' + cod);
+            } else {
+                cantidades = parseInt(cantidades, 10); //Se pasa a entero (por si tiene un punto al final)
+                var i = $("#tBodyCarrito tr").length + 1; //para enumerar las filas
+                //alert($("#tBodyCarrito tr").length);
+                htmlRow = '<tr id="row' + cod + '">' +
+                            //'<td id="identificador' + cod + '">' + i + '</td>' +
+                            '<td id="identificador">' + i + '</td>' +
+                            '<td id="code' + cod + '" class="codigo">' + cod + '</td>' +
+                            '<td id="nomb' + cod + '">' + nombre + '</td>' +
+
+
+                            '<td id="fecmov' + cod + '" class="fechamov">' + fecmov + '</td>' +
+
+                            '<td id="cant' + cod + '" class="cantidad">' + cantidades + '</td>' +
+
+                            '<td id="cost' + cod + '" class="costo">' + costo + '</td>' +
+                            '<td id="refer' + cod + '" class="referencia">' + referencia + '</td>' +
+                            '<td id="docum' + cod + '" class="documento">' + documento + '</td>' +
+
+                            '<td>' +
+                                '<a href="javascript:editarElemento(\'' + cod + '\')" id="edit' + cod + '" alt="Editar" title="Editar"><img src="/Content/icons/16x16/pencil.png" /></a> &nbsp; ' +
+                                '<a href="javascript:eliminarElemento(\'row' + cod + '\')" id="elim' + cod + '" alt="Eliminar" title="Eliminar"><img src="/Content/icons/16x16/delete.png" /></a> &nbsp; ' +
+                                '<a href="javascript:sustituirElemento(\'' + cod + '\')" id="sust' + cod + '" alt="Sustituir" title="Sustituir"><img src="/Content/icons/16x16/arrow_refresh.png" /></a> ' +
+                            '</td>' +
+                            '</tr>';
+
+                $('#tBodyCarrito').append(htmlRow);
+
+                //alert($('#tBodyCarrito').find('tr')[0].rowIndex.length);
+                limpiarProductoActual();
+                //alert($('#fecmov' + cod).html());
+                reiniciarDatatable();
+
+                resaltar('row' + cod);
+            }
+
+            limpiarProductoActual();
+            $("#Trans_").focus();
+        }
+    }
+
+
+
+
+    ///////////////// GRID DINAMICO DE AGREGAR  EN UN POSICIÓN ESPECIFICA ////////////////
+
+    function agregarNuevaFila(cod, nombre, cantidades, fecmov, costo, referencia, documento) {
+
+        //var numero = $("#nfila").val();
+        //alert(a);
+
+        if (cod == "" || cod == null) {
+
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQSinPro');
+            limpiarProductoActual();
+        }
+        else if (NoEsNumeroMayorQueCero(cantidades)) {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCantMen');
+            $('#cantReq').focus();
+        }
+            //else if (NoEsNumeroMayor(costo)) {
+            //    alert('el costo debe ser un número mayor que cero');
+            //    $('#costin').focus();
+            //}
+        else if (nombre == "" || fecmov == "" || costo == "" || referencia == "" || documento == "") {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCampVac');
+            //$('#cantReq').focus();
+        }
+
+        else {
+            if ($("#row" + cod).length) {//SI el producto ya fue agregado
+                cantidades = parseInt(cantidades, 10); //Se pasa a entero (por si tiene un punto al final)
+                $('#cant' + cod).html(cantidades);
+                $('#fecmov' + cod).html(fecmov);
+                $('#cost' + cod).html(costo);
+                $('#refer' + cod).html(referencia);
+                $('#docum' + cod).html(documento);
+
+
+                resaltar('row' + cod);
+            }
+
+
+            else {
+
+                cantidades = parseInt(cantidades, 10); //Se pasa a entero (por si tiene un punto al final)
+                var i = $("#tBodyCarrito tr").length + 1; //para enumerar las filas
+
+                htmlRow = '<tr id="row' + cod + '">' +
+                    //'<td id="identificador' + cod + '">' + i + '</td>' +
+                    '<td id="identificador">' + i + '</td>' +
+                    '<td id="code' + cod + '" class="codigo">' + cod + '</td>' +
+                    '<td id="nomb' + cod + '">' + nombre + '</td>' +
+
+
+                    '<td id="fecmov' + cod + '" class="fechamov">' + fecmov + '</td>' +
+
+                    '<td id="cant' + cod + '" class="cantidad">' + cantidades + '</td>' +
+
+                    '<td id="cost' + cod + '" class="costo">' + costo + '</td>' +
+                    '<td id="refer' + cod + '" class="referencia">' + referencia + '</td>' +
+                    '<td id="docum' + cod + '" class="documento">' + documento + '</td>' +
+
+                    '<td>' +
+                        '<a href="javascript:editarElemento(\'' + cod + '\')" id="edit' + cod + '" alt="Editar" title="Editar"><img src="/Content/icons/16x16/pencil.png" /></a> &nbsp; ' +
+                        '<a href="javascript:eliminarElemento(\'row' + cod + '\')" id="elim' + cod + '" alt="Eliminar" title="Eliminar"><img src="/Content/icons/16x16/delete.png" /></a> &nbsp; ' +
+                        '<a href="javascript:sustituirElemento(\'' + cod + '\')" id="sust' + cod + '" alt="Sustituir" title="Sustituir"><img src="/Content/icons/16x16/arrow_refresh.png" /></a> ' +
+                    '</td>' +
+                    '</tr>';
+                //var table = document.getElementById("tBodyCarrito");
+                $("#nfila").val("");
+                var a = $("#filas").val();
+                $('#tBodyCarrito > tr').eq(a - 1).before(htmlRow);
+                modificarnumeros();
+
+                //var firstRow = table.insertRow(a - 1);
+                //var cell = firstRow.insertCell(0);
+                //var cell1 = firstRow.insertCell(1);
+                //var c = document.createElement();
+                //cell.innerHTML = c;
+
+
+
+
+                //$('#tBodyCarrito > tr').eq(a - 1).append(htmlRow);
+                //var campo1 = document.createAttribute("td");
+                //campo1.type = "text";
+                //campo1.setAttribute("onclick", "vaciar_campo(this);");
+
+
+
+                //cell.append(campo1);
+                //cell1.append(campo2);
+
+
+                //$('#tBodyCarrito').append(htmlRow);
+                limpiarProductoActual();
+                //alert($('#fecmov' + cod).html());
+                reiniciarDatatable();
+
+                resaltar('row' + cod);
+
+
+            }
+
+            limpiarProductoActual();
+            $("#Trans_").focus();
+        }
+    }
+
+
+
+    function modificarnumeros() {
+
+        //alert($('#identificador').find().html());
+
+        //$('#tBodyCarrito tr').each(function () {
+
+        //    var Referencia = $(this).find("td").eq(0).html();
+        //    //var Nombre = $(this).find("td").eq(1).html();
+        //    //var Edad = $(this).find("td").eq(3).html();
+        //    alert(Referencia);
+        //});
+
+        var element = $('#identificador');
+        var i = 1;
+        $('#tBodyCarrito tr').each(function (index, element) {
+            //var Referencias = $(element).find("td").eq(0).html();
+            $(element).find("td").eq(0).html(i);
+            //alert(a);
+            //$('#identificador').data.attr('html', i);
+
+            //alert("i normal  " + i);
+
+            i = i + 1;
+
+            //alert(index);
+            //alert("i incre  " + i);
+            //alert("referencia N:  " + Referencias);    me da solo el primer id que encuantra el id tiene que ser diferente
+        });
+        //alert($('#identificador').html());
+
+
+        //alert("aa");
+        //var i = 1;
+        //$('#identificador').each(function (index) {
+
+
+        //    alert($('#identificador').each.text());
+        //    alert($('#identificador').each.html());
+        //    //$('#identificador').attr('value', i + 1)
+        //    i = i + 1;
+        //});
+    }
+
+
+
+
+    function resaltar(id) {
+        var options = { color: "#f66" };
+        $("#" + id).effect('highlight', options, 1000);
+    }
+
+    //function inicializarDatatable() {
+
+    //    $('#tablaCarrito').dataTable({
+    //        "sScrollY": "500px",
+    //        //"bPaginate": false,
+    //        "bPaginate": false,
+    //        "bScrollCollapse": true
+    //    });
+    //}
+
+    function reiniciarDatatable() {
+
+        $('#tablaCarrito').dataTable().fnDestroy();
+        //inicializarDatatable();
+    }
+
+
+    ////////////////// ELIMINAR FILA //////////////////////
+    function eliminarElemento(elem) {
+        //alert(elem);
+        //$('#tablaCarrito').dataTable().fnDestroy();
+        //elem.preventDefault();
+        $('#' + elem).remove();
+        //inicializarDatatable();
+
+        $("#Trans_").focus();
+    }
+
+    function editarElemento(cod) {
+
+        var nombre = $('#nomb' + cod).html();
+        var requeridos = $('#cant' + cod).html();
+        var fecha = $('#fecmov' + cod).html();
+        var costo = $('#cost' + cod).html();
+        var referencia = $('#refer' + cod).html();
+        var documento = $('#docum' + cod).html();
+
+
+        $('#codEdit').html(cod);
+        $('#nombEdit').html(nombre);
+        $('#cantEdit').val(requeridos);
+        $('#fechaEdit').val(fecha);
+        $('#costoEdit').val(costo);
+        $('#referEdit').val(referencia);
+        $('#documenEdit').val(documento);
+
+        showDlgEdit();
+        //$("#dialog-form").dialog("open");
+    }
+
+    function sustituirElemento(cod) {
+        $("#Trans_Refresh").val("");
+
+        //a = 'row' + cod + '';
+        //alert(a);
+
+
+
+        //alert($('#tBodyCarrito').find('tr:eq(1)').attr('id'));
+
+
+        //alert($('#tBodyCarrito').parent('tr').val());
+
+
+
+
+
+        //var want = $("tr").find("[data-my_other_id='" + my_other_id + "']").index();
+        //$("#miCombo option:selected").html();
+
+        //var tr = $("#row" + cod).text().split(" ", 1);
+        //alert(tr);
+
+
+        //var codigo = $('#nomb' + cod).html();
+        var nombre = $('#nomb' + cod).html();
+        var requeridos = $('#cant' + cod).html();
+        var fecha = $('#fecmov' + cod).html();
+        var costo = $('#cost' + cod).html();
+        var referencia = $('#refer' + cod).html();
+        var documento = $('#docum' + cod).html();
+
+        //alert(cod);
+
+        $('#codEdit1').html(cod);
+        $('#nombEdit1').html(nombre);
+        $('#cantEdit1').val(requeridos);
+        $('#fechaEdit1').val(fecha);
+        $('#costoEdit1').val(costo);
+        $('#referEdit1').val(referencia);
+        $('#documenEdit1').val(documento);
+        $("#codold").val(cod);
+
+        showDlgRefresh();
+        //$("#dialog-form").dialog("open");
+    }
+
+
+
+
+    @*$("#fecmovi").datepicker("setDate", "@today");*@
+    @*$("#fecmovi").prev('input').val("@today");*@
+
+
+
+    function actualizarCantidad() {
+
+        var cod = $("#codEdit").html();
+        var cantidad = $("#cantEdit").val();
+        var fecmov = $('#fechaEdit').val();
+        var costo = $('#costoEdit').val();
+        //var costo = costos.toFixed(2);
+        var referencia = $('#referEdit').val();
+        var documento = $('#documenEdit').val();
+        //Se valida la cantidad
+        if (NoEsNumeroMayorQueCero(cantidad)) {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCantMen');
+            resaltar('cantEdit');
+            $("#cantEdit").focus();
+
+        }
+            //else if (NoEsNumeroMayorQueCero(costo)) {
+            //    alert("el costo debe ser un número mayor que cero");
+            //    resaltar('costoEdit');
+            //    $("#costoEdit").focus();
+
+            //}
+        else if (cantidad == "" || fecmov == "" || costo == "" || referencia == "" || documento == "") {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCampVac');
+            //$('#cantReq').focus();
+        }
+        else {
+            //alert(cantidad);
+            //Se actualiza la cantidad en el carrito y se cierra el dialog
+            $("#cant" + cod).html(cantidad);
+            $("#fecmov" + cod).html(fecmov);
+            $("#cost" + cod).html(costo);
+            $("#refer" + cod).html(referencia);
+            $("#docum" + cod).html(documento);
+
+            //$("#dialog-form").dialog("close");
+            $("#dialog-form").dialog("close");
+            resaltar('row' + cod);
+        }
+    }
+
+
+    function actualizarRegistro() {
+
+
+        var nombre = $('#nombEdit1').html();
+        var cod = $("#codold").val();
+        var codnew = $("#codEdit1").html();
+        var cantidad = $("#cantEdit1").val();
+        var fecmov = $('#fechaEdit1').val();
+        var costo = $('#costoEdit1').val();
+        //var costo = costos.toFixed(2);
+        var referencia = $('#referEdit1').val();
+        var documento = $('#documenEdit1').val();
+
+        //alert(cod);
+        //alert(codnew);
+
+        //Se valida la cantidad
+        if (NoEsNumeroMayorQueCero(cantidad)) {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCantMen');
+            resaltar('cantEdit1');
+            $("#cantEdit1").focus();
+        }
+            //else if (NoEsNumeroMayorQueCero(costo)) {
+            //    alert("El costo debe ser un número mayor que cero");
+            //    resaltar('costoEdit1');
+            //    $("#costoEdit1").focus();
+
+            //}
+        else if (nombre == "" || fecmov == "" || costo == "" || referencia == "" || documento == "") {
+            alert('@Resources.MANTENIMIENTO.StringResources.msgJQCampVac');
+            //$('#cantReq').focus();
+        }
+
+
+        else {
+
+            //Se actualiza la cantidad en la tabla y se cierra el dialog
+            $("#code" + cod).html(codnew);
+            $("#nomb" + cod).html(nombre);
+            $("#cant" + cod).html(cantidad);
+            $("#fecmov" + cod).html(fecmov);
+            $("#cost" + cod).html(costo);
+            $("#refer" + cod).html(referencia);
+            $("#docum" + cod).html(documento);
+
+
+            //cambia todos los id al sustituir el producto
+            var idtr = 'row' + codnew + '';
+            var idcod = 'code' + codnew + '';
+            var idnom = 'nomb' + codnew + '';
+            var idfec = 'fecmov' + codnew + '';
+            var idcant = 'cant' + codnew + '';
+            var idcos = 'cost' + codnew + '';
+            var idref = 'refer' + codnew + '';
+            var iddoc = 'docum' + codnew + '';
+
+            $("#row" + cod).attr('id', idtr);
+            $("#code" + cod).attr('id', idcod);
+            $("#nomb" + cod).attr('id', idnom);
+            $("#cant" + cod).attr('id', idcant);
+            $("#fecmov" + cod).attr('id', idfec);
+            $("#cost" + cod).attr('id', idcos);
+            $("#refer" + cod).attr('id', idref);
+            $("#docum" + cod).attr('id', iddoc);
+
+
+            /// cambia todos los href y id de los botones
+            var hrefe = "javascript:editarElemento('" + codnew + "')"
+            var ided = 'edit' + codnew + '';
+
+            $("#edit" + cod).attr('href', hrefe);
+            $("#edit" + cod).attr('id', ided);
+
+            var hrefdel = "javascript:eliminarElemento('row" + codnew + "')"
+            var iddel = 'elim' + codnew + '';
+
+            $("#elim" + cod).attr('href', hrefdel);
+            $("#elim" + cod).attr('id', iddel);
+
+            var hrefsus = "javascript:sustituirElemento('" + codnew + "')"
+            var idsus = 'sust' + codnew + '';
+
+            $("#sust" + cod).attr('href', hrefsus);
+            $("#sust" + cod).attr('id', idsus);
+
+
+
+
+            $("#dialog-refresh").dialog("close");
+            resaltar('row' + cod);
+        }
+    }
+
+
+
+    function limpiarProductoActual() {
+        //alert("aaa");
+        $("#Trans_").val("");
+        $('#codProd').html("");
+        $('#nombreProd').html("");
+        $('#cantReq').val(''); //cantidad requerida
+        $('#fecmovin').val(''),
+        $('#costin').val(''),
+        $('#referin').val(''),
+        $('#documin').val('')
+        $('#Trans_').focus();
+    }
+
+    //function limpiarProductoSustituir() {
+    //    //alert("aaa");
+    //    $("#Trans_Refresh").val("");
+    //    $('#codEdit1').html("");
+    //    $('#nombreProd').html("");
+    //    //$('#cantReq').val(''); //cantidad requerida
+    //    //$('#fecmovin').val(''),
+    //    //$('#costin').val(''),
+    //    //$('#referin').val(''),
+    //    //$('#documin').val('')
+    //    $('#Trans_Refresh').focus();
+    //}
+
+
+    function showDlgEdit() {
+        $("#dialog-form").dialog({
+            autoOpen: true,
+            height: 450,
+            width: 400,
+            modal: true,
+            resizable: false,
+            closeOnEscape: false,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+            },
+
+            buttons: {
+                '@Resources.ActivoFijoTransacciones.StringResources.BtnGua': function () {
+
+                    actualizarCantidad();
+                },
+                '@Resources.ActivoFijoTransacciones.StringResources.BtnCanc': function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                $('#codEdit').html("");
+                $('#nombEdit').html("");
+                $('#cantEdit').val("");
+                $('#fechaEdit').val("");
+                $('#costoEdit').val("");
+                $('#referEdit').val("");
+                $('#documenEdit').val("");
+                $("#Trans_").focus();
+            }
+        });
+
+    }
+
+    function showDlgRefresh() {
+        $("#dialog-refresh").dialog({
+            autoOpen: true,
+            height: 500,
+            width: 400,
+            modal: true,
+            resizable: false,
+            closeOnEscape: false,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+
+            },
+
+            buttons: {
+                '@Resources.ActivoFijoTransacciones.StringResources.BtnGua': function () {
+
+                    actualizarRegistro();
+                },
+                '@Resources.ActivoFijoTransacciones.StringResources.BtnCanc': function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                $('#codEdit1').html("");
+                $('#nombEdit1').html("");
+                $('#cantEdit1').val("");
+                $('#fechaEdit1').val("");
+                $('#costoEdit1').val("");
+                $('#referEdit1').val("");
+                $('#documenEdit1').val("");
+                $("#Trans_").focus();
+            }
+        });
+
+    }
+
+
+    function showDlgExiste() {
+        $("#dialog-added").dialog({
+            autoOpen: true,
+            height: 300,
+            width: 400,
+            modal: true,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+
+            },
+            buttons: {
+                OK: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                resaltar('cantReq');
+                resaltar('fecmovin');
+                resaltar('costin');
+                resaltar('referin');
+                resaltar('documin');
+
+                $('#cantReq').focus();
+            }
+        });
+    }
+
+    function showDlgInsert() {
+        $("#insert-dialog").dialog({
+            autoOpen: true,
+            height: 300,
+            width: 400,
+            modal: true,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+
+            },
+            buttons: {
+                OK: function () {
+                    if ($("#nfila").val() == "") {
+
+                        alert("debe elegir un numero de fila");
+                    }
+                    else {
+                        var b = $("#nfila").val();
+                        $("#filas").val(b);
+                        $(this).dialog("close");
+                    }
+
+                }
+            },
+            close: function () {
+
+                insertarfila();
+            }
+        });
+    }
+
+
+
+    function agregarNuevaFilas(html) {
+        var html_ = html;
+        //var table = document.getElementById("tBodyCarrito");
+        //var a = $("#cantReq").val();
+        //var firstRow = table.insertRow(a - 1);
+        //var cell = firstRow.insertCell(0);
+        //var campo1 = document.createElement("input");
+        //campo1.type = "text";
+        //campo1.setAttribute("onclick", "vaciar_campo(this);");
+        //cell.append(campo1);
+
+        cantidades = parseInt(cantidades, 10); //Se pasa a entero (por si tiene un punto al final)
+        var i = $("#tBodyCarrito tr").length; //para enumerar las filas
+        alert($("#tBodyCarrito tr").length);
+        var fila = $("#nfila").val();
+        alert(fila);
+        //alert(document.getElementById("#tBodyCarrito"));
+        var table = document.getElementById("tBodyCarrito");
+        //var row = table.insertRow(fila);  //la posicion donde va a insertar hacia abajo
+
+
+        //var cell1 = row.insertCell(1);
+        //var cell2 = row.insertCell(2);
+        //var cell3 = row.insertCell(3);
+        //var cell4 = row.insertCell(4);
+        //var cell5 = row.insertCell(5);
+        //var cell6 = row.insertCell(6);
+        //var cell7 = row.insertCell(7);
+        //var cell8 = row.insertCell(8);
+        //var cell9 = row.insertCell(9);
+
+        //html.innerHTML = "cod";
+        //cell2.innerHTML = "cod";
+        //cell3.innerHTML = "cod";
+        //cell4.innerHTML = "cod";
+        //cell5.innerHTML = "cod";
+        //cell6.innerHTML = "cod";
+        //cell7.innerHTML = "cod";
+        //cell8.innerHTML = "cod";
+        //cell9.innerHTML = "cod";
+        $('#tBodyCarrito tr').eq(i - 1).after(htmlRow);
+
+
+
+
+
+        //var row = table.insertRow(fila);
+        //row.insertCell = htmlRow;
+        //$('#tBodyCarrito').append(htmlRow);
+
+        //alert($('#tBodyCarrito').find('tr')[0].rowIndex.length);
+        limpiarProductoActual();
+        //alert($('#fecmov' + cod).html());
+        reiniciarDatatable();
+
+        resaltar('row' + cod);
+
+
+
+    }
+
+
+
+
+    ///////////////////   PARA EL BOTON PROCESAR ///////////////////////
+    $('#botonProcesar').bind('click', function () {
+        procesarTransaccion();
+
+    });
+
+    function insertarfila() {
+
+        var cod = $('#codProd').html();
+        var nombre = $('#nombreProd').html();
+        var cantidades = $('#cantReq').val();
+        var fecmov = $('#fecmovin').val();
+        var costo = $('#costin').val();
+        var referencia = $('#referin').val();
+        var documento = $('#documin').val();
+        //if (!(nombre == "" || fecmov == "" || costo == "" || referencia == "" || documento == "")) {
+
+        //}
+
+
+        //var a = $("#nfila").val();
+        agregarNuevaFila(cod, nombre, cantidades, fecmov, costo, referencia, documento);
+
+        //
+
+
+        //showDlgInsert();
+        //var table = document.getElementById("#tBodyCarrito");
+        //var row = table.insertRow(1);  //la posicion donde va a insertar hacia abajo
+        //var cell1 = row.insertCell(0);
+        //var cell2 = row.insertCell(1);
+        //cell1.innerHTML = "NEW CELL1";
+        //cell2.innerHTML = "NEW CELL2";
+
+
+    }
+
+
+
+
+    function procesarTransaccion() {
+
+        var codigos = "";
+        var cantidades = "";
+        var fecha = "";
+        var fechamov = "";
+        var referencia = "";
+        var documento = "";
+        var costo = "";
+        var trans_tipo = $("#drop").val();
+
+        $('.codigo').each(function (index) {
+            codigos = codigos + $(this).text() + ",";
+        });
+
+        $('.cantidad').each(function (index) {
+            cantidades = cantidades + $(this).text() + ",";
+        });
+
+        $('.fechamov').each(function (index) {
+            fechamov = fechamov + $(this).text() + ",";
+        });
+
+        $('.costo').each(function (index) {
+            costo = costo + $(this).text().replace(",", ".") + ",";
+
+        });
+
+        $('.referencia').each(function (index) {
+            referencia = referencia + $(this).text() + ",";
+        });
+
+        $('.documento').each(function (index) {
+            documento = documento + $(this).text() + ",";
+        });
+
+        //Se le quitan las ultimas comas
+        codigos = codigos.substr(0, codigos.length - 1);
+        cantidades = cantidades.substr(0, cantidades.length - 1);
+        fecha = $("#TRANS_FECHA").val();
+        fechamov = fechamov.substr(0, fechamov.length - 1);
+        costo = costo.substr(0, costo.length - 1);
+        referencia = referencia.substr(0, referencia.length - 1);
+        documento = documento.substr(0, documento.length - 1);
+
+
+        //alert(codigos);
+        //alert(cantidades);
+        //alert(fechamov);
+        //alert(costo);
+        //alert(referencia);
+        //alert(documento);
+
+
+        //var url = '/ActivoFijoTransacciones/Create';
+        ObjJson = [];
+        datos = {};
+        datos["codigo"] = 1;
+        datos["cantidades"] = 1;
+        //datos = {  codigos: codigos, cantidades: cantidades, fecha: fecha, fechamov: fechamov, costo: costo, referencia: referencia, documento: documento };
+        ObjJson.push(datos);
+        datos2 = {};
+        datos2["codigo"] = 2;
+        datos2["cantidades"] = 2;
+        ObjJson.push(datos2);
+        $("#objJson").val(ObjJson);
+        codigos2 = [];
+        codigos2.push("aaaa");
+        codigos2.push("bbbb");
+
+        $.post("/ActivoFijoTransacciones/PostTrans",
+             { "codigo": codigos, "cantidad": cantidades, "fecha": fecha, "fechamov": fechamov, "costo": costo, "referencia": referencia, "documento": documento, "trans_tipo": trans_tipo },
+
+            function (data) {
+
+                if (data != "OK") {
+
+                    alert(data);
+                    window.location.href = "/ActivoFijoTransacciones/"
+                } else {
+                    alert('@Resources.StringResources.msgInsertFAIL');
+                    //window.location.href = "/ActivoFijoTransacciones/";
+                }
+            }
+        ).error(function () { alert('@Resources.MANTENIMIENTO.StringResources.msgJQFailProce'); });    //Se ejecuta si hay error
+
+
+    }
+
+
+    /////
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode == 8) { return true; }
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) { return true; }
+    }
+
+
+
+
+
+
+    $("#dialog-form").hide();
+    $("#dialog-refresh").hide();
+
+    //$("#cantReq").keypress(function (e) {
+    //    if (e.KeyCode == 13) {
+    //        alert("aaa");
+    //        //$("#fecmovin").focusin();
+    //    }
+    //    else {
+    //        alert("bbb");
+    //    }
+
+    //});
+
+
+    ///////////////////// PAGELOAD /////////////////////////////////////
+    $(function () {
+        $("#drop").val("");
+        @*$("#fechaEntrega").prev('input').val("@today");*@
+        $("#Trans_").val("");
+        $("#Trans_").focus();
+        $("#nfila").val("");
+        //inicializarDatatable();
+
+        $("#filas").val("");
+
+    @*@Layout*@
+        ///////////////PARA OCULTAR LAS OPCIONES QUE NO SE VAN A UTILIZAR EN LOS DROPDOWNLIST ///////////////////
+        //$("#drop option[value='3']").remove();
+
+
+    })
+
+
+</script>
+
+
+

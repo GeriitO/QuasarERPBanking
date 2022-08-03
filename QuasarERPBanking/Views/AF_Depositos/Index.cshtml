@@ -1,0 +1,66 @@
+﻿@model IEnumerable<QuasarFPMWeb.Models.AF_DEPOSITOS>
+
+<div class="internal-window">
+<div class="internal-title">
+    <h2>@Resources.Inventario.StringResources.TittleVentana</h2>
+    <a href="/">
+        <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
+    </a>
+</div>
+
+<div class="icon-bar" border="0">
+    <img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="@Resources.StringResources.GlobalButtonNew" onclick="window.location.href = '/AF_DEPOSITOS/Create';" />
+   </div>
+
+<table style="font-size:12px; text-align:center;" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AFDEPCOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AFDEPDES)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AFDEPCLASE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AFDEPRESP)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.AFDEPMAIL)
+        </th>
+        <th>@Resources.MANTENIMIENTO.StringResources.lblAccion</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AFDEPCOD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AFDEPDES)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AFDEPCLASE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AFDEPRESP)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.AFDEPMAIL)
+        </td>
+        <td>
+            @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new {id=item.AFDEPCOD }) |
+          
+            @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new {  id=item.AFDEPCOD  })
+        </td>
+    </tr>
+}
+    
+    
+
+</table>
+
+    </div>
+
+    </div>

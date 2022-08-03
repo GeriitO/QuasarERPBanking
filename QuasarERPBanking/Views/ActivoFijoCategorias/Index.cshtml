@@ -1,0 +1,58 @@
+﻿@model IEnumerable<QuasarERPBanking.Models.ActivoFijoCategorias>
+
+<div class="internal-window bg-light">
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">Activo Fijo Categorías</h2>
+        </div>
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button class="btn quasar-button-color my-2">
+        @Html.ActionLink(Resources.StringResources.MantCrear, "Create")
+    </button>
+    <table class="table table-hover table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AFGRUCOD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AFGRUDES)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.AFGRUCTAACT)
+                </th>*@
+
+            <th>@Resources.MANTENIMIENTO.StringResources.lblAccion</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AFGRUCOD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AFGRUDES)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.AFGRUCTAACT)
+                    </td>*@
+
+                <td>
+                    @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new { id = item.AFGRUCOD }) |
+
+                    @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new { id = item.AFGRUCOD })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

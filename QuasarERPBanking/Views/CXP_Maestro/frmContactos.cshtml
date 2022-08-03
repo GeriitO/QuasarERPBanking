@@ -1,0 +1,591 @@
+﻿@using QuasarERPBanking.Models
+@model QuasarERPBanking.Models.CXP_CONTACTOS
+@{
+    var CXPCOD = "";
+    if (ViewData["CXPCOD"] != null)
+    {
+        CXPCOD = ViewData["CXPCOD"].ToString();
+    }
+    var lstContactos = CXP_CONTACTOS.ContactosPorCXPCOD(CXPCOD);
+}
+<!-- jQuery -->
+
+<input type="hidden" id="action">
+<input type="hidden" id="cxp_cod">
+<div id="Cuenta">
+    <fieldset class="ventana">
+        <legend>@Resources.CXP_CONTACTOS.StringResources.FieldsetCont</legend>
+        <table>
+            <tr>
+                <td width="70px">
+                    <div>
+                        <input type="button" id="Add" class="boton" value="@Resources.CXP_CONTACTOS.StringResources.BotonAdd" style="margin:10px 20px; font-size:15px; " onclick="" />
+                    </div>
+                </td>
+                <td style="padding-bottom:20px">
+                    <h1><b>@Resources.CXP_CONTACTOS.StringResources.TextoAdd</b></h1>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <div id="">
+                        <fieldset style="height:100px; width:600px;">
+                            <div class="table-responsive limpiar" style="width: 950px; height: 90px; overflow: auto;">
+                                <table border="0" class="tablesorter" style="width:950px;" id="tblContactos">
+                                    <thead>
+                                        <tr>
+                                            <th width="118px">
+                                                @Resources.CXP_CONTACTOS.StringResources.lblContCodCxpContacto
+                                                @*Codigo*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CXP_CONTACTOS.StringResources.lblNombCxpContacto
+                                                @*Nombre*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CXP_CONTACTOS.StringResources.lblTlfCxpContacto
+                                                @*Telefono*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CXP_CONTACTOS.StringResources.lblFaxCxpContacto
+                                                @*Fax*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CXP_CONTACTOS.StringResources.lblEmailCxpContacto
+                                                @*E-Mail*@
+                                            </th>
+                                            <th width="118px">
+                                                @Resources.CXP_CONTACTOS.StringResources.lblDirCxpContacto
+                                                @*Dirección*@
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<!--/////////////////////////////////////////////////////////// rellenado por el controlador-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </td>
+
+            </tr>
+
+
+
+
+        </table>
+    </fieldset>
+
+
+
+</div>
+<div id="dlgContact" style="display:none; position:center">
+    <div class="icon-bar">
+
+        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminarcont();" />
+
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="guardarContacto_();" />
+
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="closeDialogC();" />
+
+    </div>
+
+    <form id="myForm1_">
+        <fieldset class="ventana">
+            <legend class="limpiar" style="font-size:12px">@Resources.CXP_CONTACTOS.StringResources.FieldsetCont</legend>
+            <table>
+                <tr>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CXPCONTCOD, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CXPCONTCOD, new { style = "width:200px;", @class = "limpiar form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CXPCONTNOM, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CXPCONTNOM, new { style = "width:200px;", @class = "limpiar form-control" })
+                    </td>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CXPCONTTEL, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CXPCONTTEL, new { style = "width:200px;", @class = "limpiar form-control" })
+                    </td>
+                </tr>
+                <tr>
+
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CXPCONTEMAIL, new { @class = "limpiar" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CXPCONTEMAIL, new { style = "width:200px;", @class = "limpiar form-control" })
+                       
+                    </td>
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CXPCONTFAX, new { @class = "limpiar" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CXPCONTFAX, new { style = "width:200px;", @class = "limpiar form-control" })
+                    </td>
+                </tr>
+                <tr>
+
+                    <td width="63px">
+                        @Html.LabelFor(model => model.CXPCONTDIR, new { @class = "limpiar" })
+
+                    </td>
+                    <td colspan="3">
+                        @Html.TextAreaFor(model => model.CXPCONTDIR, new { style = "resize:none;", @class = "limpiar form-control", @cols = 50, @rows = 2 })
+                    </td>
+
+                </tr>
+
+            </table>
+            @Html.ValidationSummary()
+        </fieldset>
+    </form>
+
+</div>
+@*url:  "/CXP_CONTACTOS/Delete?cxpcontcod=" + $("#CXPCONTCOD").val(),*@
+
+<script type="text/javascript">
+
+    function clean() {
+        $("#CXPCONTCOD").val("");
+        $("#CXPCONTNOM").val("");
+        $("#CXPCONTTEL").val("");
+        $("#CXPCONTFAX").val("");
+        $("#CXPCONTDIR").val("");
+        $("#CXPCONTEMAIL").val("");
+        $("#CXPCONTSEL").val("");
+
+    }
+    function eliminarcont() {
+        if ($("#CXPCONTCOD").val() != "") {
+            var resp = confirm("¿" + '@Resources.StringResources.msgConfDelCont ' + $("#CXPCONTNOM").val().toUpperCase() + " ?");
+            if (resp) {
+                var strJSON = {
+                    "CXPCONTCOD": $("#CXPCONTCOD").val(),
+                }
+                $.ajax({
+                    url: "/CXP_CONTACTOS/Delete",
+                    type: "POST",
+                    data: JSON.stringify(strJSON),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (msg) {
+                        //alert(msg);
+                        alert('@Resources.StringResources.msgDeleteOK');
+                        loadContacts($("#CXPCOD").val());
+                        $("#dlgContact").dialog("close");
+                    }
+                });
+            }
+            else {
+            }
+        }
+        else {
+            alert('@Resources.StringResources.errorCodVacio');
+            //alert("Debe indicar un código");
+        }
+    }
+
+    function closeDialogC() { $("#dlgContact").dialog("close"); }
+
+    function guardarContacto_() {
+        if ($("#CXPCONTCOD").val() == "" ||
+            $("#CXPCONTNOM").val() == "" ||
+            $("#CXPCONTTEL").val() == "" ||
+            $("#CXPCONTFAX").val() == "" ||
+            $("#CXPCONTDIR").val() == "" ||
+            $("#CXPCONTEMAIL").val() == "") {
+            //alert("Faltan campos");
+            alert('@Resources.StringResources.errCampsVaciosCont');
+        }
+        else {
+            //alert($("#CXPCOD").val());
+            //guarda cada valor en su campo
+            var strJSON = {
+                "CXPCONTCOD": $("#CXPCONTCOD").val(),
+                "CXPCONTNOM": $("#CXPCONTNOM").val(),
+                "CXPCONTTEL": $("#CXPCONTTEL").val(),
+                "CXPCONTFAX": $("#CXPCONTFAX").val(),
+                "CXPCONTDIR": $("#CXPCONTDIR").val(),
+                "CXPCONTEMAIL": $("#CXPCONTEMAIL").val(),
+                "CXPCONTEXT": "-",
+                "CXPCOD": $("#CXPCOD").val(),
+                "CXPCONTSEL": $("#CXPCONTSEL").val(),
+
+
+               
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CXP_CONTACTOS/" + $("#action").val(),
+                //url: "/CXP_CONTACTOS/Guardar",
+                //data: $('#myForm1_').serialize(),
+                data: JSON.stringify(strJSON),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (msg) {
+                    var cod = msg.substr(msg.length - 1, 1);
+                    //alert(cod);
+                    //alert(msg);
+                    alert('@Resources.StringResources.msgEditOK');
+                    if (cod == "0") {
+                        return false;
+                    }
+                    loadContacts($("#CXPCOD").val());
+                    $("#dlgContact").dialog("close");
+                }
+            });
+
+        }
+    }
+    $(function () {
+        /////////////////////////////////////////////////
+        ////////////////////////////////////////////////
+        var pagerOptions = {
+            container: $("#pager"),
+            cssGoto: ".pagenum",
+            size: $(".pagesize option:selected").val(),
+            output: '{startRow:input} de {endRow} ({totalRows} registros)'
+        };
+        //$.tablesorter.themes.bootstrap = {
+        //    // these classes are added to the table. To see other table classes available,
+        //    // look here: http://getbootstrap.com/css/#tables
+        //    table: 'table table-bordered table-striped',
+        //    caption: 'caption',
+        //    // header class names
+        //    header: 'bootstrap-header', // give the header a gradient background (theme.bootstrap_2.css)
+        //    sortNone: '',
+        //    sortAsc: '',
+        //    sortDesc: '',
+        //    active: '', // applied when column is sorted
+        //    hover: '', // custom css required - a defined bootstrap style may not override other classes
+        //    // icon class names
+        //    icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+        //    iconSortNone: 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
+        //    iconSortAsc: 'icon-chevron-up', // class name added to icon when column has ascending sort
+        //    iconSortDesc: 'icon-chevron-down', // class name added to icon when column has descending sort
+        //    filterRow: '', // filter row class
+        //    footerRow: '',
+        //    footerCells: '',
+        //    even: '', // even row zebra striping
+        //    odd: ''  // odd row zebra striping
+        //};
+        //$.tablesorter.addParser({
+        //    // set a unique id
+        //    id: 'montos',
+        //    is: function (s) {
+        //        // return false so this parser is not auto detected
+        //        return false;
+        //    },
+        //    format: function (s) {
+        //        // format your data for normalization
+        //        //return s.toLowerCase().replace(/good/, 2).replace(/medium/, 1).replace(/bad/, 0);
+        //        var num = s.replace(".", "");
+        //        while (num.indexOf(".") !== -1) {
+        //            num = num.replace(".", "");
+        //        }
+        //        num = num.replace(",", ".");
+        //        //alert(parseFloat(s.replace(/./g, ""))); //.replace(/./g,",")));
+        //        //alert(num);
+        //        return parseFloat(num);
+        //    },
+        //    // set type, either numeric or text
+        //    type: 'numeric'
+        //});
+        //$("table.tablesorter").on('initialized filterEnd', function () {
+        //    //var total1 = 0, total2 = 0, total3 = 0, total4 = 0, total5 = 0, total6 = 0;
+        //    //var obj = { "total3": 0, "total4": 0, "total5": 0, "total6": 0, "total7": 0, "total8": 0, "total9": 0, "total10": 0 };
+        //    //var nroCols = 11;
+        //    //$(this).find('tbody tr:visible').each(function () {
+        //    //    var i = 0;
+
+        //    //    for (i = 3; i < nroCols; i++) {
+        //    //        //////////////////////////////////////////////////////////////////
+        //    //        var num = $(this).find('td:eq(' + i.toString() + ')').text().replace(".", "");
+        //    //        while (num.indexOf(".") !== -1) {
+        //    //            num = num.replace(".", "");
+        //    //        }
+        //    //        num = num.replace(",", ".");
+        //    //        //////////////////////////////////////////////////////////////////
+        //    //        obj["total" + i.toString()] += parseFloat(num);
+        //    //    }
+        //    //});
+        //    //for (var i = 3; i < nroCols; i++) {
+        //    //    $('#col' + i.toString()).text(format1(obj["total" + i.toString()]));
+        //    //}
+        //});
+        $("table.tablesorter").tablesorter({
+            //themes: "bootstrap",
+            //headerTemplate: '{content} {icon}',
+            //// widget code contained in the jquery.tablesorter.widgets.js file
+            //// use the zebra stripe widget if you plan on hiding any rows (filter widget)
+            //widgets: ["uitheme", "filter", "columns", "zebra", 'math'],
+            //widgetOptions: {
+            //    // using the default zebra striping class name, so it actually isn't included in the theme variable above
+            //    // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+            //    zebra: ["even", "odd"],
+            //    // class names added to columns when sorted
+            //    columns: ["primary", "secondary", "tertiary"],
+            //    //
+            //    columns_thead: true,
+            //    // include tfoot when adding class names
+            //    columns_tfoot: true,
+            //    //
+            //    ///////////////////////////////////////////////////////////////////////////////
+            //    // class added to filtered rows (rows that are not showing); needed by pager plugin
+            //    filter_filteredRow: 'filtered',
+            //    filter_external: '.search',
+            //    // add a default type search to the first name column
+            //    //filter_defaultFilter: { 1: '~{query}' },
+            //    // include column filters
+            //    filter_columnFilters: true,
+            //    filter_placeholder: { search: 'Buscar...' },
+            //    // hide filter row when table is empty
+            //    filter_hideEmpty: true,
+            //    // Reset filter input when the user presses escape - normalized across browsers
+            //    filter_resetOnEsc: true,
+            //    filter_columnAnyMatch: true,
+            //    // allow searching through already filtered rows in special circumstances; will speed up searching in large tables if true
+            //    filter_searchFiltered: true,
+            //    // include a function to return an array of values to be added to the column filter select
+            //    filter_selectSource: null,
+            //    // if true, server-side filtering should be performed because client-side filtering will be disabled, but
+            //    // the ui and events will still be used.
+            //    filter_serversideFiltering: false,
+            //    // reset filters button
+            //    filter_reset: ".reset",
+            //    // extra css class name (string or array) added to the filter element (input or select)
+            //    //filter_cssFilter: "form-control",
+            //    //filter_cssFilter: "tablesorter-filter",
+            //    filter_cssFilter: "form-control",
+
+
+            //    ////////////////////////////////////////////////////////////////////////////////////////////////
+            //    filter_hideFilters: true,
+            //    // Set this option to false to make the searches case sensitive
+            //    filter_ignoreCase: true,
+            //    // Use the $.tablesorter.storage utility to save the most recent filters
+            //    filter_saveFilters: false,
+
+            //    ////////////////////////////////////////////////////////////////////////////////////////////////
+            //    filter_functions: {
+
+            //    },
+            //    // set the uitheme widget to use the bootstrap theme class names
+            //    // this is no longer required, if theme is set
+            //    // ,uitheme : "bootstrap"
+            //    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //    math_data: 'math', // data-math attribute
+            //    math_ignore: [0, 1],
+            //    math_none: 'N/A', // no matching math elements found (text added to cell)
+            //    math_complete: function ($cell, wo, result, value, arry) {
+            //        var txt = '<span class="align-decimal">' +
+            //            (value === wo.math_none ? '' : '$ ') +
+            //            result + '</span>';
+
+            //        if ($cell.attr('data-math') === 'all-sum') {
+            //            // when the "all-sum" is processed, add a count to the end
+            //            return txt + ' (Sum of ' + arry.length + ' cells)';
+            //        }
+            //        return txt;
+            //    },
+            //    math_completed: function (c) {
+            //        // c = table.config
+            //        // called after all math calculations have completed
+            //        console.log('math calculations complete', c.$table.find('[data-math="all-sum"]:first').text());
+            //    },
+            //    // see "Mask Examples" section
+            //    math_mask: '#.##0,00',
+            //    math_prefix: '', // custom string added before the math_mask value (usually HTML)
+            //    math_suffix: '', // custom string added after the math_mask value
+            //    // event triggered on the table which makes the math widget update all data-math cells (default shown)
+            //    math_event: 'recalculate',
+            //    // math calculation priorities (default shown)... rows are first, then column above/below,
+            //    // then entire column, and lastly "all" which is not included because it should always be last
+            //    math_priority: ['row', 'above', 'below', 'col'],
+            //    // set row filter to limit which table rows are included in the calculation (v2.25.0)
+            //    // e.g. math_rowFilter : ':visible:not(.filtered)' (default behavior when math_rowFilter isn't set)
+            //    // or math_rowFilter : ':visible'; default is an empty string
+            //    math_rowFilter: ''
+            //},
+            //$.tablesorter.addParser({
+            //    // set a unique id
+            //    id: 'montos',
+            //    is: function (s) {
+            //        // return false so this parser is not auto detected
+            //        return false;
+            //    },
+            //    format: function (s) {
+            //        // format your data for normalization
+            //        //return s.toLowerCase().replace(/good/, 2).replace(/medium/, 1).replace(/bad/, 0);
+            //        //var num = s.replace(".", "");
+            //        //while (num.indexOf(".") !== -1) {
+            //        //    num = num.replace(".", "");
+            //        //}
+            //        //num = num.replace(",", ".");
+            //        ////alert(parseFloat(s.replace(/./g, ""))); //.replace(/./g,",")));
+            //        ////alert(num);
+            //        //return parseFloat(num);
+            //    },
+            //    // set type, either numeric or text
+            //    //type: 'numeric'
+            //});
+            widthFixed: false,
+            sortList: [[0, 0]],
+            headers: {
+                //3: {
+                //    sorter: 'montos'
+                //},
+                //4: {
+                //    sorter: 'montos'
+                //},
+                //5: {
+                //    sorter: 'montos'
+                //},
+                //6: {
+                //    sorter: 'montos'
+                //},
+                //7: {
+                //    sorter: 'montos'
+                //},
+                //8: {
+                //    sorter: 'montos'
+                //},
+                //9: {
+                //    sorter: 'montos'
+                //},
+                //10: {
+                //    sorter: 'montos'
+                //}
+            }
+        })
+        //.tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+        .tablesorterPager(pagerOptions);
+        //.bind("sortEnd", function (e, t) {
+        //    //totalFiltered();
+        //})
+        //.bind('pagerChange pagerComplete pagerInitialized pageMoved', function (e, c) {
+        //    //totalFiltered();
+        //});
+        /////////////////////////////////////////////////
+        //////////////////////////////////////////////////
+
+
+        $("#Add").click(function () {
+            $("#action").val("Create");
+            //$("#CXPCONTCOD").prop('readonly', "false");
+            $("#CXPCONTCOD").removeAttr("readonly");
+            clean();
+            showDlgContact();
+        });
+
+
+        ///////////// contador de caracteres para los textarea//////////////////////
+        $("#CXPCONTDIR").charCounter(170, {
+            container: '<em id="a" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:400px"></em>',
+            format: "170 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+
+
+
+
+
+
+    });
+
+    function showDlgContact() {
+        $("#dlgContact").dialog({
+            resizable: false,
+            width: 600,
+            height: 350,
+            modal: true,
+            autoOpen: true,
+            open: function (event, ui) {
+                $(".limpiar").prop('disabled', false);
+                $(this).siblings('div.ui-dialog-titlebar').remove();
+                $('div.ui-dialog-titlebar').css('background', 'transparent');
+            },
+            show: {
+                effect: "slide",
+                duration: 500
+            },
+            hide: {
+                effect: "clip",
+                duration: 700
+            },
+            close: function (event, ui) {
+                //$("#usuario").focus();
+            }
+
+        });
+    }
+
+
+
+
+    //function showDlgActivities() {
+    //    $("#dlgActivities").dialog({
+    //        resizable: false,
+    //        width: 600,
+    //        height: 600,
+    //        modal: true,
+    //        autoOpen: true,
+    //        open: function (event, ui) {
+    //            $(".limpiar").prop('disabled', false);
+    //            $(this).siblings('div.ui-dialog-titlebar').remove();
+    //            $('div.ui-dialog-titlebar').css('background', 'transparent');
+    //        },
+    //        show: {
+    //            effect: "slide",
+    //            duration: 500
+    //        },
+    //        hide: {
+    //            effect: "clip",
+    //            duration: 700
+    //        },
+    //        close: function (event, ui) {
+    //            //$("#usuario").focus();
+    //        }
+
+    //    });
+    //}
+
+
+</script>
+<div id="pager" style="position: none;">
+    <form action="">
+        <img alt="" src="@Url.Content("~/Content/addons/pager/icons/first.png")" class="first" />
+        <img alt="" src="@Url.Content("~/Content/addons/pager/icons/prev.png")" class="prev" />
+        <!--input type="text" class="pagedisplay" /-->
+        <span class="pagedisplay"></span>
+        <img alt="" src="@Url.Content("~/Content/addons/pager/icons/next.png")" class="next" />
+        <img alt="" src="@Url.Content("~/Content/addons/pager/icons/last.png")" class="last" />
+        <select class="pagesize">
+            <option selected="selected" value="5">5</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="all">Todos</option>
+        </select>
+        <select class="pagenum" title="Seleccione el número de la página" style="width: 50px"></select>
+    </form>
+</div>

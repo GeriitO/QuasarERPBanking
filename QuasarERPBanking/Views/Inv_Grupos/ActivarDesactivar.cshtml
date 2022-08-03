@@ -1,0 +1,12 @@
+﻿@model QuasarERPBanking.Models.INV_GRUPOS
+@{
+    Layout = null;
+}
+@if (Model.ACTIVO)
+{
+    <a href="javascript: desActivar(@Model.INVGRUCOD)">Desactivar</a>
+}
+else
+{
+    <a href="javascript: desActivar(@Model.INVGRUCOD)">Activar</a>
+}

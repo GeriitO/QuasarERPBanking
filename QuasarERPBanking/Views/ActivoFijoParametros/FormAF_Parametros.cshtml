@@ -1,0 +1,178 @@
+﻿@using QuasarERPBanking.Models
+@using QuasarERPBanking
+@model QuasarERPBanking.Models.ActivoFijoParametros
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="internal-window bg-light">
+
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">@Resources.ActivoFijoParametros.StringResources.tittleParametros</h2>
+        </div>
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-save">
+                    <a href="#">
+                        <img src="~/Content/imagenes/icon-save.svg" width="24" height="24" title="@Resources.StringResources.GlobalButtonUp" onclick="submitform('myform');" />
+                    </a>
+                </li>
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" title="@Resources.StringResources.GlobalButtonSalir" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="divParametrosActivoFijo my-2  form-control">
+        <div class="limpiar">
+            <b>@Resources.ActivoFijoParametros.StringResources.FstCampos</b>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARNOMBRE, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARNOMBRE, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARMEJID, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARMEJID, new { @class = "limpiar form-control input-text" })
+            </div>
+        </div>
+    </div>
+    <div class="divProductos my-2 form-control">
+        <div class="row">
+            <div class="limpiar">
+                <b>@Resources.ActivoFijoParametros.StringResources.FstProductos</b>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARLOTE_PROD, new { style = "", @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARLOTE_PROD, new { style = "width:130px;", @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARIDTRANS_PROD, new { style = "", @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARIDTRANS_PROD, new { style = "width:130px;", @class = "limpiar form-control input-text" })
+            </div>
+        </div>
+    </div>
+    <div class="divActivo my-2 form-control">
+        <div class="row">
+            <div class="limpiar">
+                <b>@Resources.ActivoFijoParametros.StringResources.FstActivos</b>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARLOTE, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARLOTE, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARIDTRANS, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARIDTRANS, new { @class = "limpiar form-control input-text" })
+            </div>
+        </div>
+    </div>
+    <div class="divActivoFijoIntegra my-2 form-control">
+        <div class="row">
+            <div class="limpiar">
+                <b>@Resources.ActivoFijoParametros.StringResources.FstIntegra</b>
+            </div>
+            <div class="col">
+                @Html.CheckBoxFor(model => model.AFPARINTMG)
+                @Html.LabelFor(model => model.AFPARINTMG, new { @class = "limpiar" })
+            </div>
+            <div class="col">
+                @Html.CheckBoxFor(model => model.AFPARINTCC)
+                @Html.LabelFor(model => model.AFPARINTCC, new { @class = "limpiar" })
+            </div>
+            <div class="col">
+                @Html.CheckBoxFor(model => model.AFPARINTCXP)
+                @Html.LabelFor(model => model.AFPARINTCXP, new { @class = "limpiar" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARDIRMG, new { @class = "limpiar" })
+                @Html.TextBoxFor(model => model.AFPARDIRMG, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARDIRCC, new { @class = "limpiar" })
+                @Html.TextBoxFor(model => model.AFPARDIRCC, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARDIRCXP, new { @class = "limpiar" })
+                @Html.TextBoxFor(model => model.AFPARDIRCXP, new { @class = "limpiar form-control input-text" })
+            </div>
+        </div>
+    </div>
+    <div class="divNotaEntrega my-2 form-control">
+        <div class="row">
+            <div class="limpiar">
+                <b>@Resources.ActivoFijoParametros.StringResources.FstNotaEnt</b>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.NEPARCODELAB, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.NEPARCODELAB, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.NEPARIDTRANS, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.NEPARIDTRANS, new { @class = "limpiar form-control input-text" })
+            </div>
+        </div>
+    </div>
+    <div class="divDepresacion my-2 form-control">
+        <div class="row">
+            <div class="limpiar">
+                <b>@Resources.ActivoFijoParametros.StringResources.FstDeprec</b>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPAR_LOTEDEP, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPAR_LOTEDEP, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPAR_ULTFECHADEP, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPAR_ULTFECHADEP, "{0:dd/MM/yyyy}", new { @type = "datetime-local", @class = "form-control datepicker limpiar input-text", placeholder = "Introduzca la fecha aquí." })
+            </div>
+        </div>
+    </div>
+    <div class="divCadenasIniciales my-2 form-control">
+        <div class="row">
+            <div class="limpiar">
+                <b>@Resources.ActivoFijoParametros.StringResources.FstCadenas</b>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARCTAACT, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARCTAACT, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARCTADEP, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARCTADEP, new { @class = "limpiar form-control input-text" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.AFPARCTAGTO, new { @class = "limpiar my-2" })
+                @Html.TextBoxFor(model => model.AFPARCTADEP, new { @class = "limpiar form-control input-text" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        // DATEPICKER
+        loadDatePicker();
+        $.datepicker.setDefaults($.datepicker.regional["@QuasarERPBanking.Models.ParametrosGlobales.culture"]);
+        $('.datepicker').datepicker(
+        {
+            format: 'dd/mm/yy',
+            startDate: '-3d',
+            onSelect: function () {
+                //return $(this).trigger('change');
+                //alert("prueba");
+            }
+        }); //Initialise any date pickers
+    })
+</script>

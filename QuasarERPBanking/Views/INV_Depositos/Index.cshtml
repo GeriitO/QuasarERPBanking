@@ -1,0 +1,56 @@
+﻿@model IEnumerable<QuasarERPBanking.Models.INV_DEPOSITOS>
+
+<script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+
+<p style="font-size:16px;">
+    @Html.ActionLink(Resources.StringResources.MantCrear, "Create")
+</p>
+<table style="font-size:11px" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.INVDEPCOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVDEPDES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVDEPCLASE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INVDEPRESP)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.INVDEPMAIL)
+        </th>
+        <th>@Resources.MANTENIMIENTO.StringResources.lblAccion</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.INVDEPCOD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INVDEPDES)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INVDEPCLASE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INVDEPRESP)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.INVDEPMAIL)
+        </td>
+        <td>
+            @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new { id = item.INVDEPCOD }) |
+            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+            @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new { id = item.INVDEPCOD })
+        </td>
+    </tr>
+}
+
+</table>

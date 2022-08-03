@@ -1,0 +1,396 @@
+﻿@using QuasarERPBanking.Models
+@model QuasarERPBanking.Models.INV_MAESTRO
+@{
+
+    var lstRamos = INV_RAMOS.GetRamos();
+    var lstRelac = INV_RELAC.GetRelaciones();
+    var lstFrmPago = INV_FRMPAGO.GetFormaPago();
+} 
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+ <div class="internal-window">
+    <div class="internal-title">
+        <h2>Maestro de Proveedores</h2>
+        <a href="/">
+            <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="Cerrar" width="30" height="30" />
+        </a>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+    <script>
+        function eliminar() {
+            var resp = confirm("¿Desea elmininar el codigo :  " + $("#INVCOD").val().toUpperCase() + " ?");
+            if(resp)
+            {
+                $(location).attr("href", "/INV_MAESTRO/Delete?cxpcod=" + $("#INVCOD").val())
+            }
+                
+            else{
+            }
+        }
+    
+    </script>
+
+    <div class="icon-bar">
+        <a href="/INV_MAESTRO/Create">
+            <img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="Nuevo" />
+        </a>
+            
+        <img id="buscar" src="../../Content/themes/base/images/search-icon.png" alt="Buscar" title="Buscar" />
+
+        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="Eliminar" onclick="eliminar();" />
+
+        <a href="javascript: submitform('myform');">
+            <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="Guardar" />
+        </a>
+        <a href="/">
+            <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="Salir" />
+        </a>
+    </div>
+
+
+    <table width="750">
+        <tr>
+            <td style="height:60px;"><label style="color:blue"><b>Busqueda:</b></label></td>
+            <td>
+                <!--Html.TextBoxFor(model => model.INVCOD, new { style = " width:100px;"})-->
+                <input type="text" id="INVCOD_" data-autocomplete = "@Url.Action("getCodigos", "INV_MAESTRO")" autocomplete = "on"  style = "width:468px;" /> 
+                
+            </td>
+            <!--td><label>Condicion</label></!--td>
+            <td>
+                Html.TextBoxFor(model => model.INVCOND, new { style = "" })
+            </td-->
+
+
+        </tr>
+    </table>
+
+
+    <fieldset>
+        <legend>Datos del Proveedor</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.INVCOD)
+                </td>
+                <td>
+                    <!--input type="text" id="INVCOD"  style="width:100px;" /--> 
+
+                    @Html.TextBoxFor(model => model.INVCOD, new { style = " width:100px;"})
+                    @Html.ValidationMessageFor(model => model.INVCOD)
+                </td>
+
+                <td><label>Condicion</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVCOND, new { style = "" })
+                </td>
+
+             </tr>
+
+            <tr>
+
+                <td>
+                    <b>@Html.LabelFor(model => model.INVNOMBRE, new { style = "color:blue;" })</b>
+
+                </td>
+                <td colspan="3">
+                    @Html.TextBoxFor(model => model.INVNOMBRE, new { style = "width:468px;" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.INVDIR)
+                </td>
+                <td>
+                    <!--input type="text" name="INVDIR" -->
+                    @Html.TextBoxFor(model => model.INVDIR, new { style = "size:40; " })
+
+                </td>
+
+                <td><label>SNC</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVNIT, new { style = "size:15" })
+                </td>
+                <td><label>RIF</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVRIF, new { style = "size:12" })
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Web</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVWEB, new { style = "size=40" })
+                </td>
+                <td><label>Estado</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVEDO, new { style = "size=40" })
+                </td>
+                <td><label>Ciudad</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVCIUDAD, new { style = "size=12" })
+                </td>
+
+            </tr>
+            <tr>
+                <td><label>Telefono</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVTELF, new { style = "size=40" })
+                </td>
+                <td><label>C.postal</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVCODPOSTAL, new { style = "size=15" })
+                </td>
+                <td><label>Ramo</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVRAMO, new { style = "size=12" })
+                </td>
+
+            </tr>
+            <tr>
+                <td><label>FAX</label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.INVFAX, new { style = "size=40" })
+                </td>
+                <td><label>Relacion</label></td>
+                <td>
+                    @Html.DropDownListFor(model => model.INVRELAC, ((IEnumerable<INV_RELAC>)lstRelac)/*For(model => model.INVRELAC,*/
+                    .Select(option => new SelectListItem
+                    {
+
+                        Text = (option == null ? "Ninguno" : option.INVRELAC),
+                        Value = option.INVRELAC.ToString(),
+                        /* Selected =Model != null && Model.INVRELAC != null && option.INVRELAC == Model.INVRELAC*/
+
+                    })
+                    , "-- Seleccionar Relación --", new { @onchange = "", style = "width: 200px;", title = "Seleccione la relación" })
+                </td>
+                <td>
+                    <label>Desde</label>
+                </td>
+                <td>
+                    <!--{  type ="datetime-local", class= "form-control datepicker", placeholder="Introduzca la fecha aquí." }) readonly = true-->
+               
+                    @Html.TextBoxFor(model => model.INVRELACDESDE, "{0:dd/MM/yyyy}", new {  @type = "datetime-local", @class= "form-control datepicker", placeholder="Introduzca la fecha aquí." })
+               
+                
+                 </td>
+
+            </tr>
+            <tr>
+                <td><label>Reseña</label></td>
+                <td colspan="3">
+                    @Html.TextBoxFor(model => model.INVRESENIA , new { style = "size=100; width:480px;" })
+                </td>
+            </tr>
+
+            </table>
+            </fieldset>
+     <fieldset>
+         <legend>Datos Financieros</legend>
+         <table>
+             <tr>
+                 <td><label>Forma de Pago</label></td>
+                 <td>
+                   
+
+                     @Html.DropDownListFor(model => model.INVFRMP, ((IEnumerable<INV_FRMPAGO>)lstFrmPago)
+                    .Select(option => new SelectListItem
+                    {
+
+                        Text = (option == null ? "Ninguno" : option.DESCRIPCION),
+                        Value = option.DESCRIPCION.ToString(),
+                        /* Selected =Model != null && Model.INVRELAC != null && option.INVRELAC == Model.INVRELAC*/
+
+                    })
+                    , "-- Seleccionar forma de pago --", new { @onchange = "", style = "width: 200px;", title = "Seleccione la forma de pago" })
+
+
+
+                 </td>
+                 <td><label>Numero</label></td>
+                 <td>
+                     @Html.TextBoxFor(model => model.INVNCTA, new { style = "size=20" })
+                 </td>
+                 <td><label>Plazo</label></td>
+                 <td>
+                     @Html.TextBoxFor(model => model.INVDIASCRED, new { style = "size=2" })
+                 </td>
+
+             </tr>
+
+             <tr>
+                 <td><label>Cta. Mayor</label></td>
+                 <td>
+                     @Html.TextBoxFor(model => model.INVCTAMAY, new { style = "size=20" })
+                 </td>
+                 <td><label>Tpo. Pers.</label></td>
+                 <td>
+                     @Html.TextBoxFor(model => model.INVTPOPERS, new { style = "size=30" })
+                 </td>
+                 <td><label>Porc. Ret. IVA</label></td>
+                 <td>
+                     @Html.TextBoxFor(model => model.INVRETENC, new { style = "size=12" })
+                 </td>
+
+             </tr>
+
+             <tr>
+                 <td><label>ITF.</label></td>
+                 <td>
+                     @Html.CheckBoxFor(model => model.INVITF, new { style = "size=30" })
+                 </td>
+                 <td><label>Imp. Municipal</label></td>
+                 <td>
+                     @Html.CheckBoxFor(model => model.INVIMPMUN, new { style="size=30"})
+                 </td>
+                 <td><label>Timbre Fiscal</label></td>
+                 <td>
+                     @Html.CheckBoxFor(model => model.INVTIMBRE, new { style = "size=30" })
+                 </td>
+
+             </tr>
+         </table>
+     </fieldset>
+</div>
+
+@Html.ValidationSummary()
+
+
+
+<script type="text/javascript">
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(
+            {
+                format: 'dd/mm/yy',
+                startDate: '-3d',
+                onSelect: function () {
+                    //return $(this).trigger('change');
+                    //alert("prueba");
+                }
+            }); //Initialise any date pickers
+
+        $("#INVCOD_").each(function () {
+            $("#INVCOD_").autocomplete({
+                    source: $(this).attr("data-autocomplete"),
+                    minLength: 3,
+                    select: function (event, ui) {
+                        if (ui.item) {
+
+                            $.ajax({
+                                url: "/INV_MAESTRO/getCodigos_?term=" + ui.item.value,
+                                success: function (data) {
+                                    habilitartodo();
+                                    $("#INVCOND").val(data.INVCOND);
+                                    $("#INVNOMBRE").val(data.INVNOMBRE);
+                                    $("#INVDIR").val(data.INVDIR);
+                                    $("#INVWEB").val(data.INVWEB);
+                                    //alert(Date(data.INVRELACDESDE));
+                                    var fecha = Date(data.INVRELACDESDE);
+                                    var fecha2 = new Date(fecha);
+                                    //alert(fecha2.toJSON());
+                                    //alert(fecha2.toLocaleDateString());
+                                    $("#INVRELACDESDE").val(fecha2.toLocaleDateString());
+
+                                    $("#INVRETENC").val(data.INVRETENC);
+                                    $("#INVCOMPRADOR").val(data.INVCOMPRADOR);
+                                    $("#INVNIT").val(data.INVNIT);
+                                    $("#INVRIF").val(data.INVRIF);
+                                    $("#INVEDO").val(data.INVEDO);
+                                    $("#INVCIUDAD").val(data.INVCIUDAD);
+                                    $("#INVCODPOSTAL").val(data.INVCODPOSTAL);
+                                    $("#INVRAMO").val(data.INVRAMO);
+                                    $("#INVFAX").val(data.INVFAX);
+                                    $("#INVTELF").val(data.INVTELF);
+                                    $("#INVDIASCRED").val(data.INVDIASCRED);
+                                    $("#INVBALACT").val(data.INVBALACT);
+                                    $("#INVRESENIA").val(data.INVRESENIA);
+                                    $("#INVCOD").val(data.INVCOD);
+                                    $("#INVRELAC").val(data.INVRELAC);
+                                    $("#INVCTAMAY").val(data.INVCTAMAY);
+                                    $("#INVFRMP").val(data.INVFRMP);
+                                    $("#INVNCTA").val(data.INVNCTA);
+                                    $("#INVSEL").val(data.INVSEL);
+                                    $("#INVTPOPERS").val(data.INVTPOPERS);
+                                    $("#INVGRUPO").val(data.INVGRUPO);
+                                    $("#INVITF").prop('checked', data.INVITF);
+                                    $("#INVCATEGORIA").val(data.INVCATEGORIA);
+                                    $("#INVTIMBRE").prop('checked', data.INVTIMBRE);
+                                    $("#INVIMPMUN").prop('checked', data.INVIMPMUN);
+
+                                }
+                            });
+
+                        }
+                        else {
+                            alert("aaaa");
+                        }
+                    },
+                error: function() {
+                alert("aaa");   // remember to call response() even if ajax failed
+            }
+                });
+            });
+
+            $("#buscar").click(function () {
+                $(location).attr("href", "/INV_MAESTRO/Buscar?cxpcod=" + $("#INVCOD_").val());
+            });
+    })
+    function habilitartodo() {
+
+        $("#INVCOND").prop('disabled', false);
+        $("#INVNOMBRE").prop('disabled', false);
+        $("#INVDIR").prop('disabled', false);
+        $("#INVWEB").prop('disabled', false);
+        $("#INVRELACDESDE").prop('disabled', false);
+        $("#INVRETENC").prop('disabled', false);
+        $("#INVCOMPRADOR").prop('disabled', false);
+        $("#INVNIT").prop('disabled', false);
+        $("#INVRIF").prop('disabled', false);
+        $("#INVEDO").prop('disabled', false);
+        $("#INVCIUDAD").prop('disabled', false);
+        $("#INVCODPOSTAL").prop('disabled', false);
+        $("#INVRAMO").prop('disabled', false);
+        $("#INVFAX").prop('disabled', false);
+        $("#INVTELF").prop('disabled', false);
+        $("#INVDIASCRED").prop('disabled', false);
+        $("#INVBALACT").prop('disabled', false);
+        $("#INVRESENIA").prop('disabled', false);
+        $("#INVCOD").prop('disabled', false);
+        $("#INVRELAC").prop('disabled', false);
+        $("#INVCTAMAY").prop('disabled', false);
+        $("#INVFRMP").prop('disabled', false);
+        $("#INVNCTA").prop('disabled', false);
+        $("#INVSEL").prop('disabled', false);
+        $("#INVTPOPERS").prop('disabled', false);
+        $("#INVGRUPO").prop('disabled', false);
+        $("#INVITF").prop('disabled', false);
+        $("#INVCATEGORIA").prop('disabled', false);
+        $("#INVTIMBRE").prop('disabled', false);
+        $("#INVIMPMUN").prop('disabled', false);
+
+    }
+
+</script>

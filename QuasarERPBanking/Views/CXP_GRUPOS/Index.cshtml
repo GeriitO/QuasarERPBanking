@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Maestro de Cuentas a Pagar</title>
+
+    <script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+        $("#Contactos").hide();
+        inhabilitartodo();
+    });
+    </script>
+  
+</head>
+<body>
+@using (Html.BeginForm("Edit", "CXP_GRUPOS", FormMethod.Post, new { id = "myform" }))
+{
+    Html.RenderPartial("FormCXP_Grupos");
+    
+}
+    @*<script>
+        $(function () {
+
+            inhabilitartodo();
+        })
+
+        //function inhabilitartodo__()
+
+        //{
+
+        //    $("#INVCOND").prop('disabled', true);
+        //    $("#INVNOMBRE").prop('disabled', true);
+        //    $("#INVDIR").prop('disabled', true);
+        //    $("#INVWEB").prop('disabled', true);
+        //    $("#INVRELACDESDE").prop('disabled', true);
+        //    $("#INVRETENC").prop('disabled', true);
+        //    $("#INVCOMPRADOR").prop('disabled', true);
+        //    $("#INVNIT").prop('disabled', true);
+        //    $("#INVRIF").prop('disabled', true);
+        //    $("#INVEDO").prop('disabled', true);
+        //    $("#INVCIUDAD").prop('disabled', true);
+        //    $("#INVCODPOSTAL").prop('disabled', true);
+        //    $("#INVRAMO").prop('disabled', true);
+        //    $("#INVFAX").prop('disabled', true);
+        //    $("#INVTELF").prop('disabled', true);
+        //    $("#INVDIASCRED").prop('disabled', true);
+        //    $("#INVBALACT").prop('disabled', true);
+        //    $("#INVRESENIA").prop('disabled', true);
+        //    $("#INVCOD").prop('disabled', true);
+        //    $("#INVRELAC").prop('disabled', true);
+        //    $("#INVCTAMAY").prop('disabled', true);
+        //    $("#INVFRMP").prop('disabled', true);
+        //    $("#INVNCTA").prop('disabled', true);
+        //    $("#INVSEL").prop('disabled', true);
+        //    $("#INVTPOPERS").prop('disabled', true);
+        //    $("#INVGRUPO").prop('disabled', true);
+        //    $("#INVITF").prop('disabled', true);
+        //    $("#INVCATEGORIA").prop('disabled', true);
+        //    $("#INVTIMBRE").prop('disabled', true);
+        //    $("#INVIMPMUN").prop('disabled', true);
+
+        //}
+
+        //function habilitartodo__() {
+
+        //    $("#INVCOND").prop('disabled', false);
+        //    $("#INVNOMBRE").prop('disabled', false);
+        //    $("#INVDIR").prop('disabled', false);
+        //    $("#INVWEB").prop('disabled', false);
+        //    $("#INVRELACDESDE").prop('disabled', false);
+        //    $("#INVRETENC").prop('disabled', false);
+        //    $("#INVCOMPRADOR").prop('disabled', false);
+        //    $("#INVNIT").prop('disabled', false);
+        //    $("#INVRIF").prop('disabled', false);
+        //    $("#INVEDO").prop('disabled', false);
+        //    $("#INVCIUDAD").prop('disabled', false);
+        //    $("#INVCODPOSTAL").prop('disabled', false);
+        //    $("#INVRAMO").prop('disabled', false);
+        //    $("#INVFAX").prop('disabled', false);
+        //    $("#INVTELF").prop('disabled', false);
+        //    $("#INVDIASCRED").prop('disabled', false);
+        //    $("#INVBALACT").prop('disabled', false);
+        //    $("#INVRESENIA").prop('disabled', false);
+        //    $("#INVCOD").prop('disabled', false);
+        //    $("#INVRELAC").prop('disabled', false);
+        //    $("#INVCTAMAY").prop('disabled', false);
+        //    $("#INVFRMP").prop('disabled', false);
+        //    $("#INVNCTA").prop('disabled', false);
+        //    $("#INVSEL").prop('disabled', false);
+        //    $("#INVTPOPERS").prop('disabled', false);
+        //    $("#INVGRUPO").prop('disabled', false);
+        //    $("#INVITF").prop('disabled', false);
+        //    $("#INVCATEGORIA").prop('disabled', false);
+        //    $("#INVTIMBRE").prop('disabled', false);
+        //    $("#INVIMPMUN").prop('disabled', false);
+
+        //}
+
+   </script>*@
+</body>
+</html>

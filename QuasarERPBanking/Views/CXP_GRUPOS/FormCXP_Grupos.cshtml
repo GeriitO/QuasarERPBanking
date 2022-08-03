@@ -1,0 +1,653 @@
+﻿@using QuasarERPBanking.Models
+@model QuasarERPBanking.Models.CXP_GRUPOS
+@{
+
+    var lstRamo = RAMOS.GetRamos();
+    var lstRelac = CXP_RELAC.GetRelaciones();
+    //var lstFrmPago = FORMAPAGO.GetFormaPago();
+    var lstCond = CONDICIONES.GetCondicion();
+    var lstEdo = ESTADOS.GetEstados();
+    var lstTpoPersona = TPOPERSONA.GetTpoPersona();
+
+
+}
+
+
+
+
+
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div class="internal-window" style="margin:auto">
+    <div class="internal-title">
+        <h2>@Resources.CXP_MAESTRO.StringResources.tittleventana</h2>
+        <a href="/">
+            <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="@Resources.StringResources.GlobalButtCerrar" title="Cerrar" width="30" height="30" />
+        </a>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+
+
+    <script>
+        function eliminar() {
+            if ($("#CXPCOD").val() != "") {
+                var resp = confirm('@Resources.MANTENIMIENTO.StringResources.msgJQConfDel' + $("#CXPCOD").val().toUpperCase() + " ?");
+                if (resp) {
+                    $(location).attr("href", "/CXP_GRUPOS/Delete?cxpcod=" + $("#CXPCOD").val())
+                    $("#CXPCOD").val("");
+                }
+                else {
+                }
+            }
+            else {
+                alert('@Resources.MANTENIMIENTO.StringResources.msgJQNoCod');
+            }
+        }
+    </script>
+
+    <div class="icon-bar">
+        <img src="../../Content/themes/base/images/new-icon.png" alt="Nuevo" title="@Resources.StringResources.GlobalButtonNew" onclick="window.location.href = '/CXP_GRUPOS/Create';" />
+        <img id="buscar" src="../../Content/themes/base/images/search-icon.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonBuscar" onclick="inhabilitartodo(); window.location.href = '/CXP_GRUPOS/Index';" />
+        <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminar();" />
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" title="@Resources.StringResources.GlobalButtonUp" onclick="submitform('myform');" />
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="window.location.href ='/';" />
+
+    </div>
+
+    <table width="750">
+        <tr>
+            <td height="60px" width="80px" align="center"><label style="color:black" class="limpiar"><b>@Resources.StringResources.LblGlobalBusq</b></label></td>
+            <td>
+                <!--Html.TextBoxFor(model => model.CXPCOD, new { style = " width:100px;"})-->
+                <input type="text" id="CXPCOD_" data-autocomplete="@Url.Action("getCodigos", "CXP_GRUPOS")" autocomplete="on" style="width:200px;" class="radius form-control" />
+            </td>
+            <td width="auto">
+                <div id="imagen" style="width:450px; height:90px;">
+                    <img src="../../Content/themes/base/images/banner2.png" width="455" height="90" />
+                    <div id="text" style="width:440px; text-align:center; padding:5px 0px 0px 10px; font-size:40px"><b>@Resources.CXP_GRUPOS.StringResources.Banner</b></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="menupestanas">
+        <ul id="tabs">
+            <li id="LiCuenta" onclick="setCuentas();"><a>@Resources.CXP_MAESTRO.StringResources.liCuenta</a></li>
+            @*<li id="LiIntegrantes" onclick="setIntegrantes();"><a>@Resources.CXP_GRUPOS.StringResources.liIntegrantes</a></li>*@ <!--INTEGRANTES-->
+            <li id="LiContacto" onclick="setContactos();"><a>@Resources.CXP_MAESTRO.StringResources.liContacto</a></li>
+            
+        </ul>
+    </div>
+    <div id="Cuentas">
+        <fieldset>
+            <table>
+                <tr>
+                    <td width="70px">
+                        <b>@Html.LabelFor(model => model.CXPCOD, new { style = "color:blue", @class = "limpiar" })</b>
+                    </td>
+                    <td>
+                        <!--input type="text" id="CXPCOD"  style="width:100px;" /-->
+                        @Html.TextBoxFor(model => model.CXPCOD, new { style = "width:200px;", @class = "limpiar form-control" })
+                    </td>
+                    <td width="80px">
+                        @Html.LabelFor(model => model.CXPCOND, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.CXPCOND, ((IEnumerable<CONDICIONES>)lstCond)/*For(model => model.CXPRELAC,*/
+ .Select(option => new SelectListItem
+ {
+
+     Text = (option == null ? "Ninguno" : option.CONDICION.ToUpper()),
+     Value = option.CONDICION.ToString(),
+     /* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/
+
+ })
+ , "-- Seleccionar Condición --", new { @onchange = "", style = "width: 200px;", title = "Seleccione una Condición", @class = "limpiar form-control" })
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset class="ventana">
+            <legend class="limpiar"><b>Datos del Proveedor</b></legend>
+            <table>
+                <tr>
+                    <td width="70px">
+                        @Html.LabelFor(model => model.CXPNOMBRE, new { @class = "limpiar" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CXPNOMBRE, new { style = "width:820px;", @class = "limpiar form-control" })
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td width="70px">
+                                    @Html.LabelFor(model => model.CXPDIR, new { @class = "limpiar" })
+                                </td>
+                                <td>
+                                    <!--input type="text" name="CXPDIR" -->
+                                    @Html.TextAreaFor(model => model.CXPDIR, new { style = "resize:none;", @class = "limpiar form-control", @cols = 30, @rows = 4 })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.CXPWEB, new { @class = "limpiar" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(model => model.CXPWEB, new { style = "size=40; width:252px;", @class = "limpiar form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.CXPTPOPERS, new { @class = "limpiar" })
+                                </td>
+                                @*<td>
+                @Html.TextBoxFor(model => model.CXPTPOPERS, new { style = "size=30; width: 200px;", @class = "limpiar" })
+            </td>*@
+                                <td>
+                                    @Html.DropDownListFor(model => model.CXPTPOPERS, ((IEnumerable<TPOPERSONA>)lstTpoPersona)/*For(model => model.CXPRELAC,*/
+.Select(option => new SelectListItem
+{
+    Text = (option == null ? "Ninguno" : option.TPOPERSON.ToUpper()),
+    Value = option.CODIGO.ToString(),
+    /* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/
+})
+, Resources.CXP_MAESTRO.StringResources.placTipPersona, new { @onchange = "", style = "width: 250px;", title = "Seleccionar Tipo de Persona", @class = "limpiar form-control" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td colspan="4">
+                                    <table>
+                                        <tr>
+                                            <td width="80px">
+                                                @Html.LabelFor(model => model.CXPNIT, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.CXPNIT, new { style = "size:15", @class = "limpiar form-control" })
+                                            </td>
+                                            <td width="80px">
+                                                @Html.LabelFor(model => model.CXPRIF, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.CXPRIF, new { style = "size:12; width:200px", @class = "limpiar form-control" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.LabelFor(model => model.CXPEDO, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.DropDownListFor(model => model.CXPEDO, ((IEnumerable<ESTADOS>)lstEdo)/*For(model => model.CXPRELAC,*/
+.Select(option => new SelectListItem
+{
+    Text = (option == null ? "Ninguno" : option.ESTADO.ToUpper()),
+    Value = option.ESTADO.ToString(),
+    /* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/
+})
+, Resources.CXP_MAESTRO.StringResources.placEdoCXP, new { @onchange = "", style = "width: 200px;", title = "Seleccione un Estado", @class = "limpiar form-control", @placeholder = Resources.CXP_MAESTRO.StringResources.placEdoCXP })
+                                            </td>
+                                            <td>
+                                                @Html.LabelFor(model => model.CXPCIUDAD, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.CXPCIUDAD, new { style = "size=12", @class = "limpiar form-control" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.LabelFor(model => model.CXPCODPOSTAL, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.CXPCODPOSTAL, new { style = "size=15", @class = "limpiar form-control" })
+                                            </td>
+                                            <td>
+                                                @Html.LabelFor(model => model.CXPRAMO, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.DropDownListFor(model => model.CXPRAMO, ((IEnumerable<RAMOS>)lstRamo).Select(option => new SelectListItem
+                                           {
+                                               Text = (option == null ? "Ninguno" : option.RAMNOMBRE.ToUpper()),
+                                               Value = option.RAMNOMBRE.ToString(),
+                                               /* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/
+                                           }), "-- Seleccionar Ramo --", new { @onchange = "", style = "width: 200px;", title = "Seleccione el Ramo", @class = "limpiar form-control" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> @Html.LabelFor(model => model.CXPFAX, new { @class = "limpiar" })  </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.CXPFAX, new { style = "width: 200px;", @class = "limpiar form-control" })
+                                            </td>
+                                            <td> @Html.LabelFor(model => model.CXPTELF, new { @class = "limpiar" })  </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.CXPTELF, new { style = "width: 200px;", @class = "limpiar form-control" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.LabelFor(model => model.CXPRELAC, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                @Html.DropDownListFor(model => model.CXPRELAC, ((IEnumerable<CXP_RELAC>)lstRelac)/*For(model => model.CXPRELAC,*/
+.Select(option => new SelectListItem
+{
+    Text = (option == null ? "Ninguno" : option.CXPRELAC.ToUpper()),
+    Value = option.CXPRELAC.ToString(),
+    /* Selected =Model != null && Model.CXPRELAC != null && option.CXPRELAC == Model.CXPRELAC*/
+})
+, "-- Seleccionar Relación --", new { @onchange = "", style = "width: 200px;", title = "Seleccione la relación", @class = "limpiar form-control" })
+                                            </td>
+                                            <td>
+                                                @Html.LabelFor(model => model.CXPRELACDESDE, new { @class = "limpiar" })
+                                            </td>
+                                            <td>
+                                                <!--{  type ="datetime-local", class= "form-control datepicker", placeholder="Introduzca la fecha aquí." }) readonly = true-->
+                                                @Html.TextBoxFor(model => model.CXPRELACDESDE, "{0:MM/dd/yyyy}", new { style = "width: 200px;", @type = "datetime-local", @class = "form-control datepicker limpiar", placeholder = "Introduzca la fecha aquí." })
+                                                @*@Html.TextBox( "idzzz ", Util.);)*@
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <table>
+            <tr>
+                <td>
+                    <fieldset class="ventana">
+                        <legend class="limpiar"><b>Ejecutivo Asignado</b></legend>
+                        <table>
+                            <tr>
+                                <td style="width:66px">
+                                    @Html.LabelFor(model => model.CXPCOMPRADOR, new { @class = "limpiar" })
+                                </td>
+                                <td colspan="5">
+                                    @Html.TextBoxFor(model => model.CXPCOMPRADOR, new { style = "width: 200px;", @class = "limpiar form-control" })
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </td>
+                <td>
+                    <fieldset class="ventana" style="width:645px; height:123px">
+                        <legend class="limpiar"><b>Reseña de Cuenta</b></legend>
+                        <table>
+                            <tr>
+                                @*<td style="width:66px">
+                                    @Html.LabelFor(model => model.CXPRESENIA, new { @class = "limpiar" })
+                                </td>*@
+                                <td colspan="5">
+                                    @Html.TextAreaFor(model => model.CXPRESENIA, new { style = "resize:none;", @class = "limpiar form-control", @cols = 95, @rows = 3, })
+                                </td>
+                               
+                            </tr>
+                           
+                        </table>
+                    </fieldset>
+                </td>
+
+            </tr>
+
+        </table>
+
+
+
+    </div>
+    <div id="Contactos">
+            @using (Html.BeginForm("Edit", "CXP_GCONTACTOS", FormMethod.Post, new { id = "myForm" }))
+            {
+                if (Model != null)
+                {
+                    ViewData.Add("CXPCOD", Model.CXPCOD);
+                }
+                Html.RenderPartial("frmContactos", new CXP_GCONTACTOS());
+            }
+        </div>
+
+    @*<div id="Actividades">
+            @using (Html.BeginForm("Edit", "CXP_ACTIVIDADES", FormMethod.Post, new { id = "myForm" }))
+            {
+                if (Model != null)
+                {
+                    //ViewData.Add("CXPCOD", Model.CXPCOD);
+                }
+                CXP_ACTIVIDADES cxp_actividad = new CXP_ACTIVIDADES
+                {
+                    ACTID = "1",
+                    ACT_ASUNTO = "aaaa",
+
+                };
+                List<CXP_ACTIVIDADES> lstActividades = new List<CXP_ACTIVIDADES>();
+                //lstActividades.Add(cxp_actividad);
+                if (Model != null)
+                {
+                    lstActividades = CXP_ACTIVIDADES.ActividadesPorCXPCOD(Model.CXPCOD != null ? Model.CXPCOD : "0");
+                }
+                Html.RenderPartial("gridActividades", new CXP_ACTIVIDADES());
+            }
+        </div>*@
+
+
+
+
+</div>
+
+
+
+@Html.ValidationSummary()
+
+
+
+<script type="text/javascript">
+
+    //href contactos y actividades para modificar y agregar
+
+    function showContact(indice) {
+        var fila = $('#tblContactos tbody tr').eq(indice);
+        var tds = fila.find("td");             // Finds all children <td> elements
+        $("#CXPCONTCOD").val(tds.eq(0).text());
+        $("#CXPCONTNOM").val(tds.eq(1).text());
+        $("#CXPCONTTEL").val(tds.eq(2).text());
+        $("#CXPCONTFAX").val(tds.eq(3).text());
+        $("#CXPCONTEMAIL").val(tds.eq(4).text());
+        $("#CXPCONTDIR").val(tds.eq(5).text());
+        //$("#CXPCONTSEL").val(tds.eq(6).text()),
+        //$.each(tds, function() {               // Visits every single <td> element
+        //    alert($(this).text());
+        //    // Prints out the text within the <td>
+        //});
+        $("#CXPCONTCOD").prop('readonly', "true");
+        $("#action").val("Edit");
+        showDlgContact();
+    }
+
+    //function showIntegrantes(indice) {
+
+
+
+    //    var fila = $('#gridContent  tbody  tr').eq(indice);
+    //    var tds = fila.find("td");             // Finds all children <td> elements
+    //    $("#ACTID").val(tds.eq(0).text());
+    //    $("#ACT_AUTOR").val(tds.eq(1).text());
+    //    $("#ACT_FECHCREA").val(tds.eq(2).text());
+    //    $("#ACT_FECHREAL").val(tds.eq(3).text());
+    //    $("#ACT_CUERPO").val(tds.eq(5).text());
+    //    $("#ACT_ASUNTO").val(tds.eq(4).text());
+    //    $("#ACT_PERSCOMP").val(tds.eq(6).text());
+    //    $("#lblName").text($("#CXPNOMBRE").val());
+
+
+    //    //$("ACT_CXPCOD").val(tds.eq(0).text());
+    //    //$("ACT_PERSOUR").val(tds.eq(0).text());
+    //    //$("ACT_DESC").val(tds.eq(0).text());
+    //    //$("ACT_CORSRES").val(tds.eq(0).text());
+    //    //$("ACT_CORATN").val(tds.eq(0).text());
+    //    //$("ACT_CORTPO").val(tds.eq(0).text());
+    //    //$("ACT_ADJ").val(tds.eq(0).text());
+
+    //    $("#ACTID").prop('readonly', "true");
+    //    $("#ACT_FECHCREA").prop('readonly', "true");
+    //    $("#ACT_AUTOR").prop('readonly', "true");
+    //    $("#action").val("Edit");
+    //    showDlgActivities();
+    //}
+
+
+    //para bloquear las pestañas de cxpmaestro
+    function setCuentas() {
+        $("#Cuentas").show();
+        $("#Contactos").hide();
+        $("#Actividades").hide();
+    }
+
+    function setContactos() {
+        if ($("#CXPCOD").val() != "" && $("#CXPCOD").val() != null) {
+            $("#Cuentas").hide();
+            //$("#Actividades").hide();
+            $("#Contactos").show();
+        }
+    }
+
+    //function setIntegrantes() {
+    //    if ($("#CXPCOD").val() != "" && $("#CXPCOD").val() != null) {
+    //        $("#Cuentas").hide();
+    //        $("#Contactos").hide();
+    //        $("#Actividades").show();
+    //    }
+    //}
+
+
+
+
+
+
+
+    $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+    $(function () { // will trigger when the document is ready
+
+
+
+
+        $('.datepicker').datepicker(
+            {
+                format: 'dd/mm/yy',
+                startDate: '-3d',
+                onSelect: function () {
+                    //return $(this).trigger('change');
+                    //alert("prueba");
+                }
+            }); //Initialise any date pickers
+
+        $("#CXPCOD_").each(function () {
+            $("#CXPCOD_").autocomplete({
+                source: $(this).attr("data-autocomplete"),
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+
+                        $.ajax({
+                            url: "/CXP_GRUPOS/getCodAutocom?term=" + ui.item.value,
+                            success: function (data) {
+                                habilitartodo();
+                                //window.location.replace("/CXP_MAESTRO/Edit?cxp_maestro=" + data);
+                                $("#CXPCOND").val(data.CXPCOND);
+                                $("#CXPNOMBRE").val(data.CXPNOMBRE);
+                                $("#CXPDIR").val(data.CXPDIR);
+                                $("#CXPWEB").val(data.CXPWEB);
+                                $("#CXPRELACDESDE").val(data.strCXPRELACDESDE);
+                                $("#CXPRETENC").val(data.CXPRETENC);
+                                $("#CXPCOMPRADOR").val(data.CXPCOMPRADOR);
+                                $("#CXPNIT").val(data.CXPNIT);
+                                $("#CXPRIF").val(data.CXPRIF);
+                                $("#CXPEDO").val(data.CXPEDO);
+                                $("#CXPCIUDAD").val(data.CXPCIUDAD);
+                                $("#CXPCODPOSTAL").val(data.CXPCODPOSTAL);
+                                $("#CXPRAMO").val(data.CXPRAMO);
+                                $("#CXPFAX").val(data.CXPFAX);
+                                $("#CXPTELF").val(data.CXPTELF);
+                                $("#CXPDIASCRED").val(data.CXPDIASCRED);
+                                $("#CXPBALACT").val(data.CXPBALACT);
+                                $("#CXPRESENIA").val(data.CXPRESENIA);
+                                $("#CXPCOD").val(data.CXPCOD);
+                                $("#CXPRELAC").val(data.CXPRELAC);
+                                $("#CXPCTAMAY").val(data.CXPCTAMAY);
+                                $("#CXPFRMP").val(data.CXPFRMP);
+                                $("#CXPNCTA").val(data.CXPNCTA);
+                                $("#CXPSEL").val(data.CXPSEL);
+                                $("#CXPTPOPERS").val(data.CXPTPOPERS);
+
+
+                                $("#Cuenta > fieldset > legend").html('@Resources.CXP_CONTACTOS.StringResources.FieldsetCont' + " - " + data.CXPCOD + "-" + data.CXPNOMBRE);
+                                //carga las pestañas por codigo
+                                loadContacts(data.CXPCOD);
+                                //loadIntegrantes(data.CXPCOD);
+
+                                //aparecen los botondes de actividades
+                                //$("#actLlamada").show();
+                                //$("#actReunion").show();
+                                //$("#actRecibida").show();
+                                //$("#actEnviada").show();
+
+                            }
+                        });
+
+                    }
+                    else {
+                        alert('@Resources.MANTENIMIENTO.StringResources.msgJQError');
+                    }
+                },
+                error: function () {
+                    alert('@Resources.MANTENIMIENTO.StringResources.msgJQAutoc');   // remember to call response() even if ajax failed
+                }
+            });
+        });
+
+        $("#buscar").click(function () {
+            //$(location).attr("href", "/CXP_MAESTRO/Buscar?cxpcod=" + $("#CXPCOD_").val());
+            $(".limpiar").val("");
+            $("#CXPCOD_").val("");
+            $(".limpiar").prop('checked', false);
+
+        });
+
+
+
+        ///////////// contador de caracteres para los textarea//////////////////////
+        $("#CXPRESENIA").charCounter(170, {
+            container: '<em style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:565px"></em>',
+            format: "170 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+        $("#CXPDIR").charCounter(170, {
+            container: '<em style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:190px"></em>',
+            format: "170 / %1",
+            pulse: false,
+            delay: 100,
+        });
+
+
+        //////  PARA QUE LAS PESactEnviada" TAÑAS QUEDEN ACTIVAS Y CAMBIEN DE COLOR
+        $("#menupestanas li").click(function () {
+            //$(this).hide();
+            $("#menupestanas li").removeClass("activo"); //Remove any "active" class
+            $(this).addClass("activo"); //Add "active" class to selected tab
+            $(".tab_content").hide(); //Hide all tab content
+            var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to
+            $(activeTab).fadeIn(); //Fade in the active ID content
+            return false;
+        });
+
+
+
+
+
+    })
+
+
+    function loadContacts(CXPCOD) {
+        $.ajax({
+            url: "/CXP_GCONTACTOS/getContactos?cxpcod=" + CXPCOD,
+            success: function (tabla) {
+                $('#tblContactos  tbody  tr').remove();
+                $('#tblContactos').append(tabla);
+            }
+        });
+    }
+
+    //function loadIntegrantes(CXPCOD) {
+    //    $.ajax({
+    //        url: "/CXP_ACTIVIDADES/getActividades?cxpcod=" + CXPCOD,
+    //        success: function (tabla) {
+    //            $('#gridContent  tbody  tr').remove();
+    //            $('#gridContent tbody:last').append(tabla);
+    //        }
+    //    });
+    //}
+
+
+
+    function habilitartodo() {
+
+        $("#CXPCOND").prop('disabled', false);
+        $("#CXPNOMBRE").prop('disabled', false);
+        $("#CXPDIR").prop('disabled', false);
+        $("#CXPWEB").prop('disabled', false);
+        $("#CXPRELACDESDE").prop('disabled', false);
+        $("#CXPRETENC").prop('disabled', false);
+        $("#CXPCOMPRADOR").prop('disabled', false);
+        $("#CXPNIT").prop('disabled', false);
+        $("#CXPRIF").prop('disabled', false);
+        $("#CXPEDO").prop('disabled', false);
+        $("#CXPCIUDAD").prop('disabled', false);
+        $("#CXPCODPOSTAL").prop('disabled', false);
+        $("#CXPRAMO").prop('disabled', false);
+        $("#CXPFAX").prop('disabled', false);
+        $("#CXPTELF").prop('disabled', false);
+        $("#CXPDIASCRED").prop('disabled', false);
+        $("#CXPBALACT").prop('disabled', false);
+        $("#CXPRESENIA").prop('disabled', false);
+        $("#CXPCOD").prop('disabled', false);
+        $("#CXPRELAC").prop('disabled', false);
+        $("#CXPCTAMAY").prop('disabled', false);
+        $("#CXPFRMP").prop('disabled', false);
+        $("#CXPNCTA").prop('disabled', false);
+        $("#CXPSEL").prop('disabled', false);
+        $("#CXPTPOPERS").prop('disabled', false);
+
+
+    }
+
+    /// para las acciones de los botones de actividades
+    $(function () {
+
+        $("#actReunion").click(function () {
+            //alert();
+            $("#action").val("Create");
+            $("#ACTID").removeAttr("readonly");
+            $("#ACT_AUTOR").removeAttr("readonly");
+            $("#ACT_FECHCREA").removeAttr("readonly");
+            $("#ACT_AUTOR").val(data.usuario);
+
+
+            //cleanA();
+            showDlgActivities();
+        });
+
+    });
+
+
+
+</script>

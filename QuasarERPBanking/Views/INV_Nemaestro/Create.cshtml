@@ -1,0 +1,35 @@
+﻿@using QuasarERPBanking.Models
+
+@model QuasarERPBanking.Models.INV_NEMAESTRO
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Nota de Entrega</title>
+
+</head>
+<body>
+    @using (Html.BeginForm("Create", "INV_NEMAESTRO", FormMethod.Post, new { id = "myform" }))
+    {
+        Html.RenderPartial("FormINV_Nemaestro");
+    }
+
+
+
+    <script type="text/javascript">
+        $(function () { 
+            
+          
+        });
+        
+         
+  
+    </script>
+   
+</body>
+</html>

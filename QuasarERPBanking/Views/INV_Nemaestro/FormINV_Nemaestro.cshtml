@@ -1,0 +1,2266 @@
+﻿@using Resources.CXP_ACTIVIDADES
+@using QuasarERPBanking.Models
+@model QuasarERPBanking.Models.INV_NEMAESTRO
+
+@*@if (ViewBag.guardado == null)
+    {*@
+
+
+@{
+    string today = DateTime.Now.ToString("dd/MM/yyyy");
+    var codigo = "";
+    var lstcontac = CC_CTE_CONTACTOS.ContactosPorCTECOD_(codigo);
+
+    var fecha = Util.FechaQuasar;
+}
+
+@*<script src="@Url.Content("~/scripts/jquery.dataTables.min.js")" type="text/javascript"></script>*@
+
+
+
+
+<div class="internal-window" style="margin: auto; " id="pagina">
+    <div class="internal-title">
+        <h2>@Resources.INV_NEMAESTRO.StringResources.Title</h2>
+        <a href="/">
+            <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
+        </a>
+    </div>
+
+
+
+
+    <script src="@Url.Content("~/scripts/Funciones.js")" type="text/javascript"></script>
+    @* ///////////////////////////////////// inicio jqgrid  //////////////////////////////////////// *@
+    <script src="~/Scripts/JqGrid/grid.locale-es.js"></script>
+    <script src="~/Scripts/JqGrid/jquery.jqGrid.min.js"></script>
+    <script src="~/Scripts/JqGrid/ui.multiselect.js"></script>
+    <link href="~/Scripts/JqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <link href="~/Scripts/JqGrid/ui.multiselect.css" rel="stylesheet" />
+
+    @* /////////////////////////////////////   fin jqgrid   //////////////////////////////////////// *@
+
+    <div class="icon-bar" border="0">
+     
+        <img src="../../Content/themes/base/images/save-icon.png" alt="Guardar" id="procesar" title="@Resources.StringResources.GlobalButtonUp" onclick="procesarTransaccion()" />
+
+        <img src="../../Content/themes/base/images/exit-icon.png" alt="Salir" title="@Resources.StringResources.GlobalButtonSalir" onclick="window.location.href ='/';" />
+
+        
+
+    </div>
+
+
+    <table>
+        <tr>
+        <td>
+
+            <div id="imagen" style="height:100px; width:450px; position:initial; padding:40px 0px 0px 20px">
+                <img src="../../Content/themes/base/images/banner1.png" width="420" height="90" />
+                <div id="text" style="color:white; width:400px; text-align:center; padding:0px 0px 0px 10px;"><b>@Resources.INV_NEMAESTRO.StringResources.Title</b></div>
+            </div>
+        </td>
+    </tr>
+        <tr>
+           
+
+            <td style="width:492px">
+               
+
+
+                @*<fieldset class="ventana" style="border-style:outset">*@
+                @*<div id="imagen" style="width:500px; position:relative">*@
+                <img src="../../Content/themes/base/images/NE_quasar.png" width="250" height="200" style="position:absolute; padding-left:30px" />
+                @*</div>*@
+                <table style="position:relative; margin-left:110px; margin-top:55px">
+                    <tr>
+                        <td style="padding-bottom:20px">
+                            <spam style="font-size:13px"><b>N° de N/E: </b></spam>
+
+                        </td>
+                        @*<td></td>*@
+                    </tr>
+
+                    <tr>
+                        <td style="padding-bottom:20px" colspan="2"><b>@Html.LabelFor(model => model.NESTATUS, new { style = "", @class = "limpiar" })</b></td>
+                        <td style="position:relative; right:120px; padding-bottom:25px"><spam style="font-size:13px">En Elaboración</spam></td>
+                    </tr>
+                    <tr>
+                        <td><b> @Html.LabelFor(model => model.NEELAFECHA, new { style = "", @class = "limpiar" })</b></td>
+                        <td style="padding-bottom:7px"><span id="Fecha_" style="font-size:13px">@fecha</span></td>
+                    </tr>
+
+                </table>
+                @*</div>*@
+                @*</fieldset>*@
+
+            </td>
+            <td style="width:492px">
+                <fieldset style="border:none">
+
+                    <div id="contenido_pestanas">
+                        <ul id="tabs" style="padding-left:5px; padding-top:18px">
+                            <li id="LiCliente"><a onclick="setCliente();">@Resources.INV_NEMAESTRO.StringResources.pesCtesint</a></li>
+                            <li id="LiCCosto"><a onclick="setCCosto();">@Resources.INV_NEMAESTRO.StringResources.lblCC</a></li>
+                            <li id="LiObser"><a onclick="setObservacio();">@Resources.INV_NEMAESTRO.StringResources.lblServi.Replace(":","")</a></li>
+                        </ul>
+                    </div>
+                    <div id="cliente">
+                        <fieldset @*style="background:#24323d;"*@ class="Fieldfondo">
+                            <legend class="limpiar" style="margin-bottom:0px; width:70px; background:rgba(7, 57, 110, 0.7); text-align:center; color:white">@Resources.INV_NEMAESTRO.StringResources.fieldSnres</legend>
+                            <fieldset style="background:#F5F5F5; margin-top:25px; box-shadow:0 0 15px #000;">
+
+
+                                <table>
+                                    <tr>
+                                        <td height="40px" width="80px"><label style="color:black" class="limpiar"><b>@Resources.CXP_MAESTRO.StringResources.lblBusqueda</b></label></td>
+                                        <td>
+                                            <input type="text" id="Search" data-autocomplete="@Url.Action("getCodigos", "CC_CTESINT")" autocomplete="on" style="width:200px;" class="radius form-control limpiar" />
+                                            <input type="hidden" id="new" />
+                                            @*<input type="text" id="old" />*@
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.LabelFor(model => model.NECTECOD, new { style = "", @class = "limpiar" })</td>
+                                        <td>@Html.TextBoxFor(model => model.NECTECOD, new { style = "width:200px;", @class = "limpiar form-control" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label style="font-weight:unset; font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblNom</label></td>
+                                        <td>
+                                            @*@Html.TextBoxFor(model => model.NECODELAB, new { style = "width:200px;", @class = "limpiar form-control" })*@
+                                            <input type="text" id="nomb" style="width:200px" class="form-control limpiar" />
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @*@Html.LabelFor(model => model.NECTECOD, new { style = "", @class = "limpiar" })*@
+                                            <label style="font-weight:unset; font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblDirec</label>
+                                        </td>
+                                        <td>
+                                            @*@Html.TextBoxFor(model => model.NECTECOD, new { style = "width:200px;", @class = "limpiar form-control" })*@
+                                            <span id="dir" style="font-weight:unset; font-family:arial; font-size:11px"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @*@Html.LabelFor(model => model.NECTECONTACTO, new { style = "", @class = "limpiar" })*@
+                                            <label style="font-weight:unset; font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblAtn</label>
+                                        </td>
+
+                                        @*<td>
+                                              @Html.DropDownListFor(model => model.NECTECONTACTO, (lstcontac).Select(option => new SelectListItem
+                                            { Text = (option == null ? "Ninguno" : option.CTECONTNOM), Value = option.CTECONTCOD.ToString(),}), Resources.AF_ASIGNA.StringResources.PlacProve, new { @onchange = "", style = "width: 200px;", title = "", @class = "form-control limpiar asigna", })*@
+                                        @*<input type="text" id="encargado" style="width:100px" class="form-control" />
+                                            </td>*@
+                                        <td>
+                                            @*@Html.DropDownListFor(model => model.NECTECONTACTO, (CC_CTE_CONTACTOS.ContactosPorCTECOD_), new { @class = "" })*@
+
+                                            @*@Html.DropDownListFor(model => model.NECTECONTACTO, (CC_CTE_CONTACTOS.ContactosPorCTECOD_("")).Select(option => new SelectListItem
+                                                { Text = (option == null ? "Ninguno" : option.CTECONTNOM), Value = option.CTECONTCOD.ToString(), }), Resources.AF_ASIGNA.StringResources.PlacProve, new { @onchange = "", style = "width: 200px;", title = "", @class = "form-control limpiar asigna", })*@
+                                            <select id="LeagueTeams" style="width: 200px;" class="form-control limpiar">
+                                                <option>@Resources.INV_NEMAESTRO.StringResources.dropCont</option>
+                                            </select>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        @*style="width:120px"*@
+                                        <td colspan="2">
+                                            @*@Html.LabelFor(model => model.NEELAPERSONA, new { style = "", @class = "limpiar" })*@
+                                            <label style="font-weight:unset; font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblSendEmail</label>
+
+                                            @*@Html.TextBoxFor(model => model.NEELAPERSONA, new { style = "width:200px;", @class = "limpiar form-control" })*@
+                                            <span id="Email" style="font-weight:unset; font-family:arial; font-size:13px; padding-left:5px"></span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+
+
+                                        <td><label style="font-weight:unset; font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblDeposit</label></td>
+                                        <td><input type="text" id="deposit_" data-autocomplete="@Url.Action("getDepositos", "INV_DEPOSITOS")" autocomplete="on" style="width:200px;" class="radius form-control limpiar" /></td>
+                                        <td><input type="hidden" id="depoEdit" style="width:50px; margin-left:40px" class="form-control" /></td>
+
+
+                                    </tr>
+                                </table>
+
+                            </fieldset>
+
+                        </fieldset>
+                    </div>
+
+                    <div id="ccosto">
+                        <fieldset style="" class="Fieldfondo">
+                            <fieldset style="" class="Fieldprinc">
+                                <table>
+                                    @*<tr>
+                                            <td>
+
+                                                <label style="font-weight:unset; font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblCC</label>
+                                            </td>
+                                        </tr>*@
+                                    <tr>
+                                        <td style="width:400px; padding-left:12%; padding-top:20%">
+                                            <select id="ccosto_" style="width:300px;" class="form-control">
+                                                <option>-- @Resources.INV_NEMAESTRO.StringResources.lblCC --</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </fieldset>
+
+
+
+                        @*@using (Html.BeginForm("Edit", "CC_MAESTRO", FormMethod.Post, new { id = "myForm" }))*@
+                        @*@using (Html.BeginForm("", "", FormMethod.Post, new { id = "myForm2" }))
+
+                            {
+                                if (Model != null)
+                                {
+                                    ViewData.Add("NECTECOD", Model.NECTECOD);
+                                }
+                                Html.RenderPartial("frmCCosto", new CC_MAESTRO());
+                            }*@
+                    </div>
+
+                    <div id="observaciones">
+                        <fieldset style="" class="Fieldfondo">
+                            <fieldset style="" class="Fieldprinc">
+                                <table>
+                                    <tr><td><label style="font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblLuga</label></td></tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="lugar_" style="width:385px" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr><td><label style="font-family:arial; font-size:13px">@Resources.INV_NEMAESTRO.StringResources.lblServi</label></td></tr>
+                                    <tr>
+                                        <td>
+                                            <textarea id="obser_" style="width:385px; resize:none;" class="form-control" rows="3" cols="50"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </fieldset>
+                        </fieldset>
+
+
+
+                        @*@using (Html.BeginForm("", "", FormMethod.Post, new { id = "myForm3" }))
+                            {
+                                //if (Model != null)
+                                //{
+                                //    //ViewData.Add("CXPCOD", Model.CXPCOD);
+                                //}
+                                //CXP_ACTIVIDADES cxp_actividad = new CXP_ACTIVIDADES
+                                //{
+                                //    //ACTID = "1",
+                                //    //ACT_ASUNTO = "aaaa",
+
+                                //};
+                                //List<CXP_ACTIVIDADES> lstActividades = new List<CXP_ACTIVIDADES>();
+                                ////lstActividades.Add(cxp_actividad);
+                                if (Model != null)
+                                {
+                                    ViewData.Add("NECTECOD", Model.NECTECOD);
+                                }
+                                Html.RenderPartial("frmObservaciones", new INV_NEMAESTRO());
+                            }*@
+                    </div>
+
+
+
+
+
+
+
+                </fieldset>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend class="limpiar" style="margin-top:20px; width:280px; background:rgba(7, 57, 110, 0.7); text-align:center; color:white">@Resources.INV_NEMAESTRO.StringResources.fieldRequi</legend>
+                    <table style="width:440px">
+                        <tr>
+                            <td>
+
+
+                                <div id="gridContent" style="padding:0px; overflow-x: scroll; overflow-y: scroll; width:440px">
+                                    @{
+                                        var grid = new WebGrid(new List<QuasarERPBanking.Models.CXP_ACTIVIDADES>(), ajaxUpdateContainerId: "gridContent", rowsPerPage: 1000);
+                                        //System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-VE");
+                                    }
+
+                                    @grid.GetHtml(
+                                    tableStyle: "webgrid-table Ancho-tabla",
+                                    headerStyle: "webgrid-header",
+                                    footerStyle: "webgrid-footer",
+                                    alternatingRowStyle: "webgrid-alternating-row",
+                                    selectedRowStyle: "webgrid-selected-row",
+                                    rowStyle: "webgrid-row-style",
+                                    mode: WebGridPagerModes.All,
+                                    caption: "",
+                                    columns:
+                                    grid.Columns(
+                //grid.Column("Asociar", format: item => @Html.CheckBox("Active", (bool)((item.PREPROCOD == ViewBag.ProyectoSeleccionado) ? true : false), new { value = @item.PREPART, @onclick = "active(this)" }), style: "colDescWidth", canSort: false),
+                grid.Column("ACTID", Resources.INV_NEMAESTRO.StringResources.lblReqCod, format: @<text> <span class="display-mode" style="width:500px"> <label id="lblDET_PLAN9">@item.ACTID.ToString(@*"n", culture*@)</label></span></text>, style: "codigos", canSort: false),
+                grid.Column("ACT_AUTOR", Resources.INV_NEMAESTRO.StringResources.lblNom.Replace(":",""), format: @<text>  <span class="display-mode">@item.ACT_AUTOR </span> @*<label id="PartidaID" class="edit-mode">@item.PREPART</label>*@ </text>, style: "descripciones", canSort: false),
+                grid.Column("ACT_FECHCREA", Resources.INV_NEMAESTRO.StringResources.lblRequerido, format: @<text>  <span class="display-mode">@item.ACT_FECHCREA </span> @*<label id="Descripcion" class="edit-mode">@item.PRE_NOMB</label>*@ </text>, style: "descripciones", canSort: false),
+                grid.Column("ACT_FECHREAL", Resources.INV_NEMAESTRO.StringResources.lblReqDes, format: @<text>  <span> <label id="lblTotal">@item.ACT_FECHREAL.ToString(@*"n", culture*@)</label> </span></text>, style: "fechas", canSort: false),
+                grid.Column("ACT_ASUNTO", Resources.INV_NEMAESTRO.StringResources.lblReqCodRe, format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_ASUNTO.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "codigos", canSort: false),
+                grid.Column("ACT_CUERPO", Resources.INV_NEMAESTRO.StringResources.lblReqElab, format: @<text> <span class="display-mode"> <label id="lblDET_PLAN1">@item.ACT_PERSCOMP.ToString(@*"n", culture*@)</label> </span>  @*<input type="text" id="DET_PLAN1" value="@item.PRECOST1" onkeypress="return NumCheck(event, this)" class="edit-mode" />*@ </text>, style: "codigos", canSort: false)
+
+
+                ))
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </fieldset>
+
+            </td>
+            <td>
+                <fieldset>
+                    <legend class="limpiar" style="margin-top:20px; width:180px; background:rgba(7, 57, 110, 0.7); text-align:center; color:white">@Resources.INV_NEMAESTRO.StringResources.fieldDetne</legend>
+                    <table>
+                        <tr>
+                            @*<td height="60px" width="70px" align="center" style="text-align:right"><label style="color:black" class="limpiar"><b>@Resources.StringResources.LblGlobalBusq</b></label></td>*@
+
+                            <td style="font-size:11px">
+                                @*<input type="text" id="Trans_" data-autocomplete="@Url.Action("getProduc", "AF_MAESTRO")" autocomplete="on" style="width:180px;" class="radius form-control" />*@
+                                @*<input type="button" id="Add_" class="boton" value="@Resources.CXP_CONTACTOS.StringResources.BotonAdd" style="margin:10px 20px; font-size:15px; " />*@
+                                <a id="Add_">
+                                    <img src="../../Content/icons/16x16/application_add.png" alt="Agregar" />
+                                    @Resources.INV_NEMAESTRO.StringResources.BtnAdd
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <table id="tablaCarrito" style="width:500px; font-size:11px" class="">
+
+                        <thead>
+                            <tr id="head">
+                                <th style="width:3%"></th>
+                                <th style="width:10%">@Resources.INV_NEMAESTRO.StringResources.lblCod</th>
+                                <th style="width:30%">@Resources.INV_NEMAESTRO.StringResources.lblDetNom</th>
+                                <th style="width:10%">@Resources.INV_NEMAESTRO.StringResources.lblDetUnd</th>
+                                @*<th style="width:10%">cantidad reservada</th>*@
+                                <th style="width:10%">@Resources.INV_NEMAESTRO.StringResources.lblDetCan</th>
+                                <th style="width:10%">@Resources.INV_NEMAESTRO.StringResources.lblDetOpc</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBodyCarrito" class="">
+                            @if (ViewBag.productosReq != null)
+                            {
+                                List<INV_NEMAESTRO> prList = ViewBag.productosReq;
+                                foreach (INV_NEMAESTRO pr in prList)
+                                {
+                                    string rowId = "row" + pr.inv_fifo.INVCOD;
+                                    string code = "code" + pr.inv_fifo.INVCOD;
+                                    string nomb = "nomb" + pr.inv_fifo.INVCOD;
+                                    string unid = "unid" + pr.inv_fifo.INVCOD;
+                                    //string cantres = "cantres" + pr.inv_fifo.INVCOD;
+                                    string cantdes = "cantdes" + pr.inv_fifo.INVCOD;
+                                    string identificador = "id" + pr.inv_fifo.INVCOD;
+
+                                    //int ids = 1;
+
+                                    <tr id="@rowId">
+                                        @*<td id="identificador"></td>*@
+                                        <td id="@code" class="codigo">@pr.NECOD</td>
+                                        <td id="@nomb">@pr.inv_fifo.INVDEP</td>
+                                        <td id="@unid" class="unidad">@pr.inv_fifo.INVCANT</td>
+                                        @*<td id="@cantres" class="cantidad">@pr.TRANS_CANT</td>*@
+                                        <td id="@cantdes" class="costo">@pr.inv_fifo.INVDOC</td>
+                                        <td>
+                                            <img src="../../Content/themes/base/images/delete-icon.png" alt="Eliminar" title="@Resources.StringResources.GlobalButtonDel" onclick="eliminarElemento('@rowId');" />
+                                            <img src="../../Content/themes/base/images/save-icon.png" alt="editar" title="@Resources.StringResources.GlobalButtonDel" onclick="editarElemento();" />
+
+                                            @*<a href="javascript:editarElemento('@pr.af_maestro.AFCOD')" alt="Editar" title="Editar"><img src="/Content/icons/16x16/pencil.png" /></a> &nbsp;
+                                                <a href="javascript:eliminarElemento('@rowId')" alt="Eliminar" title="Eliminar"><img src="/Content/icons/16x16/delete.png" /></a>*@
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    @*<div style="clear:both; padding-top:10px;">
+
+                            <a id="botonProcesar">
+                                <img src="../../Content/icons/16x16/cog_go.png" alt="Procesar" />
+                                Procesar
+                            </a>
+                            <a id="insertar_" style="margin-left:250px" onclick="showDlgInsert()">
+                                <img src="../../Content/icons/16x16/cog_go.png" alt="Insertar" />
+                                Insertar fila en una posición específica
+                            </a>
+                        </div>*@
+
+                    @*<div id="jqGridPager"></div>*@
+
+                </fieldset>
+
+            </td>
+        </tr>
+
+
+
+    </table>
+
+
+
+</div>
+
+
+<div id="dialog-pend" title="@Resources.INV_NEMAESTRO.StringResources.TitleProdPen" style="display:none">
+    <p>
+        @*La página se ha cerrado inesperadamente, su usuario estaba trabajando con el cliente interno <span id="clienteint"></span>, este sera eliminado,
+        por favor empiece de nuevo el proceso de nota de entrega con este cliente interno.*@
+
+        @Resources.INV_NEMAESTRO.StringResources.ParrClose <span id="clienteint"></span>@Resources.INV_NEMAESTRO.StringResources.ParrClose2 
+    </p>
+    
+</div>
+<div id="dialog-pend_" title="@Resources.INV_NEMAESTRO.StringResources.TitleProdPen" style="display:none">
+    <p>
+        @Resources.INV_NEMAESTRO.StringResources.ParrClose <span id="clienteinter"></span>@Resources.INV_NEMAESTRO.StringResources.ParrClose2 
+        @*La página se ha cerrado inesperadamente, su usuario estaba trabajando con el cliente interno <span id="clienteinter"></span>, este sera eliminado,
+        por favor empiece de nuevo el proceso de nota de entrega con este cliente interno.*@
+    </p>
+
+</div>
+
+<div id="dialog-added" title="@Resources.INV_NEMAESTRO.StringResources.TitleProdadd" style="display:none">
+    <p>
+        @Resources.INV_NEMAESTRO.StringResources.ParrExist
+        @*Este producto ya ha sido agregado.
+        Puede cambiar los datos ingresados anteriormente y pulsar el botón "Insertar".*@
+    </p>
+</div>
+
+
+<div id="dlgAdd" style="display:none; padding-left:50px">
+
+    <fieldset class="ventana" style="width:400px; height:240px; background:#F5F5F5; box-shadow:0 0 20px #136e9f;">
+        <legend class="limpiar" style="font-size:12px">@Resources.INV_NEMAESTRO.StringResources.FielAddDet</legend>
+        <table>
+            <tr>
+                <td><label style="font-weight:bold; font-family:arial; font-size:13px">@Resources.StringResources.LblGlobalBusq</label></td>
+                <td>
+
+                    <input type="text" id="INVCOD_" data-autocomplete="@Url.Action("getProductos", "INV_MAESTRO")" autocomplete="on" style="width:200px;" class="radius form-control" />
+                </td>
+                <td><input type="hidden" id="NEdit" style="width:50px; margin-left:40px" class="form-control" /></td>
+            </tr>
+            <tr id="exist">
+                <td>
+                    <span style="color:#a24020;">@Resources.INV_NEMAESTRO.StringResources.lblExist</span>
+                </td>
+                <td>
+                    <span id="totalcant" style="color:#a24020;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label style="font-weight:normal">@Resources.INV_NEMAESTRO.StringResources.lblCod :</label></td>
+                <td><input id="cod_" type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td><label style="font-weight:normal">@Resources.INV_NEMAESTRO.StringResources.lblDetNom :</label></td>
+                <td><input id="nom_" type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td><label style="font-weight:normal">@Resources.INV_NEMAESTRO.StringResources.lblDetUnd :</label></td>
+                <td><input id="medida_" type="text" class="form-control" /></td>
+            </tr>
+            @*<tr>
+                <td><label>cantidad reservada:</label></td>
+                    <td><input type="text" /></td>
+                </tr>*@
+            <tr>
+                <td><label style="font-weight:normal">@Resources.INV_NEMAESTRO.StringResources.lblDetCan :</label></td>
+                <td><input id="cantReq_" type="text" class="form-control" /></td>
+            </tr>
+
+
+        </table>
+
+    </fieldset>
+
+    <a id="insert" style="color:white; cursor:pointer">
+        <img src="../../Content/icons/16x16/application_add.png" alt="Agregar" />
+     @Resources.INV_NEMAESTRO.StringResources.BtnInsert
+    </a>
+
+
+</div>
+
+<div id="dialog-form" title="@Resources.INV_NEMAESTRO.StringResources.TitleEdiProd">
+
+    <fieldset class="ventana" style="border:none">
+        @*<legend class="limpiar"><b>Editar Producto</b></legend>*@
+
+        <label> @Resources.INV_NEMAESTRO.StringResources.lblCliCod </label>
+        <span id="codEdit"></span>
+        <br />
+        <label> @Resources.INV_NEMAESTRO.StringResources.lblNom </label>
+        <span id="nombEdit"></span>
+        <br />
+        <div id="exitedit" style="color:#a24020;">
+            <label> @Resources.INV_NEMAESTRO.StringResources.lblExist </label>
+            <span id="exisEdit" style="color:#a24020;"></span>
+        </div>
+        <br />
+        <hr style="border-color:rgba(8, 65, 101, 0.35)" />
+        <table>
+            <tr>
+                <td><label> @Resources.INV_NEMAESTRO.StringResources.lblDetUnd : </label></td>
+                <td><input type="text" id="unidEdit" style="width:100px; margin-left:40px" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td><label> @Resources.INV_NEMAESTRO.StringResources.lblDetCan : </label></td>
+                <td><input type="text" id="cantEdit" style="width:100px; margin-left:40px" class="form-control" /></td>
+            </tr>
+        </table>
+
+
+        @*<br />
+            <label> fecha: </label>
+            <input type="text" id="fechaEdit" style="width:100px; margin-left:40px" class="datepicker limpiar form-control" />
+            <br />
+            <label> costo: </label>
+            <input type="text" id="costoEdit" style="width:100px; margin-left:40px" class="form-control" />
+            <br />
+            <label> referencia: </label>
+            <input type="text" id="referEdit" style="width:100px; margin-left:40px" class="form-control" />
+            <br />
+            <label> documento: </label>
+            <input type="text" id="documenEdit" style="width:100px; margin-left:40px" class="form-control" />*@
+    </fieldset>
+</div>
+
+<div id="dialog-refresh" title="@Resources.INV_NEMAESTRO.StringResources.TitleSusProd">
+
+    <fieldset class="ventana" style="border:none">
+        @*<legend class="limpiar"><b>Editar Producto</b></legend>*@
+
+        <table>
+            <tr>
+                <td height="60px" width="70px" align="center" style="text-align:right"><label style="color:black" class="limpiar"><b>@Resources.StringResources.LblGlobalBusq</b></label></td>
+
+                <td>
+                    <input type="text" id="Trans_" @*title=""*@ data-autocomplete="@Url.Action("getProductos", "INV_MAESTRO")" autocomplete="on" style="width:280px;" class="radius form-control" />
+                </td>
+            </tr>
+        </table>
+
+
+        <label> @Resources.INV_NEMAESTRO.StringResources.lblCliCod </label>
+        <span id="codEdit1"></span>
+        <br />
+        <label>@Resources.INV_NEMAESTRO.StringResources.lblNom </label>
+        <span id="nombEdit1"></span>
+        <br />
+        <div id="exitsust" style="color:#a24020;">
+            <label> @Resources.INV_NEMAESTRO.StringResources.lblExist </label>
+            <span id="exisEdit1" style="color:#a24020;"></span>
+        </div>
+
+        <br />
+        <hr style="border-color:rgba(8, 65, 101, 0.35)" />
+        <table>
+            <tr>
+                <td><label>@Resources.INV_NEMAESTRO.StringResources.lblDetUnd : </label></td>
+                <td><input type="text" id="unidEdit1" style="width:100px; margin-left:40px" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td><label>@Resources.INV_NEMAESTRO.StringResources.lblDetCan : </label></td>
+                <td><input type="text" id="cantEdit1" style="width:100px; margin-left:40px" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td><input type="hidden" id="codold" style="width:100px; margin-left:40px" class="" /></td>
+                <td><input type="hidden" id="existnew" style="width:100px; margin-left:40px" class="" /></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+    ///////////////////// PAGELOAD /////////////////////////////////////
+    $(function () {
+        $('#procesar').hide();
+        $('#Search').focus();
+
+
+
+     
+
+
+        //if ($("#NECTECOD").val() == "") {
+            /// si por error se refresca la pagina no quede guardado l registro en el temp
+         var clientint = $("#new").val() == "" ? 0 : $("#new").val();
+            actuaInvtemp('-', 0, clientint, '-', 6);
+        //}
+        //else {
+            /// si se cierra el navegador
+            alerpendiente();
+        //}
+
+
+
+        document.getElementById('Add_').style.visibility = 'hidden';
+
+
+        $("#exist").hide();
+        //$("#exitsust").hide();
+
+        limpiarProductoActual();
+
+        $("#new").val("");
+        //$("#old").val("");
+
+        limpiar();
+
+
+        //$("#Trans_").val($("#LeagueTeams").val());
+
+        $("#NECTECOD").prop('readonly', "true");
+        $("#nom_").prop('readonly', "true");
+        $("#cod_").prop('readonly', "true");
+
+        // AUTOCOMPLE Y LLENADO
+        $("#Search").each(function () {
+            $("#Search").autocomplete({
+                source: $(this).attr("data-autocomplete"),
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        var ab = ui.item.value;
+                        var ba = ab.split("-");
+                        var clientint = ba[0].replace(" ", "");
+
+                        actuaInvtemp_('-', 0, clientint, '-', 5);
+                        //if (actuaInvtemp('-', 0, clientint, '-', 5) == "1") {
+                        //    alert("codigo utilizado");
+                        //    $("#Search").val("");
+                        //}
+                        //else {
+                        //    if ($("#new").val() == "") {
+                        //        $("#new").val(clientint);
+                        //        actuaInvtemp('-', 0, clientint, '-', 1);
+                        //    }
+                        //    else {
+                        //        var cliennew = clientint;
+                        //        //$("#old").val(cliennew);
+                        //        var clienold = $("#new").val();
+                        //        actuaInvtemp('-', 0, clienold, '-', 3);
+                        //        actuaInvtemp('-', 0, cliennew, '-', 4);
+                        //        $("#new").val(cliennew);
+                        //    }
+                        //}
+
+
+
+
+                        //$.ajax({
+                        //    url: "/CC_CTESINT/getCodAutocom?term=" + ui.item.value,
+                        //    success: function (data) {
+                        //        //habilitartodo();
+                        //        $("#NECTECOD").val(data.CTECOD);
+                        //        $("#nomb").val(data.CTENOMBRE);
+                        //        $("#dir").html(data.CTEDIR);   /////////////////////  solo visual en cliente interno
+                        //        $("#NELUGAR").val(data.CTEDIR);
+                        //        //$("#CXPWEB").val(data.CXPWEB);
+                        //        //$("#CXPRELACDESDE").val(data.strCXPRELACDESDE);
+                        //        $("#lugar_").val(data.CTEDIR);
+
+                        //        loadContac_(data.CTECOD);
+                        //        loadCCosto_(data.CTECOD);
+                        //        counterchar();
+                        //          //carga las pestañas por codigo
+                        //          //@@codigo = data.CTECOD;
+                        //          //alert(@@codigo);
+
+                        //          //@@lstcontac = CC_CTE_CONTACTOS.ContactosPorCTECOD_(data.CTECOD);
+                        //          //$("#NECTECONTACTO").val(data.CTECOD);
+
+
+                        //        //loadCCosto(data.CTECOD);
+                        //        //loadObservaci(data.CTECOD);
+
+
+                        //    }
+                        //});
+                    }
+                    else {
+                        alert("Error");
+                    }
+                },
+                error: function () {
+                    alert("Error al Autocompletar");   // remember to call response() even if ajax failed
+                }
+            });
+        });
+
+
+        $("#deposit_").each(function () {
+            //alert("AFCOD");
+            $("#deposit_").autocomplete({
+                source: "@Url.Action("getDepositos", "INV_DEPOSITOS")",
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        var a = ui.item.label;
+                        var prodc = a.split("-");
+                        var productos = prodc[0].replace(" ", "");
+                        $('#depoEdit').val(productos);
+                        document.getElementById('Add_').style.visibility = 'visible';
+                        //alert($('#depoEdit').val());
+                        //alert($('#depoEdit').val());
+                    }
+                    else {
+                        alert("Ningún deposito fue seleccionado: " + this.value);
+                    }
+                }
+            })
+        });
+
+
+
+
+
+
+        //////////////////////Para ingresar
+        $("#INVCOD_").each(function () {
+            $("#INVCOD_").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("getProductos", "INV_MAESTRO")",
+                        dataType: "json",
+                        data: {
+                            term: request.term,
+                            dep: $('#depoEdit').val()
+                        },
+                        success: function (a) {
+                            response(a);
+                        },
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        var codigo = ui.item.value;
+                        var dep = $('#depoEdit').val();
+                        $.ajax({
+                            url: "/INV_FIFO/getFifos",
+                            type: "post",
+                            data: { "codigo": codigo, "dep": dep },
+                            success: function (data) {
+                                ////// para obtener valores de data
+                                $.each(data, function (i, item) {
+                                    //alert(item.INVCANT);
+                                    $("#exist").show();
+                                    $("#totalcant").html(item.INVCANT);
+                                    //$("#INVCOD_").attr('title', $("#INVCOD_").val());
+                                });
+                                var descri = $("#INVCOD_").val();
+                                var cod = descri.split("-");
+                                var productos = cod[0].replace(" ", "");
+                                $("#cod_").val(productos);
+                                $("#nom_").val(cod[1]);
+
+                                $("#medida_").focus();
+
+
+                            }
+                        });
+
+                        mostrarDetalles(ui.item);
+                    }
+                    else {
+                        alert("Error");
+                    }
+                },
+                error: function () {
+                    alert("Error al Autocompletar");   // remember to call response() even if ajax failed
+                }
+            })
+        });
+
+      
+        $("#medida_").on("keypress", function (e) {   
+            if (e.keyCode == 13) {
+                $("#cantReq_").focus();
+            }       
+        });
+
+        $("#cantReq_").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                parainsert();
+            }
+        });
+
+        $("#unidEdit").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                $("#cantEdit").focus();
+            }
+        });
+
+        $("#cantEdit").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                actualizarCantidad();
+            }
+        });
+
+        $("#unidEdit1").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                $("#cantEdit1").focus();
+            }
+        });
+        
+
+        $("#cantEdit1").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                actualizarRegistro();
+            }
+        });
+
+
+
+
+
+        //////////////////////Para sustituir
+        $("#Trans_").each(function () {
+            $("#Trans_").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("getProductos", "INV_MAESTRO")",
+                        dataType: "json",
+                        data: {
+                            term: request.term,
+                            dep: $('#depoEdit').val()
+                        },
+                        success: function (a) {
+                            response(a);
+                        },
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        var codigo = ui.item.value;
+                        var dep = $('#depoEdit').val();
+                        $.ajax({
+                            url: "/INV_FIFO/getFifos",
+                            type: "post",
+                            data: { "codigo": codigo, "dep": dep },
+                            success: function (data) {
+                                ////// para obtener valores de data
+                                $.each(data, function (i, item) {
+                                    //alert(item.INVCANT);
+                                    //$("#exitsust").show();
+                                    $("#exisEdit1").html(item.INVCANT);
+                                    $("#existnew").val(item.INVCANT);
+                                    //$("#Trans_").attr('title', $("#Trans_").val());
+                                });
+                                var descri = $("#Trans_").val();
+                                var cod = descri.split("-");
+                                var productos = cod[0].replace(" ", "");
+                                $("#codEdit1").html(productos);
+                                $("#nombEdit1").html(cod[1]);
+
+                                $("#unidEdit1").focus();
+
+
+                            }
+                        });
+
+                        mostrarDetalleSust(ui.item);
+                    }
+                    else {
+                        alert("Error");
+                    }
+                },
+                error: function () {
+                    alert("Error al Autocompletar");   // remember to call response() even if ajax failed
+                }
+            })
+        });
+
+
+
+        //////////////////////  AUTOCOMPLETE PARA PASAR DOS O MAS PARAMETROS ////////////////////////////
+        $("#NE_").each(function () {
+            $('#NE_').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("getFifos", "INV_FIFO")",
+                        dataType: "json",
+                        data: {
+                            term: request.term,
+                            dep: $('#depoEdit').val()
+
+                        },
+                        success: function (data) {
+                            alert(data);
+                        }
+                    });
+                },
+                minLength: 1
+            })
+        });
+
+
+
+
+        //// para el dropdownlist de los responsables por centro de costo
+        var datos; /// variable global
+        function loadContac_(CTECOD) {
+            var codigo = CTECOD;
+            //alert("contacto");
+            $.post("/CC_CONTACTOS/getContactos_", { "codigo": codigo },
+                   function (data) {
+
+                       datos = data;
+                       $('#LeagueTeams option').remove();
+                       //$("#LeagueTeams").empty();
+                       ///append por medio del controlador
+                       //$('#LeagueTeams').append(data);
+                       var count = 1;
+                       $.each(data, function (i, foo) {
+
+                           ///append por medio de jquery
+                           $('#LeagueTeams').append($("<option id='opc" + count + "'></option>").attr("value", foo.CTECONTCOD).attr("name", foo.CTECONTEMAIL).text(foo.CTECONTNOM));
+                           count++;
+                       });
+
+                       $('#Email').html($("#opc1").attr("name"));
+
+                   });
+
+        }
+
+
+        function loadCCosto_(CTECOD) {
+            var codigo = CTECOD;
+            //alert("ccosto");
+            $.post("/CC_MAESTRO/getCCosto", { "codigo": codigo },
+                   function (data) {
+
+                       //datos = data;
+                       $('#ccosto_ option').remove();
+                       //$("#ccosto option").empty();
+                       /////append por medio del controlador
+                       //$('#LeagueTeams').append(data);
+                       var count = 1;
+                       $.each(data, function (i, foo) {
+
+                           ///append por medio de jquery
+                           //$('#ccosto').append($("<option></option>").attr("value", foo.CC_CTEASOC).text(foo.CC_NOMB));
+                           $('#ccosto_').append($("<option></option>").attr("value", count).text((foo.CC_CTEASOC) + " - " + (foo.CC_NOMB)));
+                           count++;
+                       });
+
+                       //$('#Email').html($("#opc1").attr("name"));
+
+                   });
+
+        }
+
+
+
+
+
+
+        ///// para cambiar el email segun el responssable ////////
+        $('#LeagueTeams').on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            var email = datos;
+            var correo = $(this).find('option:selected').attr("name");
+
+            //alert(correo);
+            $("#Email").html(correo);
+
+
+        });
+
+
+
+        //  //// la informacion viene de
+        //  function loadCCosto(CTECOD) {
+        //      var codigo = CTECOD;
+
+        //      $.post("/CC_CONTACTOS/getContactos_",
+        //         { "codigo": codigo },
+
+        //        function (data) {
+
+        //            if (data != null) {
+
+        //                //alert(data.Object.CTECONTNOM);
+        //                //$("#encargado").val(data.CTECONTNOM);
+
+
+        //            }
+        //        }
+
+        //).error(function () { alert("Error al procesar la opereción"); });    //Se ejecuta si hay error
+
+
+
+
+        //      //$.ajax({
+        //      //    url: "/CC_CONTACTOS/getContactos_?ctecod=" + CTECOD,
+        //      //    success: function (data) {
+        //      //        alert(data.Models.CC_CTE_CONTACTOS.CTECONTNOM);
+        //      //        alert(data);
+        //      //        //$('#tblContactos  tbody  tr').remove();
+        //      //        //$('#tblContactos').append(tabla);
+        //      //        $("#encargado").val(data.CTECONTNOM);
+        //      //    }
+        //      //});
+        //  }
+
+
+        ///// lugar de cc_ctesint
+        function loadObservaci(CXPCOD) {
+            $.ajax({
+                url: "/CXP_ACTIVIDADES/getActividades?cxpcod=" + CXPCOD,
+                success: function (tabla) {
+                    $('#gridContent  tbody  tr').remove();
+                    $('#gridContent tbody:last').append(tabla);
+                }
+            });
+        }
+
+
+
+
+
+        ///////// para los efectos de las pestañas ////////////////////
+        $('#contenido_pestanas div').css('position', 'absolute').not(':first').hide();
+        $('#contenido_pestanas ul li:first a').addClass('aqui');
+        $('#contenido_pestanas a').click(function () {
+            if ($("#NECTECOD").val() != "" && $("#NECTECOD").val() != null) {
+                $('#contenido_pestanas a').removeClass('aqui');
+                $(this).addClass('aqui');
+                $('#contenido_pestanas div').fadeOut(350).filter(this.hash).fadeIn(350);
+                return false;
+
+            }
+        });
+
+
+
+        $("#depoEdit").val("");
+
+
+
+        ///////////// funcion para validar que el cliente interno no esta siendo utilizado por otro usuario
+        function actuaInvtemp_(cod, cantidad, clientint, deposito, opc) {
+
+
+            if ($("#new").val() == "") {
+
+                $.post("/INV_Nemaestro/Act_invTemp", { "codigo": cod, "cantidad": cantidad, "cliente": clientint, "deposito": deposito, "opc": opc },
+                       function (data) {
+
+
+                           if (data == "1") {
+                               alert("este cliente interno ya está siendo utilizado por otro usuario, por favor ingrese otro");
+                               $("#Search").val("");
+                               //limpiar();
+                           }
+                           else {
+
+                               //if ($("#new").val() == "") {             //si esta entrando por primera vez, la tabla inv_temp
+                               $("#new").val(clientint);
+                               actuaInvtemp('-', 0, clientint, '-', 1);
+                               //}
+                               //else {
+                               //    var cliennew = clientint;
+                               //    //$("#old").val(cliennew);
+                               //    var clienold = $("#new").val();
+                               //    actuaInvtemp('-', 0, clienold, '-', 3);
+                               //    actuaInvtemp('-', 0, cliennew, '-', 4);
+                               //    $("#new").val(cliennew);
+                               //}
+
+                               loadCC_Conta();
+
+
+                           }
+
+
+                       });
+            }
+
+            else {
+
+                var cliennew = clientint;
+                //$("#old").val(cliennew);
+                var clienold = $("#new").val();
+                actuaInvtemp('-', 0, clienold, '-', 3);
+                actuaInvtemp('-', 0, cliennew, '-', 4);
+                $("#new").val(cliennew);
+                loadCC_Conta();
+            }
+
+
+            function loadCC_Conta() {
+                $.ajax({
+                    url: "/CC_CTESINT/getCodAutocom?term=" + clientint,
+                    success: function (data) {
+                        //habilitartodo();
+                        $("#NECTECOD").val(data.CTECOD);
+                        $("#nomb").val(data.CTENOMBRE);
+                        $("#dir").html(data.CTEDIR);   /////////////////////  solo visual en cliente interno
+                        $("#NELUGAR").val(data.CTEDIR);
+                        //$("#CXPWEB").val(data.CXPWEB);
+                        //$("#CXPRELACDESDE").val(data.strCXPRELACDESDE);
+                        $("#lugar_").val(data.CTEDIR);
+                        //alert(data.CTECOD);
+                        loadContac_(data.CTECOD);
+                        loadCCosto_(data.CTECOD);
+                        counterchar();
+                        $("#deposit_").focus();
+                    }
+                });
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+  
+
+
+
+    })
+
+
+    ///simular tabulador 
+    //Tab();
+
+    //$('.ui-dialog').focusout(function (e) {
+    //    $('#dlgAdd').dialog('close');
+    //});
+
+
+    //$('body').on('click', '#pagina', function (e) {
+    //    $('.ui-dialog').css('opacity', '1');
+    //    //$('#dlgAdd').dialog('close');
+    //});
+
+    //$('.ui-dialog').on('click', '.ui-dialog', function (e) {
+    //    $('.ui-dialog').css('opacity', '.5');
+    //    //$('#dlgAdd').dialog('close');
+    //});
+
+
+
+
+
+    function showDlgPendiente(client) {
+        $("#dialog-pend").dialog({
+            autoOpen: true,
+            height: 300,
+            width: 400,
+            modal: true,
+            resizable: false, //ajustable
+            closeOnEscape: false,
+            open: function (event, ui) {
+                $(this).siblings('div.ui-dialog-titlebar').hide();
+                $('.ui-widget-overlay').addClass('custom-overlay');
+                //var clientint = $("#clienteint").html();
+
+            },
+            buttons: {
+                OK: function () {
+
+
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                actuaInvtemp('-', 0, client, '-', 6);
+            }
+        });
+    }
+
+
+
+    function showDlgPendiente_(cliente) {
+        $("#dialog-pend_").dialog({
+            autoOpen: true,
+            height: 300,
+            width: 400,
+            modal: true,
+            resizable: false, //ajustable
+            closeOnEscape: false,   //cerrar con esc
+            open: function (event, ui) {
+                $(this).siblings('div.ui-dialog-titlebar').hide();
+                $('.ui-widget-overlay').addClass('custom-overlay');
+                //var clientinte = $("#clienteinter").html();
+
+            },
+            buttons: {
+                OK: function () {
+
+
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                actuaInvtemp('-', 0, cliente, '-', 6);
+            }
+        });
+    }
+
+
+
+
+    function limpiar() {
+        $("#Search").val("");
+        $("#NECTECOD").val("");
+        $("#nomb").val("");
+        $("#deposit_").val("");
+
+    }
+
+    //para bloquear las pestañas de cxpmaestro
+    function setCliente() {
+
+        $("#cliente").show();
+        $("#ccosto").hide();
+        $("#observaciones").hide();
+    }
+
+    function setCCosto() {
+        if ($("#NECTECOD").val() != "" && $("#NECTECOD").val() != null) {
+            $("#cliente").hide();
+            $("#observaciones").hide();
+            $("#ccosto").show();
+
+        }
+
+    }
+
+    function setObservacio() {
+        if ($("#NECTECOD").val() != "" && $("#NECTECOD").val() != null) {
+            $("#cliente").hide();
+            $("#ccosto").hide();
+            $("#observaciones").show();
+        }
+    }
+
+
+    $("#obser_").charCounter(80, {
+        container: '<em id="a" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:340px"></em>',
+        format: "80 / %1",
+        pulse: false,
+        delay: 100,
+    });
+
+    function counterchar() {
+        $("#lugar_").charCounter(60, {
+            container: '<em id="b" style="font:15px Arial Narrow; color:#ccc; position:relative; bottom:20px; left:190px"></em>',
+            format: "",
+            pulse: false,
+            delay: 100,
+        });
+    }
+
+
+    $("#Add_").click(function () {
+
+        if ($("#NECTECOD").val() == "") {
+            alert("debe selecionar un cliente interno");
+        }
+        else if ($("#depoEdit").val() == "") {
+
+            alert("debe selecionar un deposito");
+        }
+        else {
+
+            $("#dlgAdd").dialog({
+                resizable: false, //ajustable
+                width: 510,
+                height: 350,
+                showOverlay: false, //colocarle fondo
+                modal: false,  /// el fonde el dialog
+                autoOpen: true,
+                closeOnEscape: true,   //cerrar con esc
+                open: function (event, ui) {
+                    //this.draggable(); /// para hacer arrastrable un objeto
+                    //$(".limpiar").prop('disabled', false);
+                    //$(this).siblings('div.ui-dialog-titlebar').hide();  // ocultar barra de titulo
+                    $('div.ui-dialog-titlebar').css('background', 'transparent');
+                    $('div.ui-dialog-titlebar').css('border', 'transparent');
+                    $('div.ui-dialog-titlebar').css('height', '30px');
+                    $(".ui-dialog-titlebar-close").css('visibility', 'visible');
+                    $('.ui-dialog').css('opacity', '.9');
+                    $('.ui-dialog').css('background', '#24323d');
+                    $(".ui-dialog").css('box-shadow', '0 0 30px #000');
+
+
+                    //$('.ui-dialog').css('background-color', 'rgba(255,255,255,0.5)');
+                },
+                show: {
+                    effect: "slide",
+                    duration: 500
+                },
+                hide: {
+                    effect: "clip",
+                    duration: 700
+                },
+
+                close: function (event, ui) {
+                    limpiarProductoActual();
+                    //$("#usuario").focus();
+                }
+            });
+
+            bloquear();
+
+            //document.getElementById('pepe').style.visibility = 'hidden';
+
+
+            var cliente = $("#new").val();
+            var aa = $('#deposit_').val();
+            var bb = aa.split("-");
+            var deposito = bb[0].replace(" ", "");
+
+            //actuaInvtemp('-', 0, cliente, '-', 3);
+            actuaInvtemp('-', 0, cliente, deposito, 4);
+
+
+        }
+
+    });
+
+
+    $("#insert").bind('click', function () {
+       
+        parainsert();
+
+    });
+
+
+    function parainsert() {
+
+        var b = $("#totalcant").html();
+        //var b = $('#code' + cod).attr("name");
+        var a = parseInt(b, 10);
+
+        if ($("#cod_").val() == "") {
+            alert("Debe elegir un producto");
+            $('#INVCOD_').focus();
+        }
+        else if ($("#cantReq_").val() > a) {
+            alert("La cantidad ingresada supera la cantidad existente, por favor intente nuevamente.");
+            $("#cantReq_").val("");
+        }
+        else {
+            var cod = $('#cod_').val().trim();
+            var nombre = $('#nom_').val();
+            var unimedi = $('#medida_').val();
+            var cantidad = $('#cantReq_').val();
+
+            var clientint = $('#NECTECOD').val();
+            var aa = $('#deposit_').val();
+            var bb = aa.split("-");
+            var deposito = bb[0].replace(" ", "");
+
+            //actuaInvtemp('-', cantidad, clientint, deposito, 3);
+            actuaInvtemp(cod, cantidad, clientint, deposito, 1);
+            $('#procesar').show();
+            agregarProducto(cod, nombre, unimedi, cantidad, a);
+
+        }
+
+
+
+    }
+
+
+
+    function alerpendiente() {
+
+        $.post("/INV_Nemaestro/getNePend",
+               function (data) {
+                   $.each(data, function (i, item) {
+                       /// dialogo
+
+                       if (i == 0) {
+                           $("#clienteint").html(item.NECTECOD);
+                           showDlgPendiente(item.NECTECOD);
+                       }
+                      else {
+                           $("#clienteinter").html(item.NECTECOD);
+                           showDlgPendiente_(item.NECTECOD);
+                       }
+
+                       //confirm("este usuario anteriormente estaba trabajando con el cliente interno " + item.NECTECOD +", la data sera eliminada de la base de datos ");
+
+
+
+
+
+
+                   });
+
+
+                  //alert(data);
+               });
+
+    }
+
+
+    //////////////// ACTUALIZAR TEMPORAL DE INV_TEMP
+    function actuaInvtemp(cod, cantidad, clientint, deposito, opc) {
+
+        $.post("/INV_Nemaestro/Act_invTemp", { "codigo": cod, "cantidad": cantidad, "cliente": clientint, "deposito": deposito, "opc": opc },
+               function (data) {
+
+
+
+
+
+                   //alert(data);
+               });
+
+    }
+
+    ////////////////// al procesar
+
+    function actInvFifo() {
+        var codigos = "";
+        var cantidades = "";
+        var aa = $('#deposit_').val();
+        var bb = aa.split("-");
+        var deposito = bb[0].replace(" ", "");
+
+        $('.codigo').each(function (index) {
+            codigos = codigos + $(this).text() + ",";
+        });
+
+        $('.cantidad').each(function (index) {
+            cantidades = cantidades + $(this).text() + ",";
+        });
+
+        //Se le quitan las ultimas comas
+        codigos = codigos.substr(0, codigos.length - 1);
+        cantidades = cantidades.substr(0, cantidades.length - 1);
+
+
+        $.post("/INV_Fifo/Act_invFifo", { "codigo": codigos, "cantidad": cantidades, "deposito": deposito},
+               function (data) {
+                   if (data == 0) {
+
+                       @*alert('@Resources.StringResources.msgInsertOK');*@
+
+
+                       var clientint= $("#new").val();
+                       actuaInvtemp('-', 0, clientint, '-', 6);  //LISTO
+                       alert('@Resources.StringResources.msgInsertOK');
+                       porcesocompleto();
+
+                     //  window.location.href = "/Inv_Nemaestro/";
+
+                   }
+                   else {
+                       alert('@Resources.INV_NEMAESTRO.StringResources.ErrMsgDelFifo');
+                       //refrescar pagina o que corrija el error
+                   }
+
+               });
+
+    }
+
+    function porcesocompleto() {
+        window.location.href = "/Inv_Nemaestro/";
+    }
+
+    function InsInv_nemaestro() {
+        var cliente = $("#NECTECOD").val();
+        var contac = $("#LeagueTeams").val();
+        var lugar = $("#lugar_").val();
+        var obser = $("#obser_").val();
+        var aa = $("#ccosto_").text();
+        var bb = (aa.trim()).split("-");
+        var ccosto = bb[0].trim();
+        var fecha = $("#Fecha_").html();
+
+        //alert(ccosto[0].trim());
+        //alert(fecha);
+
+        $.post("/INV_Nemaestro/Ne_maestro", { "contacto": contac, "lugar": lugar, "cliente": cliente, "observaciones": obser, "ccosto": ccosto, "fecha":fecha },
+               function (data) {
+
+                   //alert(data);
+
+                   if (data == -1) {
+
+                       @*alert('@Resources.StringResources.msgInsertOK');*@
+                       actTransacciones();
+                   }
+                   else {
+                       alert('@Resources.INV_NEMAESTRO.StringResources.ErrMsgInsNema');
+                       //refercar pagina o que corrija el error
+                   }
+
+
+
+               });
+
+    }
+
+    function actTransacciones() {
+        var codigos = "";
+        var cantidades = "";
+        var fecha = $("#Fecha_").html();
+        //var unidades = "";
+        //var centrocos = "";
+
+        //var trans_tipo = $("#drop").val();
+
+        $('.codigo').each(function (index) {
+            codigos = codigos + $(this).text() + ",";
+        });
+
+        $('.cantidad').each(function (index) {
+            cantidades = cantidades + $(this).text() + ",";
+        });
+
+        //$('.unidad').each(function (index) {
+        //    unidades = unidades + $(this).text() + ",";
+        //});
+
+        //Se le quitan las ultimas comas
+        codigos = codigos.substr(0, codigos.length - 1);
+        cantidades = cantidades.substr(0, cantidades.length - 1);
+        //unidades = unidades.substr(0, unidades.length - 1);
+
+        $.post("/INV_NeTransacciones/gridnemaestro", { "codigo": codigos, "cantidad": cantidades, "fecha":fecha },
+               function (data) {
+                   if (data == 0) {
+                       //alert(data);
+                       actInvFifo();
+                   }
+                   else {
+                       alert('@Resources.INV_NEMAESTRO.StringResources.ErrMsgInsTransNe');
+                       //refercar pagina o que corrija el error
+                   }
+               });
+
+    }
+
+
+
+    ///////////////// GRID DINAMICO DE AGREGAR ////////////////
+
+    function agregarProducto(cod, nombre, unimedi, cantidad, a) {
+
+
+        if (cod == "" || cod == null) {
+            alert('Debe elegir un producto');
+            limpiarProductoActual();
+        }
+        else if (NoEsNumeroMayorQueCero(cantidad)) {
+            alert('La cantidad debe ser un número mayor que cero');
+            $('#cantReq_').focus();
+        }
+
+        else if (nombre == "" || unimedi == "") {
+            alert('debe rellenar todos los espacios');
+
+        }
+
+        else {
+            if ($("#row" + cod).length) {//SI el producto ya fue agregado
+                cantidad = parseInt(cantidad, 10); //Se pasa a entero (por si tiene un punto al final)
+                $('#cantdes' + cod).html(cantidad);
+                $('#unid' + cod).html(unimedi);
+                $('#nomb' + cod).html(nombre);
+                $('#code' + cod).html(cod);
+                resaltar('row' + cod);
+
+            } else {
+                //alert("aqui");
+                cantidad = parseInt(cantidad, 10); //Se pasa a entero (por si tiene un punto al final)
+                var i = $("#tBodyCarrito tr").length + 1; //para enumerar las filas
+                //alert($("#tBodyCarrito tr").length);
+                htmlRow = '<tr id="row' + cod + '">' +
+                            //'<td id="identificador' + cod + '">' + i + '</td>' +
+                            '<td id="identificador">' + i + '</td>' +
+                            '<td id="code' + cod + '" class="codigo" name="' + a + '">' + cod + '</td>' +
+                            '<td id="nomb' + cod + '">' + nombre + '</td>' +
+
+
+                            '<td id="unid' + cod + '" class="unidad">' + unimedi + '</td>' +
+
+                            '<td id="cantdes' + cod + '" class="cantidad">' + cantidad + '</td>' +
+
+                            //'<td id="docum' + cod + '" class="documento">' + documento + '</td>' +
+
+                            '<td>' +
+                                '<a href="javascript:editarElemento(\'' + cod + '\')" id="edit' + cod + '" alt="Editar" title="Editar"><img src="/Content/icons/16x16/pencil.png" /></a> &nbsp; ' +
+                                '<a href="javascript:eliminarElemento(\'row' + cod + '\')" id="elim' + cod + '" alt="Eliminar" title="Eliminar"><img src="/Content/icons/16x16/delete.png" /></a> &nbsp; ' +
+                                '<a href="javascript:sustituirElemento(\'' + cod + '\')" id="sust' + cod + '" alt="Sustituir" title="Sustituir"><img src="/Content/icons/16x16/arrow_refresh.png" /></a> ' +
+                            '</td>' +
+                            '</tr>';
+
+                $('#tBodyCarrito').append(htmlRow);
+
+                //alert($('#tBodyCarrito').find('tr')[0].rowIndex.length);
+                limpiarProductoActual();
+                //alert($('#fecmov' + cod).html());
+                reiniciarDatatable();
+
+                resaltar('row' + cod);
+            }
+
+            limpiarProductoActual();
+            $("#INVCOD_").focus();
+
+
+        }
+    }
+
+    function limpiarProductoActual() {
+        $("#exist").hide();
+        $("#totalcant").html("");
+        $("#INVCOD_").val("");
+        $('#cod_').val("");
+        $('#nom_').val("");
+        $('#medida_').val("");
+        $('#cantReq_').val("");
+        $('#INVCOD_').focus();
+    }
+
+
+    function reiniciarDatatable() {
+
+        $('#tablaCarrito').dataTable().fnDestroy();
+        inicializarDatatable();
+    }
+
+    function resaltar(id) {
+        var options = { color: "#f66" };
+        $("#" + id).effect('highlight', options, 1000);
+    }
+
+    /////////////////////////////////// validacion de numeros ///////////////////////////////
+
+    //// valida que solo sean numeros sin puntos ni comas
+    function NoEsNumeroMayorQueCero(var1) {
+        return Math.floor(var1) != var1 || !$.isNumeric(var1) || var1 <= 0;
+    }
+
+    $("#cantReq_").numericInput();
+    $("#cantEdit").numericInput();
+    $("#cantEdit1").numericInput();
+
+
+
+
+    function bloquear() {
+        $("#Search").attr('disabled', 'disabled');
+        $("#nomb").attr('disabled', 'disabled');
+        $("#LeagueTeams").attr('disabled', 'disabled');
+        $("#deposit_").attr('disabled', 'disabled');
+
+        //$("#Search").prop('readonly', "true");
+        //$("#nomb").prop('readonly', "true");
+        //$("#LeagueTeams").prop('readonly', "true");
+        //$("#deposit_").prop('readonly', "true");
+
+    }
+
+
+
+    function showDlgExiste() {
+        $("#dialog-added").dialog({
+            autoOpen: true,
+            height: 300,
+            width: 400,
+            modal: true,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+
+            },
+            buttons: {
+                OK: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+
+
+
+                resaltar('depsit');
+                resaltar('cencost');
+                resaltar('cantReq');
+                resaltar('fecmovin');
+                resaltar('costin');
+                resaltar('referin');
+                resaltar('documin');
+
+                $('#cantReq').focus();
+            }
+        });
+    }
+
+
+
+
+
+
+
+    function mostrarDetalles(producto) {
+        var a = producto.label;
+        var prodc = a.split("-");
+        var productos = prodc[0].replace(" ", "");
+
+
+        $('#cod_').html(productos);
+        $('#nom_').html(prodc[1]);
+
+        if ($("#row" + productos).length) {//SI el producto ya fue agregado  centcos depost
+            $("#medida_").val($('#unid' + productos).html());
+            $("#cantReq_").val($('#cantdes' + productos).html());
+            showDlgExiste();
+        } else {
+            $("#depsit").val('');
+            $("#cencost").val('');
+            $('#cantReq_').val('');
+            $('#medida_').val('');
+            $('#cantReq').focus();
+        }
+    }
+
+    function mostrarDetalleSust(producto) {
+
+        var a = producto.label;
+        var prodc = a.split("-");
+        var productos = prodc[0].replace(" ", "");
+
+        $('#codEdit').html(productos);
+        $('#nombEdit').html(prodc[1]);
+
+        if ($("#row" + productos).length) {//SI el producto ya fue agregado
+            //codEdit
+            //nombEdit
+            //unidEdit
+            //cantEdit
+            $("#unidEdit").val($('#unid' + productos).html());
+            $("#cantEdit").val($('#cantdes' + productos).html());
+
+            $("#dialog-refresh").dialog("close");
+            showDlgEdit();
+            showDlgExiste();
+
+        } else {
+            //$('#cantReq').val(''); //cantidad requerida
+            $('#medida_').focus();
+        }
+
+
+    }
+
+
+
+    function editarElemento(cod) {
+
+        obtenerexis(cod);
+        var codigo = $('#code' + cod).html();
+        var nombre = $('#nomb' + cod).html();
+        var unidad = $('#unid' + cod).html();
+        var cantidad = $('#cantdes' + cod).html();
+
+
+
+        //var exist = parseInt(disponible, 10);
+
+        //var existencia = exist - despa;
+
+
+
+        $('#codEdit').html(codigo);
+        $('#nombEdit').html(nombre);
+        $('#unidEdit').val(unidad);
+        $('#cantEdit').val(cantidad);
+        //$('#exisEdit').html(existencia);
+        //$('#exitedit').show();
+        showDlgEdit();
+        //$("#dialog-form").dialog("open");
+    }
+
+
+
+
+    function showDlgEdit() {
+        $("#dialog-form").dialog({
+            autoOpen: true,
+            height: 360,
+            width: 400,
+            modal: true,
+            resizable: false,
+            closeOnEscape: false,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+            },
+
+            buttons: {
+                "Guardar cambios": function () {
+
+                    actualizarCantidad();
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+
+                $('#unidEdit').val("");
+                $('#cantEdit').val("");
+                $('#codEdit').html("");
+                $('#nombEdit').html("");
+                //$("#INVCOD_").focus();
+            }
+        });
+
+    }
+
+
+
+
+
+    function actualizarCantidad() {
+
+        var unidad = $('#unidEdit').val();
+        var cantidad = $('#cantEdit').val();
+        var cod = $("#codEdit").html();
+        //var b = $('#code' + cod).attr("name");
+        var b = $("#exisEdit").html();
+        var disponible = parseInt(b, 10);
+
+        ////para inv_temp
+        var clientint = $('#NECTECOD').val();
+        var aa = $('#deposit_').val();
+        var bb = aa.split("-");
+        var deposito = bb[0].replace(" ", "");
+
+        //Se valida la cantidad
+        if (NoEsNumeroMayorQueCero(cantidad)) {
+            alert("La cantidad debe ser un número mayor que cero");
+            resaltar('cantEdit');
+            $("#cantEdit").focus();
+
+        }
+
+            //else if ($("#cantEdit").val() > disponible) {
+            //    alert('la cantidad disponible es de: ' + disponible + ' , la cantidad ingresada es mayor, intente nuevamente');
+            //    $("#cantEdit").val('');
+            //    //$('#cantReq').focus();
+            //}
+
+        else if (unidad == "") {
+            alert('debe rellenar todos los espacios');
+            //$('#cantReq').focus();
+        }
+        else {
+
+            //Se actualiza la cantidad en el carrito y se cierra el dialog
+            if ($("#cantEdit").val() > disponible) {
+                alert('la cantidad disponible es de: ' + disponible + ' , la cantidad ingresada es mayor, intente nuevamente');
+                $("#cantEdit").val('');
+                //$('#cantReq').focus();
+            }
+            else {
+
+                $("#unid" + cod).html(unidad);
+                $("#cantdes" + cod).html(cantidad);
+                $("#dialog-form").dialog("close");
+                //$('#exitsust').hide();
+                resaltar('row' + cod);
+
+                actuaInvtemp(cod, cantidad, clientint, deposito, 2);
+            }
+        }
+    }
+
+    function obtenerexis(cod) {
+        var codigo = $('#code' + cod).html();
+        var dep = $('#depoEdit').val();
+
+        $.ajax({
+            url: "/INV_FIFO/getFifos",
+            type: "post",
+            data: { "codigo": codigo, "dep": dep },
+            success: function (data) {
+                ////// para obtener valores de data
+                $.each(data, function (i, item) {
+
+                    /// para la existencia
+                    var cantidad = $('#cantdes' + cod).html();
+                    var despa = parseInt(cantidad, 10);
+                    var aa = item.INVCANT;
+                    var bb = parseInt(aa, 10);
+                    var existencia = bb + despa;
+                    $('#exisEdit').html(existencia);
+                });
+            }
+        });
+    }
+
+
+    function obtenerexis_(cod) {
+        var codigo = $('#code' + cod).html();
+        var dep = $('#depoEdit').val();
+
+        $.ajax({
+            url: "/INV_FIFO/getFifos",
+            type: "post",
+            data: { "codigo": codigo, "dep": dep },
+            success: function (data) {
+                ////// para obtener valores de data
+                $.each(data, function (i, item) {
+
+                    /// para la existencia
+                    var cantidad = $('#cantdes' + cod).html();
+                    var despa = parseInt(cantidad, 10);
+                    var aa = item.INVCANT;
+                    var bb = parseInt(aa, 10);
+                    var existencia = bb + despa;
+                    $('#exisEdit1').html(existencia);
+                });
+            }
+        });
+    }
+
+
+    function sustituirElemento(cod) {
+
+        obtenerexis_(cod);
+        $("#Trans_").val("");
+
+
+        var nombre = $('#nomb' + cod).html();
+        var unidad = $('#unid' + cod).html();
+        var cantidad = $('#cantdes' + cod).html();
+        var existencia = $('#code' + cod).attr("name");
+
+
+        $('#codEdit1').html(cod);
+        $('#nombEdit1').html(nombre);
+        //show();
+
+        $('#unidEdit1').val(unidad);
+        $('#cantEdit1').val(cantidad);
+        $("#codold").val(cod);
+        $('#exisEdit1').html(existencia);
+        //$('#exitsust').show();
+        showDlgRefresh();
+        //$("#dialog-form").dialog("open");
+    }
+
+    function showDlgRefresh() {
+        $("#dialog-refresh").dialog({
+            autoOpen: true,
+            height: 450,
+            width: 410,
+            modal: true,
+            resizable: false,
+            closeOnEscape: false,
+            open: function (event, ui) {
+                $('.ui-widget-overlay').addClass('custom-overlay');
+
+            },
+
+            buttons: {
+                "Guardar cambios": function () {
+                    //var disponible = $('#code' + cod).attr("name");
+                    //if ($("#cantEdit1").val() > disponible) {
+                    //   alert('la cantidad disponible es de: ' + disponible + ' , la cantidad ingresada es mayor, intente nuevamente');
+                    //   $("#cantEdit").val('');
+                    //   //$('#cantReq').focus();
+                    //}
+
+                    //else {
+                    actualizarRegistro();
+                    //}
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                $('#codEdit1').html("");
+                $('#nombEdit1').html("");
+                $("#exisEdit1").html("");
+                $('#unidEdit1').val("");
+                $('#cantEdit1').val("");
+                //$('#exitsust').hide();
+                $("#Trans_").focus();
+            }
+        });
+
+    }
+
+    function actualizarRegistro() {
+        //$("#exisEdit1").html('');
+
+        var codnew = $("#codEdit1").html();
+        var cod = $("#codold").val();
+        var nombre = $('#nombEdit1').html();
+        var unidad = $('#unidEdit1').val();
+        var cantidad = $('#cantEdit1').val();
+        //var existe = $("#cantEdit1").val();
+        var b = $("#exisEdit1").html();
+        var existe = parseInt(b, 10);
+        var b = $("#code" + cod).attr('name');
+        var existold = parseInt(b, 10);
+
+
+        ////para inv_temp
+        var clientint = $('#NECTECOD').val();
+        var aa = $('#deposit_').val();
+        var bb = aa.split("-");
+        var deposito = bb[0].replace(" ", "");
+
+        //Se valida la cantidad
+        if (NoEsNumeroMayorQueCero(cantidad)) {
+            alert("La cantidad debe ser un número mayor que cero");
+            resaltar('cantEdit1');
+            $("#cantEdit1").focus();
+        }
+
+
+
+        else if (unidad == "") {
+            alert('debe rellenar todos los espacios');
+
+        }
+
+
+        else {
+            /// si no busca un nuevo producto, se edita
+            if ($("#existnew").val() == "") {
+                if ($("#cantEdit1").val() > existold) {
+                    alert('la cantidad disponible es de: ' + existold + ' , la cantidad ingresada es mayor, intente nuevamente');
+                    $("#cantEdit1").val('');
+                }
+                else {
+
+                    // igual que edit
+                    actuaInvtemp(cod, cantidad, clientint, deposito, 2);
+                    cargar();
+                }
+
+            }
+                //// si busca un nuevo producto para sustituir
+            else if ($("#existnew").val() != "") {
+
+                if ($("#cantEdit1").val() > existe) {
+                    alert('la cantidad disponible es de: ' + existe + ' , la cantidad ingresada es mayor, intente nuevamente');
+                    $("#cantEdit1").val('');
+                }
+                else {
+                    $("#code" + cod).attr('name', existe);
+
+
+                    actuaInvtemp(cod, cantidad, clientint, deposito, 3);
+                    actuaInvtemp(codnew, cantidad, clientint, deposito, 4);
+                    cargar();
+                }
+            }
+
+
+
+
+        }
+
+        function cargar() {
+            //Se actualiza la cantidad en la tabla y se cierra el dialog
+            $("#unid" + cod).html(unidad);
+            $("#cantdes" + cod).html(cantidad);
+            $("#code" + cod).html(codnew);
+            $("#nomb" + cod).html(nombre);
+
+
+
+            //cambia todos los id al sustituir el producto
+            var idepo = 'unid' + codnew + '';
+            var iccos = 'cantdes' + codnew + '';
+            var idtr = 'row' + codnew + '';
+            var idcod = 'code' + codnew + '';
+            var idnom = 'nomb' + codnew + '';
+
+
+            $("#unid" + cod).attr('id', idepo);
+            $("#cantdes" + cod).attr('id', iccos);
+            $("#row" + cod).attr('id', idtr);
+            $("#code" + cod).attr('id', idcod);
+            $("#nomb" + cod).attr('id', idnom);
+
+
+            /// cambia todos los href y id de los botones
+            var hrefe = "javascript:editarElemento('" + codnew + "')"
+            var ided = 'edit' + codnew + '';
+
+            $("#edit" + cod).attr('href', hrefe);
+            $("#edit" + cod).attr('id', ided);
+
+            var hrefdel = "javascript:eliminarElemento('row" + codnew + "')"
+            var iddel = 'elim' + codnew + '';
+
+            $("#elim" + cod).attr('href', hrefdel);
+            $("#elim" + cod).attr('id', iddel);
+
+            var hrefsus = "javascript:sustituirElemento('" + codnew + "')"
+            var idsus = 'sust' + codnew + '';
+
+            $("#sust" + cod).attr('href', hrefsus);
+            $("#sust" + cod).attr('id', idsus);
+
+            $("#dialog-refresh").dialog("close");
+            $("#existnew").val("");
+            resaltar('row' + cod);
+        }
+    }
+
+
+
+
+    ////////////////// ELIMINAR FILA //////////////////////
+    function eliminarElemento(elem) {
+        var cod_ = elem.split("row");
+        var cod = cod_[1];
+        var cantidad = $("#cantdes" + cod).html();
+        var clientint = $('#NECTECOD').val();
+        var aa = $('#deposit_').val();
+        var bb = aa.split("-");
+        var deposito = bb[0].replace(" ", "");
+
+        actuaInvtemp(cod, cantidad, clientint, deposito, 3);
+
+        //$('#tablaCarrito').dataTable().fnDestroy();
+        //elem.preventDefault();
+
+        $('#' + elem).remove();
+       inicializarDatatable();
+        $("#Trans_").focus();
+    }
+
+
+    $("#dialog-form").hide();
+    $("#dialog-refresh").hide();
+
+
+    ///////////////////   PARA EL BOTON PROCESAR ///////////////////////
+    $('#botonProcesar').bind('click', function () {
+        ///procesarTransaccion();
+
+        // que llame directamente a esta funcion y ella redirecciona a las otras si fue satisfactorio su proceso
+        InsInv_nemaestro();
+
+
+    });
+
+
+
+    function procesarTransaccion() {
+
+        var codigos = "";
+        var cantidades = "";
+        var unidades = "";
+        //var centrocos = "";
+
+        //var trans_tipo = $("#drop").val();
+
+        $('.codigo').each(function (index) {
+            codigos = codigos + $(this).text() + ",";
+        });
+
+        $('.cantidad').each(function (index) {
+            cantidades = cantidades + $(this).text() + ",";
+        });
+
+        $('.unidad').each(function (index) {
+            unidades = unidades + $(this).text() + ",";
+        });
+
+        //$('.centrocos').each(function (index) {
+        //    centrocos = centrocos + $(this).text() + ",";
+        //});
+
+
+
+        //Se le quitan las ultimas comas
+        codigos = codigos.substr(0, codigos.length - 1);
+        cantidades = cantidades.substr(0, cantidades.length - 1);
+        unidades = unidades.substr(0, unidades.length - 1);
+        //centrocos = centrocos.substr(0, centrocos.length - 1);
+
+
+        @*$.post("/INV_Nemaestro/gridnemaestro",
+             { "codigo": codigos, "cantidad": cantidades, "unidad": unidades },
+
+            function (data) {
+
+                if (data != "OK") {
+
+                    alert(data);
+                    //window.location.href = "/INV_Nemaestro/"
+                } else {
+                    alert('@Resources.StringResources.msgInsertFAIL');
+                    //window.location.href = "/AF_Transacciones/";
+                }
+            }
+        ).error(function () { alert("Error al procesar la opereción"); });    //Se ejecuta si hay error*@
+
+        //InsInv_nemaestro();   //listo
+
+        actInvFifo();    //listo
+
+
+        //actuaInvtemp('-', 0, clientint, '-', 6);  LISTO
+        //actaInvFifo();  ///listo
+        //actTransacciones(codigos, cantidades, unidades);
+    }
+
+   
+
+
+</script>
