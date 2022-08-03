@@ -672,7 +672,7 @@ footer {
     margin-left: 35px;
 }
 
-.negritas{
+.negritas {
     font-weight: bold;
 }
 /*
@@ -693,7 +693,7 @@ footer {
     align-items: center;
 }
 
-.form--movimiento{
+.form--movimiento {
     padding: 10px;
     margin: auto;
 }
@@ -706,10 +706,11 @@ footer {
 .form--detalles {
     height: 150px;
     font-size: 15px;
-    margin-top:5px;
+    margin-top: 5px;
 }
 
-.icon--input-create{
+.icon--input-create {
+    display: flex;
     align-self: center;
 }
 
@@ -738,15 +739,15 @@ footer {
     width: 100px;
 }
 
-.fechacreacion{
+.fechacreacion {
     height: 10px;
 }
 
-.input-date{
+.input-date {
     width: 200px;
 }
 
-.depresacion{
+.depresacion {
     width: 15%;
 }
 
@@ -756,7 +757,7 @@ footer {
 }
 
 .input-text {
-    width:50%
+    width: 50%
 }
 
 .col.col-md-5.fecha-date {
@@ -782,7 +783,7 @@ footer {
     margin: auto;
 }
 
-.columnaLateral{
+.columnaLateral {
     margin-left: 100px;
 }
 
@@ -790,3 +791,10 @@ footer {
     border: 1px solid red;
 }
 
+/*
+    ----------------------------------------------------------------[Inventario Movimiento de producto]------------------------------------------------
+*/
+
+.tabla-carrito_inv {
+    margin-top: 160px;
+}
