@@ -381,8 +381,4 @@
     <value>Vendas Acumuladas:</value>
     <comment>Label</comment>
   </data>
-  <data name="lblCodExist" xml:space="preserve">
-    <value>O código do produto existe.</value>
-    <comment>Label</comment>
-  </data>
 </root>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources.Inventario {
+namespace Resources.INV_MAESTRO {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Resources.Inventario {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("QuasarFPMWeb.Resources.Inventario.StringResources", typeof(StringResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("QuasarWeb.Resources.INV_MAESTRO.StringResources", typeof(StringResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -122,15 +122,7 @@ namespace Resources.Inventario {
                 return ResourceManager.GetString("errDesc", resourceCulture);
             }
         }
-
-        public static string lblCodExist
-        {
-            get
-            {
-                return ResourceManager.GetString("lblCodExist", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Busca una cadena traducida similar a .
         /// </summary>

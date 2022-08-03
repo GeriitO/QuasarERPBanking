@@ -569,8 +569,8 @@ footer {
     margin-left: 282px;
 }
 
-.icon-bar.icon-modal.exit-button_modal{
-    display:flex;
+.icon-bar.icon-modal.exit-button_modal {
+    display: flex;
     justify-content: flex-end;
 }
 
@@ -603,13 +603,13 @@ footer {
     flex-direction: column;
 }
 
-    .list-search {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.list-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.imgboton{
+.imgboton {
     outline: 2px solid red;
     border-radius: 1px;
     padding: 1px;
@@ -620,12 +620,173 @@ footer {
     overflow: auto;
 }
 
-/*----------------------------------------- Form Parametros ---------------------------------------------*/
+/*
+    ----------------------------------------- Form Parametros ---------------------------------------------
+*/
 
-.form--section-parametros{
+.form--section-parametros {
     display: flex;
+}
+
+
+/**********************************************[Activo Fijo]**************************************/
+
+/*
+    ----------------------------------------- Mantenimiento de productos ---------------------------------------------
+*/
+
+.mantenimientoTable.my-4 {
+    margin: auto;
+}
+
+.imagenesActivosFijosTipos {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.input-image {
+    width: 30px;
+}
+
+
+.crear-activofijo {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.guardar-activofijo {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.input.input-image {
+    margin-left: 13px;
+}
+
+.retornar-activofijo {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.img.return-img {
+    margin-left: 35px;
+}
+
+.negritas{
+    font-weight: bold;
+}
+/*
+    ----------------------------------------- Movimiento de producto ---------------------------------------------
+*/
+.movimientoProducto-title {
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.form--section-time.col-md-6 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.col-md-5.cuenta {
+    margin: auto;
+    align-items: center;
+}
+
+.form--movimiento{
+    padding: 10px;
+    margin: auto;
+}
+
+.form--movimiento-datos {
+    width: 960px;
+    height: 230px;
+}
+
+.form--detalles {
+    height: 150px;
+    font-size: 15px;
+    margin-top:5px;
+}
+
+.icon--input-create{
+    align-self: center;
+}
+
+.form--carrito {
+    width: 960px
+}
+
+.tabla-carrito {
+    margin-top: 85px;
+}
+
+/*
+    ----------------------------------------- Activo Fijo ---------------------------------------------
+*/
+
+.lblbusqueda {
+    width: 90px;
+    padding: 5px;
+}
+
+.col.depreciar {
+    align-self: center !important;
+}
+
+.input-number {
+    width: 100px;
+}
+
+.fechacreacion{
+    height: 10px;
+}
+
+.input-date{
+    width: 200px;
+}
+
+.depresacion{
+    width: 15%;
+}
+
+.divDatosActivos {
+    margin-top: 105px;
+    width: 100%;
+}
+
+.input-text {
+    width:50%
+}
+
+.col.col-md-5.fecha-date {
+    margin: auto !important;
+}
+/*.divDatosAsignacion{
+    
+}*/
+
+/*
+    ----------------------------------------------------------Activo Fijo Categoria----------------------------
+*/
+
+.mensajeAdvertencia {
+    font-size: 15px;
+    color: #bc1717;
+}
+
+.col.col-md-3.imageWarning {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+}
+
+.columnaLateral{
+    margin-left: 100px;
 }
 
 .border-block {
     border: 1px solid red;
 }
+

@@ -19,8 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44373</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -177,12 +177,25 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivoFijoAsignaController.cs" />
     <Compile Include="Controllers\ActivoFijoCategoriasController.cs" />
+    <Compile Include="Controllers\ActivoFijoParametrosController.cs" />
+    <Compile Include="Controllers\ActivoFijoSerialesController.cs" />
+    <Compile Include="Controllers\ActivoFijoTipoController.cs" />
+    <Compile Include="Controllers\ActivoFijoTransaccionesController.cs" />
     <Compile Include="Controllers\CentroCostoGraficoController.cs" />
     <Compile Include="Controllers\CentroCostoParametrosController.cs" />
     <Compile Include="Controllers\CentrodeCostoInternoController.cs" />
     <Compile Include="Controllers\CentroDistriEstructuralController.cs" />
     <Compile Include="Controllers\CentroDistriGeograficaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\INV_DepositosController.cs" />
+    <Compile Include="Controllers\INV_FIFOController.cs" />
+    <Compile Include="Controllers\Inv_MaestroController.cs" />
+    <Compile Include="Controllers\INV_NemaestroController.cs" />
+    <Compile Include="Controllers\Inv_NeTransaccionesController.cs" />
+    <Compile Include="Controllers\Inv_ParametrosController.cs" />
+    <Compile Include="Controllers\INV_TipoController.cs" />
+    <Compile Include="Controllers\INV_TransaccionesController.cs" />
+    <Compile Include="Controllers\INV_ZonasController.cs" />
     <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -212,6 +225,16 @@
     <Compile Include="Models\CULTURE.cs" />
     <Compile Include="Models\DashBoard.cs" />
     <Compile Include="Models\Graficos.cs" />
+    <Compile Include="Models\INV_DEPOSITOS.cs" />
+    <Compile Include="Models\INV_FIFO.cs" />
+    <Compile Include="Models\INV_GRUPOS.cs" />
+    <Compile Include="Models\INV_MAESTRO.cs" />
+    <Compile Include="Models\INV_NEMAESTRO.cs" />
+    <Compile Include="Models\INV_NETRANSACCIONES.cs" />
+    <Compile Include="Models\INV_PARAMETROS.cs" />
+    <Compile Include="Models\INV_TIPO.cs" />
+    <Compile Include="Models\INV_TRANSACCIONES.cs" />
+    <Compile Include="Models\INV_ZONAS.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\MODIDIOM.cs" />
     <Compile Include="Models\Modulos.cs" />
@@ -220,6 +243,7 @@
     <Compile Include="Models\ParametrosGlobales.cs" />
     <Compile Include="Models\Q_TBLOBJ.cs" />
     <Compile Include="Models\ROLOPC.cs" />
+    <Compile Include="Models\TPOS_TRANSACCIONES.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Models\Util.cs" />
@@ -234,6 +258,33 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.en-US.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.en-US.Designer.Designer.cs">
+      <DependentUpon>StringResources.en-US.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.es-VE.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.es-VE.Designer.Designer.cs">
+      <DependentUpon>StringResources.es-VE.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.pt-BR.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoParametros\StringResources.pt-BR.Designer.Designer.cs">
+      <DependentUpon>StringResources.pt-BR.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.en-US.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.en-US.Designer.Designer.cs">
+      <DependentUpon>StringResources.en-US.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.es-VE.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.es-VE.Designer.Designer.cs">
+      <DependentUpon>StringResources.es-VE.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.pt-BR.Designer.cs" />
+    <Compile Include="Resources\ActivoFijoSeriales\StringResources.pt-BR.Designer.Designer.cs">
+      <DependentUpon>StringResources.pt-BR.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActivoFijoTransacciones\StringResources.Designer.cs" />
     <Compile Include="Resources\ActivoFijo\StringResources.Designer.cs" />
     <Compile Include="Resources\ActivoFijo\StringResources.en-US.Designer.cs" />
     <Compile Include="Resources\ActivoFijo\StringResources.es-VE.Designer.cs" />
@@ -251,23 +302,6 @@
     <Compile Include="Resources\ActivoFijoGrupos\StringResources.pt-BR.Designer.Designer.cs">
       <DependentUpon>StringResources.pt-BR.Designer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.en-US.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.en-US.Designer.Designer.cs">
-      <DependentUpon>StringResources.en-US.Designer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.es-VE.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.es-VE.Designer.Designer.cs">
-      <DependentUpon>StringResources.es-VE.Designer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.pt-BR.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoParametros\StringResources.pt-BR.Designer.Designer.cs">
-      <DependentUpon>StringResources.pt-BR.Designer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ActivoFijoTransacciones\StringResources.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoTransacciones\StringResources.en-US1.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoTransacciones\StringResources.es-VE1.Designer.cs" />
-    <Compile Include="Resources\ActivoFijoTransacciones\StringResources.pt-BR.Designer.cs" />
     <Compile Include="Resources\CC_ACTIVIDADES\StringResources.Designer.cs" />
     <Compile Include="Resources\CC_ACTIVIDADES\StringResources.en-US.Designer.cs" />
     <Compile Include="Resources\CC_ACTIVIDADES\StringResources.es-VE.Designer.cs" />
@@ -342,6 +376,10 @@
     <Compile Include="Resources\Inventario\StringResources.en-US1.Designer.cs" />
     <Compile Include="Resources\Inventario\StringResources.es-VE1.Designer.cs" />
     <Compile Include="Resources\Inventario\StringResources.pt-BR.Designer.cs" />
+    <Compile Include="Resources\Inv_Maestro\StringResources.Designer.cs" />
+    <Compile Include="Resources\Inv_Maestro\StringResources.en-US1.Designer.cs" />
+    <Compile Include="Resources\Inv_Maestro\StringResources.es-VE1.Designer.cs" />
+    <Compile Include="Resources\Inv_Maestro\StringResources.pt-BR.Designer.cs" />
     <Compile Include="Resources\INV_NEMAESTRO\StringResources.Designer.cs" />
     <Compile Include="Resources\INV_NEMAESTRO\StringResources.en-US1.Designer.cs" />
     <Compile Include="Resources\INV_NEMAESTRO\StringResources.es-VE1.Designer.cs" />
@@ -367,10 +405,6 @@
     <Compile Include="Resources\MANTENIMIENTO\StringResources.pt-BR.Designer.Designer.cs">
       <DependentUpon>StringResources.pt-BR.Designer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Resources\MovimientoActivoFijo\StringResources.Designer.cs" />
-    <Compile Include="Resources\MovimientoActivoFijo\StringResources.en-US1.Designer.cs" />
-    <Compile Include="Resources\MovimientoActivoFijo\StringResources.es-VE1.Designer.cs" />
-    <Compile Include="Resources\MovimientoActivoFijo\StringResources.pt-BR.Designer.cs" />
     <Compile Include="Resources\PARAMETRIZACION\StringResources.Designer.cs" />
     <Compile Include="Resources\PARAMETRIZACION\StringResources.en-US.Designer.cs" />
     <Compile Include="Resources\PARAMETRIZACION\StringResources.en-US.Designer.Designer.cs">
@@ -2168,10 +2202,14 @@
     <Content Include="Content\imagenes\200-bicentenario-venezuela-logo.svg" />
     <Content Include="Content\imagenes\banco-bicentenario-logo-1.png" />
     <Content Include="Content\imagenes\binoculars-fill.svg" />
+    <Content Include="Content\imagenes\box-arrow-in-up.svg" />
+    <Content Include="Content\imagenes\check-circle.png" />
     <Content Include="Content\imagenes\Flag_of_Venezuela.svg" />
     <Content Include="Content\imagenes\fondo.png" />
     <Content Include="Content\imagenes\fondo.svg" />
     <Content Include="Content\imagenes\icon-add.svg" />
+    <Content Include="Content\imagenes\icon-arrow-return-left.svg" />
+    <Content Include="Content\imagenes\icon-check-circle.svg" />
     <Content Include="Content\imagenes\icon-delete.svg" />
     <Content Include="Content\imagenes\icon-door_open_exit.svg" />
     <Content Include="Content\imagenes\icon-refresh.svg" />
@@ -4657,10 +4695,60 @@
     <Content Include="Views\ActivoFijo\Edit.cshtml" />
     <Content Include="Views\ActivoFijo\FormAF_Asigna.cshtml" />
     <Content Include="Views\ActivoFijo\Index.cshtml" />
+    <Content Include="Views\ActivoFijoTipo\Create.cshtml" />
+    <Content Include="Views\ActivoFijoTipo\Delete.cshtml" />
+    <Content Include="Views\ActivoFijoTipo\Edit.cshtml" />
+    <Content Include="Views\ActivoFijoTipo\Index.cshtml" />
+    <Content Include="Views\ActivoFijoTransacciones\Create.cshtml" />
+    <Content Include="Views\ActivoFijoTransacciones\Edit.cshtml" />
+    <Content Include="Views\ActivoFijoTransacciones\FormAF_Transacciones.cshtml" />
+    <Content Include="Views\ActivoFijoTransacciones\Index.cshtml" />
+    <Content Include="Views\ActivoFijoParametros\FormAF_Parametros.cshtml" />
+    <Content Include="Views\ActivoFijoParametros\Index.cshtml" />
+    <Content Include="Views\ActivoFijoSeriales\Index.cshtml" />
+    <Content Include="Views\ActivoFijoCategorias\Create.cshtml" />
+    <Content Include="Views\ActivoFijoCategorias\Delete.cshtml" />
+    <Content Include="Views\ActivoFijoCategorias\Edit.cshtml" />
+    <Content Include="Views\ActivoFijoCategorias\Index.cshtml" />
+    <Content Include="Views\Inv_Maestro\Create.cshtml" />
+    <Content Include="Views\Inv_Maestro\Edit.cshtml" />
+    <Content Include="Views\Inv_Maestro\FormInv_Maestro.cshtml" />
+    <Content Include="Views\Inv_Maestro\Index.cshtml" />
+    <Content Include="Views\INV_Depositos\Create.cshtml" />
+    <Content Include="Views\INV_Depositos\Delete.cshtml" />
+    <Content Include="Views\INV_Depositos\Edit.cshtml" />
+    <Content Include="Views\INV_Depositos\Index.cshtml" />
+    <Content Include="Views\INV_Nemaestro\Create.cshtml" />
+    <Content Include="Views\INV_Nemaestro\Edit.cshtml" />
+    <Content Include="Views\INV_Nemaestro\FormINV_Nemaestro.cshtml" />
+    <Content Include="Views\INV_Nemaestro\frmCCosto.cshtml" />
+    <Content Include="Views\INV_Nemaestro\frmObservaciones.cshtml" />
+    <Content Include="Views\INV_Nemaestro\Index.cshtml" />
+    <Content Include="Views\INV_Tipo\Create.cshtml" />
+    <Content Include="Views\INV_Tipo\Delete.cshtml" />
+    <Content Include="Views\INV_Tipo\Edit.cshtml" />
+    <Content Include="Views\INV_Tipo\Index.cshtml" />
+    <Content Include="Views\Inv_Parametros\FormInv_Parametros.cshtml" />
+    <Content Include="Views\Inv_Parametros\Index.cshtml" />
+    <Content Include="Views\Inv_Grupos\ActivarDesactivar.cshtml" />
+    <Content Include="Views\Inv_Grupos\Create.cshtml" />
+    <Content Include="Views\Inv_Grupos\Delete.cshtml" />
+    <Content Include="Views\Inv_Grupos\Edit.cshtml" />
+    <Content Include="Views\Inv_Grupos\Index.cshtml" />
+    <Content Include="Views\INV_Transacciones\Create.cshtml" />
+    <Content Include="Views\INV_Transacciones\Edit.cshtml" />
+    <Content Include="Views\INV_Transacciones\FormINV_Transacciones.cshtml" />
+    <Content Include="Views\INV_Transacciones\Index.cshtml" />
+    <Content Include="Views\INV_Zonas\Create.cshtml" />
+    <Content Include="Views\INV_Zonas\Delete.cshtml" />
+    <Content Include="Views\INV_Zonas\Edit.cshtml" />
+    <Content Include="Views\INV_Zonas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Logs\" />
+    <Folder Include="Views\INV_FIFO\" />
+    <Folder Include="Views\Inv_NeTransacciones\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -4680,6 +4768,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.en-US.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.es-VE.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.pt-BR.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoSeriales\StringResources.en-US.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoSeriales\StringResources.es-VE.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoSeriales\StringResources.pt-BR.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoSeriales\StringResources.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.en-US.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.es-VE.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.pt-BR.resx" />
+    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.resx" />
     <EmbeddedResource Include="Resources\ActivoFijo\StringResources.en-US.resx" />
     <EmbeddedResource Include="Resources\ActivoFijo\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\ActivoFijo\StringResources.pt-BR.resx" />
@@ -4688,14 +4788,6 @@
     <EmbeddedResource Include="Resources\ActivoFijoGrupos\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\ActivoFijoGrupos\StringResources.pt-BR.resx" />
     <EmbeddedResource Include="Resources\ActivoFijoGrupos\StringResources.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.en-US.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.es-VE.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.pt-BR.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoParametros\StringResources.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.en-US.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.es-VE.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.pt-BR.resx" />
-    <EmbeddedResource Include="Resources\ActivoFijoTransacciones\StringResources.resx" />
     <EmbeddedResource Include="Resources\CC_ACTIVIDADES\StringResources.en-US.resx" />
     <EmbeddedResource Include="Resources\CC_ACTIVIDADES\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\CC_ACTIVIDADES\StringResources.pt-BR.resx" />
@@ -4764,6 +4856,10 @@
     <EmbeddedResource Include="Resources\Inventario\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\Inventario\StringResources.pt-BR.resx" />
     <EmbeddedResource Include="Resources\Inventario\StringResources.resx" />
+    <EmbeddedResource Include="Resources\Inv_Maestro\StringResources.en-US.resx" />
+    <EmbeddedResource Include="Resources\Inv_Maestro\StringResources.es-VE.resx" />
+    <EmbeddedResource Include="Resources\Inv_Maestro\StringResources.pt-BR.resx" />
+    <EmbeddedResource Include="Resources\Inv_Maestro\StringResources.resx" />
     <EmbeddedResource Include="Resources\INV_NEMAESTRO\StringResources.en-US.resx" />
     <EmbeddedResource Include="Resources\INV_NEMAESTRO\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\INV_NEMAESTRO\StringResources.pt-BR.resx" />
@@ -4780,10 +4876,6 @@
     <EmbeddedResource Include="Resources\MANTENIMIENTO\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\MANTENIMIENTO\StringResources.pt-BR.resx" />
     <EmbeddedResource Include="Resources\MANTENIMIENTO\StringResources.resx" />
-    <EmbeddedResource Include="Resources\MovimientoActivoFijo\StringResources.en-US.resx" />
-    <EmbeddedResource Include="Resources\MovimientoActivoFijo\StringResources.es-VE.resx" />
-    <EmbeddedResource Include="Resources\MovimientoActivoFijo\StringResources.pt-BR.resx" />
-    <EmbeddedResource Include="Resources\MovimientoActivoFijo\StringResources.resx" />
     <EmbeddedResource Include="Resources\PARAMETRIZACION\StringResources.en-US.resx" />
     <EmbeddedResource Include="Resources\PARAMETRIZACION\StringResources.es-VE.resx" />
     <EmbeddedResource Include="Resources\PARAMETRIZACION\StringResources.pt-BR.resx" />
@@ -4827,7 +4919,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62616</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44373/</IISUrl>
+          <IISUrl>https://localhost:44372/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -211,7 +211,7 @@ namespace QuasarERPBanking.Models
         
 
 
-        //PARA EL CAMPO BUSQUEDA DE MovimientoActivoFijo
+        //PARA EL CAMPO BUSQUEDA DE ActivoFijoTransacciones
         public List<string> GetTrans(string codigo)
         {
 

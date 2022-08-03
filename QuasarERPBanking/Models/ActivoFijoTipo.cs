@@ -65,7 +65,7 @@ namespace QuasarERPBanking.Models
             DataSet ds = new DataSet();
             OleDbConnection cn = new OleDbConnection(ConectDB.CnStr);
             List<ActivoFijoTipo> lstTipos = new List<ActivoFijoTipo>();
-            string consulta = "SELECT AFTIPCOD , AFTIPDES FROM " + ParametrosGlobales.bd + " ActivoFijoTipo";
+            string consulta = "SELECT AFTIPCOD , AFTIPDES FROM " + ParametrosGlobales.bd + " AF_TIPO";
             OleDbDataAdapter DA = new OleDbDataAdapter(consulta, cn);
             DA.Fill(ds);
             DataTable dt = ds.Tables[0];

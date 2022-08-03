@@ -1,4 +1,4 @@
-﻿using Resources.MovimientoActivoFijo;
+﻿using Resources.ActivoFijoTransacciones;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using QuasarERPBanking.Models;
 
 namespace QuasarERPBanking.Models
 {
-    public class MovimientoActivoFijo : ConectDB
+    public class ActivoFijoTransacciones : ConectDB
     {
 
         [Display(Name = "lblCod", ResourceType = typeof(StringResources))]
@@ -89,7 +89,7 @@ namespace QuasarERPBanking.Models
         //SP_INS_TRANSACCIONES
         //SP_Q_AF_MAESTRO
 
-        public MovimientoActivoFijo()
+        public ActivoFijoTransacciones()
         {
             tabla = "AF_PROD_TRANSACCIONES";
             Campo_Clave = "TRANS_PROD";
@@ -155,7 +155,7 @@ namespace QuasarERPBanking.Models
 
 
 
-        public MovimientoActivoFijo getLote()  //<--- ESTE PROCESO LO PUEDE REVISAR A VER COMO QUEDO SI ESTA BIEN PUEDE QUITAR ESTE COMENTARIO.
+        public ActivoFijoTransacciones getLote()  //<--- ESTE PROCESO LO PUEDE REVISAR A VER COMO QUEDO SI ESTA BIEN PUEDE QUITAR ESTE COMENTARIO.
         {
             ConectDB cn = new ConectDB();
             ConectDB objeto = null;

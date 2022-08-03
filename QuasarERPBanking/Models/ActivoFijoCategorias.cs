@@ -14,7 +14,7 @@ using QuasarERPBanking.Models;
 
 namespace QuasarERPBanking.Models
 {
-    public class AF_CATEGORIAS : ConectDB
+    public class ActivoFijoCategorias : ConectDB
     {
         [Display(Name = "lblCode", ResourceType = typeof(StringResources))]
         public string AFGRUCOD { get; set; }
@@ -41,12 +41,12 @@ namespace QuasarERPBanking.Models
         //}
 
         #region <.-PARA CARGAR EL DROPDOWNLIST DE LOS FORMULARIOS-.>
-        public static IEnumerable<AF_CATEGORIAS> GetCategorias()
+        public static IEnumerable<ActivoFijoCategorias> GetCategorias()
         {
             DataSet ds = new DataSet();
             OleDbConnection cn = new OleDbConnection(ConectDB.CnStr);
             string consulta = "SELECT  AFGRUCOD ,  AFGRUDES FROM " + ParametrosGlobales.bd + "  AF_CATESPEC";
-            List<AF_CATEGORIAS> categorias = new List<AF_CATEGORIAS>();
+            List<ActivoFijoCategorias> categorias = new List<ActivoFijoCategorias>();
             OleDbDataAdapter DA = new OleDbDataAdapter(consulta, cn);
             DA.Fill(ds);
             DataTable dt = ds.Tables[0];
@@ -55,7 +55,7 @@ namespace QuasarERPBanking.Models
             {
                 foreach (DataRow item in dt.Rows)
                 {
-                    AF_CATEGORIAS categoria = new AF_CATEGORIAS();
+                    ActivoFijoCategorias categoria = new ActivoFijoCategorias();
                     categoria.AFGRUCOD = item["AFGRUCOD"].ToString();
                     categoria.AFGRUDES = item["AFGRUDES"].ToString();
                     categorias.Add(categoria);
@@ -73,12 +73,12 @@ namespace QuasarERPBanking.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<AF_CATEGORIAS> GetCategoria()
+        public static List<ActivoFijoCategorias> GetCategoria()
         {
             DataSet ds = new DataSet();
             OleDbConnection cn = new OleDbConnection(ConectDB.CnStr);
             string consulta = "SELECT AFGRUCOD , AFGRUDES , AFGRUCTAACT FROM " + ParametrosGlobales.bd + " AF_CATESPEC";
-            List<AF_CATEGORIAS> lstCategorias = new List<AF_CATEGORIAS>();
+            List<ActivoFijoCategorias> lstCategorias = new List<ActivoFijoCategorias>();
             OleDbDataAdapter DA = new OleDbDataAdapter(consulta, cn);
             DA.Fill(ds);
             DataTable dt = ds.Tables[0];
@@ -98,9 +98,9 @@ namespace QuasarERPBanking.Models
 
 
 
-        static AF_CATEGORIAS setCategorias(DataRow item)
+        static ActivoFijoCategorias setCategorias(DataRow item)
         {
-            AF_CATEGORIAS categoria = new AF_CATEGORIAS
+            ActivoFijoCategorias categoria = new ActivoFijoCategorias
             {
                 AFGRUCOD = item["AFGRUCOD"].ToString(),
                 AFGRUDES = item["AFGRUDES"].ToString(),
@@ -142,9 +142,9 @@ namespace QuasarERPBanking.Models
 
 
 //////////////// SP UTILIZADOS ////////////////
-//SP_ALL_AF_CATEGORIAS
+//SP_ALL_ActivoFijoCategorias
 //SP_Q_CATEGORIAS
-//SP_INS_AF_CATEGORIAS
-//SP_DEL_AF_CATEGORIAS
-//SP_UPD_AF_CATEGORIAS
-//SP_Q_AF_CATEGORIAS    
+//SP_INS_ActivoFijoCategorias
+//SP_DEL_ActivoFijoCategorias
+//SP_UPD_ActivoFijoCategorias
+//SP_Q_ActivoFijoCategorias    

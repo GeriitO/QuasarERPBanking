@@ -14,14 +14,14 @@ namespace QuasarERPBanking.Controllers
         public ActionResult Index()
         {
 
-            return View(AF_CATEGORIAS.GetCategoria());
+            return View(ActivoFijoCategorias.GetCategoria());
         }
 
         // GET: AF_TIPOS/Edit/5
         public ActionResult Edit(string id)
         {
-            AF_CATEGORIAS categoria = new AF_CATEGORIAS();
-            return View((AF_CATEGORIAS)categoria.Buscar(id));
+            ActivoFijoCategorias categoria = new ActivoFijoCategorias();
+            return View((ActivoFijoCategorias)categoria.Buscar(id));
         }
 
 
@@ -29,8 +29,8 @@ namespace QuasarERPBanking.Controllers
         // GET: AF_TIPOS/Delete/5
         public ActionResult Delete(string id)
         {
-            AF_CATEGORIAS categoria = new AF_CATEGORIAS();
-            return View((AF_CATEGORIAS)categoria.Buscar(id));
+            ActivoFijoCategorias categoria = new ActivoFijoCategorias();
+            return View((ActivoFijoCategorias)categoria.Buscar(id));
         }
 
         //// POST: AF_TIPOS/Delete/5
@@ -40,12 +40,12 @@ namespace QuasarERPBanking.Controllers
             try
             {
                 string message = string.Empty;
-                AF_CATEGORIAS categoria = new AF_CATEGORIAS();
+                ActivoFijoCategorias categoria = new ActivoFijoCategorias();
                 categoria.AFGRUCOD = id;
                 message = categoria.Eliminar();
                 ViewBag.message = message;
                 //return RedirectToAction("Index");
-                return View("Index", AF_CATEGORIAS.GetCategoria());
+                return View("Index", ActivoFijoCategorias.GetCategoria());
             }
             catch
             {
@@ -54,7 +54,7 @@ namespace QuasarERPBanking.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AF_CATEGORIAS categorias)
+        public ActionResult Create(ActivoFijoCategorias categorias)
         {
 
             try
@@ -63,7 +63,7 @@ namespace QuasarERPBanking.Controllers
                 {
                     ViewBag.message = categorias.Create();
                     //return RedirectToAction("Index");
-                    return View("Index", AF_CATEGORIAS.GetCategoria());
+                    return View("Index", ActivoFijoCategorias.GetCategoria());
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace QuasarERPBanking.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(AF_CATEGORIAS categorias)
+        public ActionResult Edit(ActivoFijoCategorias categorias)
         {
 
             string message = string.Empty;
@@ -104,7 +104,7 @@ namespace QuasarERPBanking.Controllers
             }
 
             //return RedirectToAction("Index");
-            return View("Index", AF_CATEGORIAS.GetCategoria());
+            return View("Index", ActivoFijoCategorias.GetCategoria());
 
 
         }

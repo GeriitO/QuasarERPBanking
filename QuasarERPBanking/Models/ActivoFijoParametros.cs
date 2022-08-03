@@ -7,7 +7,7 @@ using System.Web;
 using System.Data.OleDb;
 using System.Data;
 using QuasarERPBanking.Models;
-using Resources;
+using Resources.ActivoFijoParametros;
 
 namespace QuasarERPBanking.Models
 {
@@ -113,7 +113,7 @@ namespace QuasarERPBanking.Models
             DataSet ds = new DataSet();
             OleDbConnection cn = new OleDbConnection(ConectDB.CnStr);
             ArrayList parametros = new ArrayList(0);
-            string consulta = "SELECT AFPARNOMBRE , AFPARLOTE , AFPARIDTRANS , AFPARIDASIG , AFPARMEJID , AFPARCOMPNB , AFPARCOMPRIF , AFPARINTMG , AFPARDIRMG , AFPARINTCC , AFPARDIRCC , AFPARINTCXP , AFPARDIRCXP , AFPARLOTE_PROD , AFPARIDTRANS_PROD , AFPAR_ULTFECHADEP , AFPAR_LOTEDEP , NEPARCODELAB , NEPARIDTRANS , AFPARCTAACT , AFPARCTADEP , AFPARCTAGTO , AFDEPSW FROM " + ParametrosGlobales.bd + " ActivoFijoParametros";
+            string consulta = "SELECT AFPARNOMBRE , AFPARLOTE , AFPARIDTRANS , AFPARIDASIG , AFPARMEJID , AFPARCOMPNB , AFPARCOMPRIF , AFPARINTMG , AFPARDIRMG , AFPARINTCC , AFPARDIRCC , AFPARINTCXP , AFPARDIRCXP , AFPARLOTE_PROD , AFPARIDTRANS_PROD , AFPAR_ULTFECHADEP , AFPAR_LOTEDEP , NEPARCODELAB , NEPARIDTRANS , AFPARCTAACT , AFPARCTADEP , AFPARCTAGTO , AFDEPSW FROM " + ParametrosGlobales.bd + " AF_PARAMETROS";
             OleDbDataAdapter DA = new OleDbDataAdapter(consulta, cn);
             DA.Fill(ds);
             DataTable dt = ds.Tables[0];

@@ -389,8 +389,4 @@
     <value />
     <comment>error</comment>
   </data>
-  <data name="lblCodExist" xml:space="preserve">
-    <value />
-    <comment>Label</comment>
-  </data>
 </root>

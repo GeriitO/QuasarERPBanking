@@ -385,8 +385,4 @@
     <value>C.C. Origen</value>
     <comment>label</comment>
   </data>
-  <data name="lblCodExist" xml:space="preserve">
-    <value>The Product Code Exists.</value>
-    <comment>Label</comment>
-  </data>
 </root>
