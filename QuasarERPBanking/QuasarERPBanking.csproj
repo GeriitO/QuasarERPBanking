@@ -186,6 +186,7 @@
     <Compile Include="Controllers\CentrodeCostoInternoController.cs" />
     <Compile Include="Controllers\CentroDistriEstructuralController.cs" />
     <Compile Include="Controllers\CentroDistriGeograficaController.cs" />
+    <Compile Include="Controllers\CXP_ACTIVIDADESController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\INV_DepositosController.cs" />
     <Compile Include="Controllers\INV_FIFOController.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\ConectDB.cs" />
     <Compile Include="Models\CONFIG.cs" />
     <Compile Include="Models\CULTURE.cs" />
+    <Compile Include="Models\CXP_ACTIVIDADES.cs" />
     <Compile Include="Models\DashBoard.cs" />
     <Compile Include="Models\Graficos.cs" />
     <Compile Include="Models\INV_DEPOSITOS.cs" />

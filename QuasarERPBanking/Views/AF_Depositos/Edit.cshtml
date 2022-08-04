@@ -1,82 +1,82 @@
-﻿@model QuasarFPMWeb.Models.AF_DEPOSITOS
+﻿@model QuasarERPBanking.Models.AF_DEPOSITOS
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="internal-window" style="width:30%;">
-        <div class="CajaRell">
-            <div class="internal-title">
-                <h2>@Resources.Inventario.StringResources.TittleVentana</h2>
-                <a href="/">
-                    <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
-                </a>
-            </div>
-
-
-            <div style="font-size:12px">
-                @*<h4>AF_DEPOSITOS</h4>*@
-                <hr style="border-top:transparent" />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="ParrActFijTip">
-                    @Html.LabelFor(model => model.AFDEPCOD, htmlAttributes: new { style = "", @class = "control-label col-md-2" })
-                    <div class="">
-                        @Html.EditorFor(model => model.AFDEPCOD, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.AFDEPCOD, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="ParrActFijTip">
-                    @Html.LabelFor(model => model.AFDEPDES, htmlAttributes: new { style = "", @class = "control-label col-md-2" })
-                    <div class="">
-                        @Html.EditorFor(model => model.AFDEPDES, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.AFDEPDES, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="ParrActFijTip">
-                    @Html.LabelFor(model => model.AFDEPMAIL, htmlAttributes: new { style = "", @class = "control-label col-md-2" })
-                    <div class="">
-                        @Html.EditorFor(model => model.AFDEPMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.AFDEPMAIL, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <table>
-                            <tr>
-                                <td style="padding-left:7px">
-                                    @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
-                                    @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
-                                    <input type="image" title="" src="../../Content/themes/base/images/save.png" style="width:30px;" />
-                                </td>
-                                <td style="width:300px; padding-left:140px">
-                                    <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/AF_DEPOSITOS'" style="width:30px; cursor:pointer" />
-                                    @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-shadow: 3px 3px 5px #2c2c2d; padding-left:5px">
-                                    <label>@Resources.StringResources.GlobalButtonUp</label>
-                                </td>
-                                <td style="padding-left:115px; text-shadow: 3px 3px 5px #2c2c2d">
-                                    <label>@Resources.StringResources.MantVolverList</label>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                @*<div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Save" class="btn btn-default" />
-                        </div>
-                    </div>*@
-            </div>
-            </div>
+<div class="internal-window" style="width:30%;">
+    <div class="CajaRell">
+        <div class="internal-title">
+            <h2>@Resources.Inventario.StringResources.TittleVentana</h2>
+            <a href="/">
+                <img class="close-img" src="../../Content/themes/base/images/close-window-xp-icon.png" alt="Cerrar" title="@Resources.StringResources.GlobalButtCerrar" width="30" height="30" />
+            </a>
         </div>
+
+
+        <div style="font-size:12px">
+            @*<h4>AF_DEPOSITOS</h4>*@
+            <hr style="border-top:transparent" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="ParrActFijTip">
+                @Html.LabelFor(model => model.AFDEPCOD, htmlAttributes: new { style = "", @class = "control-label col-md-2" })
+                <div class="">
+                    @Html.EditorFor(model => model.AFDEPCOD, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.AFDEPCOD, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="ParrActFijTip">
+                @Html.LabelFor(model => model.AFDEPDES, htmlAttributes: new { style = "", @class = "control-label col-md-2" })
+                <div class="">
+                    @Html.EditorFor(model => model.AFDEPDES, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AFDEPDES, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="ParrActFijTip">
+                @Html.LabelFor(model => model.AFDEPMAIL, htmlAttributes: new { style = "", @class = "control-label col-md-2" })
+                <div class="">
+                    @Html.EditorFor(model => model.AFDEPMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AFDEPMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            <td style="padding-left:7px">
+                                @*<input type="submit" value="@Resources.StringResources.GlobalButtonNew" class="boton" style="font-size:15px" />*@
+                                @*<img src="../../Content/themes/base/images/check.png" alt="Buscar" title="@Resources.StringResources.GlobalButtonNew" onclick="add();" style="width:30px;" />*@
+                                <input type="image" title="" src="../../Content/themes/base/images/save.png" style="width:30px;" />
+                            </td>
+                            <td style="width:300px; padding-left:140px">
+                                <img src="../../Content/themes/base/images/back.png" alt="Buscar" title="" onclick="window.location.href = '/AF_DEPOSITOS'" style="width:30px; cursor:pointer" />
+                                @*<a><input type="button" class="boton" style="font-size:15px" value="@Resources.StringResources.MantVolverList" onclick="window.location.href = '/AF_GRUPOS'"></a>*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-shadow: 3px 3px 5px #2c2c2d; padding-left:5px">
+                                <label>@Resources.StringResources.GlobalButtonUp</label>
+                            </td>
+                            <td style="padding-left:115px; text-shadow: 3px 3px 5px #2c2c2d">
+                                <label>@Resources.StringResources.MantVolverList</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
             }
 
             @*<div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>*@
+    @Html.ActionLink("Back to List", "Index")
+</div>*@

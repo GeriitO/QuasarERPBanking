@@ -789,6 +789,7 @@ footer {
 
 .border-block {
     border: 1px solid red;
+    padding: 10px;
 }
 
 /*
@@ -797,4 +798,20 @@ footer {
 
 .tabla-carrito_inv {
     margin-top: 160px;
+}
+
+/*
+    ------------------------------------------------------------------Notas de entrega-----------------------------------------------------------------------
+*/
+
+.fondoNotaEntrega{
+    background-image: url("../Content/themes/base/images/NE_quasar.png");
+}
+
+.title-invNotaEntrega {
+    background-color: #aaaaaa;
+}
+
+.border-block-test {
+    border: 1px solid red;
 }
