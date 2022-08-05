@@ -1,37 +1,57 @@
 ﻿@model IEnumerable<QuasarERPBanking.Models.INV_TIPO>
+<div class="internal-window bg-light">
+    <div class="form--section-title col-md-12">
+        <div class="col-md-6 internal--title">
+            <h2 class="internal--title-h2">@Resources.Inventario.StringResources.TittleVentana</h2>
+        </div>
+        <div class="col-md-6 icon-bar">
+            <ul class="list-unstyled d-flex justify-content-end">
+                <li class="icon--bar-create">
+                    <a href="#" id="nuevo" onclick="crear();">
+                        <img src="~/Content/imagenes/icon-add.svg" title="@Resources.StringResources.GlobalButtonNew" onclick="window.location.href = '/ActivoFijoTipo/Create';" alt="Nuevo" width="20" height="24" />
+                    </a>
+                </li>
+                <li class="icon--bar-exit">
+                    <a href="/">
+                        <img src="~/Content/imagenes/icon-door_open_exit.svg" width="24" height="24" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button class="btn quasar-button-color my-2">
+        @Html.ActionLink(Resources.StringResources.MantCrear, "Create")
+    </button>
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.INVTIPCOD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.INVTIPDES)
+                </th>
+                <th>
+                    @Resources.MANTENIMIENTO.StringResources.lblAccion
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.INVTIPCOD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.INVTIPDES)
+                    </td>
+                    <td>
+                        @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new { id = item.INVTIPCOD }) |
 
-<p style="font-size:16px;">
-    @Html.ActionLink(Resources.StringResources.MantCrear, "Create")
-
-</p>
-<table style="font-size:12px" class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.INVTIPCOD)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.INVTIPDES)
-        </th>
-        <th>@Resources.MANTENIMIENTO.StringResources.lblAccion</th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.INVTIPCOD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.INVTIPDES)
-        </td>
-        <td>
-            @Html.ActionLink(Resources.StringResources.MantEditar, "Edit", new { id = item.INVTIPCOD }) |
-
-            @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new { id = item.INVTIPCOD })
-            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-        </td>
-    </tr>
-}
-
-</table>
+                        @Html.ActionLink(Resources.StringResources.MantEliminar, "Delete", new { id = item.INVTIPCOD })
+                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+                </tr>
+            }
+        </table>
+</div>
